@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>letsbuildyourwebsite</title>
+  </head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300|Montserrat:900" rel="stylesheet">
+  <link rel="stylesheet" href="./css/master.css">
+  <body class="body flexRow" ng-app='app' ng-controller='ctrl' ng-cloak>
+
+    <div class="sideBar flexCol">
+      <p data={{navigationPoint.data}} class="navigationPoint pointer" ng-repeat='navigationPoint in navigationPoints' ng-click="bringToTopOfPage(null, navigationPoint.point)">{{navigationPoint.point}}</p>
+    </div>
+    <!-- end sideBar -->
+
+    <div id="mainContent" class="mainContent">
+      <div class="intro section">
+        <div data="home"></div>
+        <h1>Let's build your website</h1>
+        <p>you've thought up a website to serve business needs... you've written details outlining its content, purpose, and audience... you've done enough... now let me build it.</p>
+      </div>
+
+      <!-- INTRO ANIMATION BOX -->
+      <div class="introAnimationBox flexCol pointer">
+        <div class="url flexRow"  ng-click="testing()">
+          <div class="urlCircle"></div>
+          <p></p>
+        </div>
+
+        <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"'>
+          <div class="pageContent animationPagebodymainSection"></div>
+          <div class="pageContent animationPagebodySideSection flexCol">
+            <div class="sideSectionTop"></div>
+            <div class="sideSectionBottom"></div>
+          </div>
+        </div>
+        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion2"'>
+          <div class="pageContent page2ImgTop"></div>
+          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
+            <div class="page2Blocks"></div>
+            <div class="page2Blocks"></div>
+            <div class="page2Blocks"></div>
+          </div>
+        </div>
+        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion3"'>
+          <div class="pageContent page2ImgTop flexRow">
+            <div class="pageContentSignUpSignIn">SIGN UP</div>
+          </div>
+          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
+            <div class="page3Blocks one"></div>
+            <div class="page3Blocks two"></div>
+          </div>
+        </div>
+        <div class="animationPagebody flexRow screenVersion4" ng-if='screenVersion === "screenVersion4"'>
+          <div class="pageContent animationPagebodymainSection"></div>
+          <div class="pageContent animationPagebodySideSection flexCol">
+            <div class="sideSectionTop"></div>
+            <div class="sideSectionBottom"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SECTION -->
+      <div data="service"></div>
+      <div class="text section">
+        <div class="miniSection flexCol">
+          <h1 data="1" class="textHeading"><span data="1" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>MULTI-DEVICE</h1>
+          <p>Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV.</p>
+          <p class="details">We use coutless device types to surf the web. A three second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site on any device type. With my services your site will look amazing on all devices.</p>
+        </div>
+        <div class="miniSection flexCol">
+          <h1 data="2" class="textHeading"><span data="2" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INTEGRATION</h1>
+          <p>We can always add more features later. No pressure to get it all at once.</p>
+          <p class="details">There are several services you can get on your website: a login in page, shopping cart, email notification sign up, subscription sign up, and many more. No need to worrying about everything you need at once. Services can always be added later. For now, focus on what is most important for your customers. When you get more feedback or a better idea what your customer wants in your website we will add it as we go.</p>
+        </div>
+        <div class="miniSection flexCol">
+          <h1 data="3" class="textHeading"><span data="3" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INEXPENSIVE</h1>
+          <p>Websites can cost thousands. No fear, I'm here, with affordable prices.</p>
+          <p class="details">A web developer makes anywhere for $15 - $60/hr ( sometimes more! ). Websites can take weeks to finish depending on the complexity of the site so it gets expensive quick. I understand how it feels to inherit the stress and expenses of a business. So, let me remedy that expense by offering you a huge discount. Check out the pricing table below for details.</p>
+        </div>
+      </div>
+
+      <div data="cost"></div>
+      <!-- PRICE TABLE -->
+      <div id="table" class="section table" style="top: -4em; width: 52em">
+        <div class="row flexRow odd">
+          <div class="row1 flexRow"><p>Service</p></div>
+          <div class="row2 flexRow"><p>Description</p></div>
+          <div class="row3 flexRow"><p>Starting Price</p></div>
+        </div>
+        <div class="" ng-repeat="service in services">
+          <div class="row flexRow odd" ng-if="$odd">
+            <div class="row1 flexRow"><p>{{service.service}}</p></div>
+            <div class="row2 flexRow"><p>{{service.description}}</p></div>
+            <div class="row3 flexRow"><p>{{service.price}}</p></div>
+          </div>
+          <div class="row flexRow even" ng-if="$even">
+            <div class="row1 flexRow"><p>{{service.service}}</p></div>
+            <div class="row2 flexRow"><p>{{service.description}}</p></div>
+            <div class="row3 flexRow"><p>{{service.price}}</p></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div data="example"></div>
+      <!-- MESSAGE FORM SECTIONS -->
+      <div class="section">
+        <div class="miniSection flexCol">
+          <h1 data="4" class="textHeading"><span data="4" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>EMAIL CUSTOMERS</h1>
+          <p>Send emails with this week's sales.</p>
+        </div>
+        <div class="miniSection flexCol">
+          <h1 data="5" class="textHeading"><span data="5" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>TEXT CUSTOMERS</h1>
+          <p>Text appointment reminders and daily sales.</p>
+        </div>
+        <p class="details">The following forms are linked to my email and cell phone. Try sending me a message with your name, contact, questions, and comments. I will get back to you as soon as I can!</p>
+        <div class="flexRow">
+          <div class="form flexCol">
+            <label ng-if="showLabelLabelMessage">{{labelMessage}}</label>
+            <input id="first" type="text" name="" value="" placeholder="first name">
+            <input id="contact" type="text" name="" value="" placeholder="email or phone number">
+            <textarea id="message" name="name" rows="8" cols="80" placeholder="message" data-gramm_editor="false"></textarea>
+            <div class="messageBtnSection flexRow">
+              <div class="sendEmailBtn flexRow pointer" ng-class="emailStatus" ng-click="changeMessageStatusToEmail()">
+                <p>email</p>
+              </div>
+              <div class="sendTextBtn flexRow pointer" ng-class="textStatus" ng-click="changeMessageStatusToText()">
+                <p>text</p>
+              </div>
+            </div>
+          </div>
+          <div class="sendBtnSection flexRow">
+            <div class="sendBtn flexCol pointer" ng-click="sendMessage()">
+              <p>S</p><p>E</p><p>N</p><p>D</p>
+            </div>
+          </div>
+          <div class="screen flexRow">
+            <div class="arrowSection flexRow">
+              <p class="arrow arrowOne">)</p>
+              <p class="arrow arrowTwo">)</p>
+              <p class="arrow arrowThree">)</p>
+            </div>
+            <div class="device flexRow">
+              <div class="deviceScreen flexRow">
+                <p>sent</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGN UP SECTION -->
+      <div class="section">
+        <div class="miniSection flexCol">
+          <h1 data="6" class="textHeading"><span data="6" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>SIGN UP</h1>
+          <p>Signing up to a site gives your customers a personalized feel on your website</p>
+          <p class="details ul">5 Benefits for user sign up</p>
+          <ul>
+            <li class="details">Faster checkout via shipping address/personal information pre-population</li>
+            <li class="details">Thank you emails for returning customers to build customer loyalty</li>
+            <li class="details">Advertise upcoming sales with email notification</li>
+            <li class="details">Personalized the user's profile by having customizable options such as page theme</li>
+            <li class="details">Reciept storage in one spot to save the customer time looking through emails</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CONTACT SECTION -->
+      <div data="contact"></div>
+      <div class="section">
+        <div class="miniSection flexCol">
+          <h1 data="7" class="textHeading"><span data="7" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>CONTACT</h1>
+          <p>questions?</p>
+          <p class="details">If you have any questions at all do not hesitate to call, text, or email me!</p>
+          <p class="details">You could also send me a message through the email and text forms above</p>
+          <a href="tel:+8147530157"><p class="details contactText">814 753 0157</p></a>
+          <p class="details contactText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span>@outlook.com</p>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="flexRow footer">
+        <p>&copy; letsbuildyourwebsite</p>
+      </div>
+    </div>
+    <!-- end mainContent -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="./js/main.js" type="text/javascript"></script>
+  </body>
+</html>
