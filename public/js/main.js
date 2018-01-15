@@ -120,10 +120,10 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   this.sendMessage = (messageType) => {
     if($rootScope.currentlySendingMessage){ return null }
     $rootScope.currentlySendingMessage = true;
-    const first = $("#first").val();
-    const contact = $("#contact").val();
-    const message = $("#message").val();
-    const sendObj = { first: first, contact: contact, message: message };
+    const userName = $("#first").val();
+    const userNumber = $("#contact").val();
+    const userMessage = $("#message").val();
+    const sendObj = { userName: userName, userNumber: userNumber, userMessage: userMessage };
     const hasEmpytField = this.hasEmpytField(sendObj);
     if(hasEmpytField){
       $rootScope.labelMessage = "you must fill out all fields. thanks!";
@@ -134,13 +134,13 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     }
     const sendEmail = () => {
       animation.sendSignal();
-      server.sendEmail(sendObj);
-      $timeout(() => { $rootScope.messageSent = true }, 6000);
+      const url = 'http://localhost:3000/email';
+      server.sendEmail(sendObj, url);
     }
     const sendText = () => {
       animation.sendSignal();
-      server.sendText(sendObj);
-      $timeout(() => { $rootScope.messageSent = true }, 6000);
+      const url = 'http://localhost:3000/text';
+      server.sendText(sendObj, url);
     }
     (messageType === 'email') ? sendEmail() : sendText();
   }
@@ -165,7 +165,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
     let index = 0;
     $('.screen').css('transform', 'rotateY(0deg)');
     const sendingMessage = $interval(() => {
-      if($rootScope.messageSent){
+      if($rootScope.messageSent && (index === 2)){
         $interval.cancel(sendingMessage);
         $('.arrow').css('opacity', 0);
         $rootScope.messageSent = false;
@@ -187,7 +187,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
         $(selector[index]).css('opacity', 1);
         index++
       }
-    }, 500);
+    }, 250);
   }
   this.openAnimationPageBody = () => {
     const $selector = $('.animationPagebody');
@@ -205,13 +205,55 @@ app.service('animation', function($rootScope, $timeout, $interval){
   }
 })
 
-app.service('server', function($http){
-  this.sendEmail = (obj) => {
-    console.log('email');
-    console.log(obj);
+app.service('server', function($rootScope, $http){
+  this.sendEmail = (obj, url) => {
+    obj.subject = "from customer";
+    let sendMessage = "";
+    sendMessage += '<style> div { color: #eee;background-color: #333;font-family: "Barlow Semi Condensed", sans-serif;padding: 1em;margin: 0 auto;width: 20em; } p { font-size: 1.2em; } </style>';
+    sendMessage += "<div>";
+    sendMessage += "<p>name: <span>" + obj.userName + "</span></p>";
+    sendMessage += "<p>contact: <span>" + obj.userNumber + "</span></p>";
+    sendMessage += "<p>subject: <span>" + obj.subject + "</span></p>";
+    sendMessage += "<p>message: </p>";
+    sendMessage += "<p>" + obj.userMessage + " </p>";
+    sendMessage += "</div>";
+
+    const data = {
+      name: obj.name,
+      email: 'letsbuildyourwebsite@outlook.com',
+      subject: obj.subject,
+      message: sendMessage
+    }
+
+    $http({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = () => {
+      $rootScope.messageSent = true;
+      console.log('email sent');
+    }
+
+    const errorCallback = (err) => {
+      console.log(err);
+    }
   }
-  this.sendText = (obj) => {
-    console.log('text');
-    console.log(obj);
+  this.sendText = (obj, url) => {
+    $http({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(obj),
+      headers: { 'Content-Type': 'application/json' }
+    }).then( success => {
+              $rootScope.messageSent = true;
+              console.log(success.data);
+            },
+             error => console.log('error sending message') );
   }
 })

@@ -140,7 +140,8 @@ router.post('/text', function(req, res, next) {
   const userName = req.body.userName;
   const userNumber = req.body.userNumber;
   const userMessage = req.body.userMessage;
-  const sendObj = { to: userNumber, from: twilioNumber, body: userMessage }
+  const message = "from: " + userName + " phone number: " + userNumber + " message: " + userMessage;
+  const sendObj = { to: '8147530157', from: twilioNumber, body: message }
   const callBack = (err, message) => {
     if(err){ res.send(err) }
     res.status(200).send();
