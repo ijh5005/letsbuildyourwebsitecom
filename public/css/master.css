@@ -118,6 +118,33 @@ div.introAnimationBox {
   width: 90%;
 }
 
+.typeScreen {
+  background-color: transparent;
+}
+
+.typeScreenContainer {
+  align-items: flex-start;
+  background-color: transparent;
+  color: #4bc0c0;
+  font-size: 1.2em;
+  height: 10em;
+  justify-content: space-between;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.typingLineOne,
+.typingLineTwo,
+.typingLineThree,
+.typingLineFour,
+.typingLineFive {
+  letter-spacing: 3px;
+}
+
+.tab {
+  padding-left: 2em;
+}
+
 .url {
   height: 10%;
   justify-content: flex-start;
@@ -126,7 +153,6 @@ div.introAnimationBox {
 .animationPagebody {
   height: 80%;
   justify-content: space-around;
-  /*transform: rotateY(90deg);*/
   transition: transform 0.5s;
 }
 
@@ -183,8 +209,8 @@ div.introAnimationBox {
 }
 
 .page2ImgTop {
-  width: 100%;
   height: 50%;
+  width: 100%;
 }
 
 .page2ImgBottom {
@@ -193,18 +219,18 @@ div.introAnimationBox {
 }
 
 .page2Blocks {
+  border-radius: 1em;
   height: 9em;
   width: 14em;
-  border-radius: 1em;
 }
 
 .pageContentSignUpSignIn {
-  border-radius: 0.1em;
   background-color: #35394d;
-  padding: 0.6em 3em;
-  margin: 2em;
+  border-radius: 0.1em;
   color: #4bc0c0;
   font-weight: bold;
+  margin: 2em;
+  padding: 0.6em 3em;
 }
 
 .page3Blocks {
@@ -234,6 +260,15 @@ div.introAnimationBox {
 
 .closePage {
   transform: rotateY(0deg);
+}
+
+.ninetydegrees {
+  transform: rotateY(90deg) !important;
+  transition: transform 0s;
+}
+
+.zeroOpacity {
+  opacity: 0;
 }
 
 /*        SECTION       */
@@ -424,8 +459,8 @@ div.deviceScreen.messageSent {
 }
 
 label {
-  font-size: 1.4em;
   color: #4bc0c0;
+  font-size: 1.4em;
   font-weight: 100;
 }
 

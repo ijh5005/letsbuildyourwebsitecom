@@ -8,7 +8,12 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.currentlySendingMessage = false;
   $rootScope.labelMessage = "";
   $rootScope.showLabelLabelMessage = false;
-  $rootScope.screenVersion = 'screenVersion3';
+  $rootScope.screenVersion = 'screenVersion1';
+  $rootScope.doneTyping = true;
+  $rootScope.typeAnimationOne = data.typeAnimationOne;
+  $rootScope.typeAnimationTwo = data.typeAnimationTwo;
+  $rootScope.typeAnimationThree = data.typeAnimationThree;
+  $rootScope.typeAnimationFour = data.typeAnimationFour;
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
@@ -34,7 +39,8 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   task.startHomePageAnimation();
   task.watchForTagAnimation();
   $scope.testing = () => {
-    animation.toggleHomePageScreen();
+    // animation.toggleHomePageScreen();
+    // animation.type($rootScope.typeAnimationOne);
   }
 }])
 
@@ -73,6 +79,27 @@ app.service('data', function(){
     {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
     {service: "contact and feedback forms", price: "$50", description: "A convenient way for customers to contact you with a feedback form and a contact form on a page of your website."}
   ]
+  this.typeAnimationOne = {
+    one: '<div class="pageContent page2ImgBottom flexRow">',
+    two: '<div class="page2Blocks"></div>',
+    three: '<div class="page2Blocks"></div>',
+    four: '<div class="page2Blocks"></div>',
+    five: '</div>'
+  },
+  this.typeAnimationTwo = {
+    one: '.page3Blocks {',
+    two: 'background-color: #2d3143;',
+    three: 'height: 100%;',
+    four: 'width: 50%;',
+    five: '}'
+  },
+  this.typeAnimationThree = {
+    one: 'blah blah blah',
+    two: 'blah blah blah blah',
+    three: 'blah blah blah blah',
+    four: 'blah blah blah blah',
+    five: 'blah blah blah'
+  }
 })
 
 app.service('task', function($rootScope, $timeout, $interval, animation, server){
@@ -87,6 +114,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
       }, 200);
       $timeout(() => {
         $('.pageContent').animate({ opacity: 1 });
+        this.startPageChanges();
       }, 500);
     }
     const typeText = () => {
@@ -107,6 +135,65 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     $timeout(() => {
       typeText();
     }, 1000);
+  }
+  this.startPageChanges = () => {
+    const startTypingToFinish = (pagAanimation, nextPage) => {
+      $rootScope.hidePage = 'zeroOpacity';
+      $rootScope.screenVersion = 'code';
+      if (pagAanimation === 1) {
+        animation.type($rootScope.typeAnimationOne);
+      } else if (pagAanimation === 2) {
+        animation.type($rootScope.typeAnimationTwo);
+      } else if (pagAanimation === 3) {
+        animation.type($rootScope.typeAnimationThree);
+      }
+
+      const toNextScreenAnimation = () => {
+        nextPageIndex++;
+        pagAanimation++;
+        startAnimation(pagAanimation, nextPageArray[nextPageIndex]);
+      }
+
+      const watchForTypingToFinish = $interval(() => {
+        console.log('watch');
+        if($rootScope.doneTyping){
+          $timeout(() => {
+            $rootScope.screenVersion = nextPage;
+            $timeout(() => {
+              const $thisPage = $('.' + nextPage + '');
+              $thisPage.addClass('ninetydegrees');
+              $timeout(() => {
+                $('.pageContent').css('opacity', 1);
+                $rootScope.hidePage = "";
+                $timeout(() => {
+                  animation.toggleHomePageScreen();
+                  $('.' + nextPage + '').removeClass('ninetydegrees');
+                  $timeout(() => {
+                    (nextPage === 'screenVersion4') ? console.log('done') : toNextScreenAnimation();
+                  }, 1000);
+                },)
+              },)
+            })
+            // animation.toggleHomePageScreen();
+          }, 500);
+          $interval.cancel(watchForTypingToFinish);
+        }
+      })
+    }
+    const startAnimation = (pagAanimation, nextPage) => {
+      $timeout(() => {
+        animation.toggleHomePageScreen();
+        $timeout(() => {
+          startTypingToFinish(pagAanimation, nextPage);
+        }, 1200)
+      }, 1500)
+    }
+    let pagAanimation = 1;
+    let nextPageIndex = 0;
+    let nextPageArray = ['screenVersion2', 'screenVersion3', 'screenVersion4'];
+    startAnimation(pagAanimation, nextPageArray[nextPageIndex]);
+    // animation.toggleHomePageScreen();
+    // animation.type($rootScope.typeAnimationOne);
   }
   this.watchForTagAnimation = () => {
     const watchForAnimation = $interval(() => {
@@ -202,6 +289,35 @@ app.service('animation', function($rootScope, $timeout, $interval){
       $('.animationPagebody').css('transform', 'rotateY(' + secondTurn + ')')
       $rootScope.homePageAnimationOpen = !$rootScope.homePageAnimationOpen;
     }, 500);
+  }
+  this.type = (typeObject) => {
+    $rootScope.doneTyping = false;
+    const numberAboveTotalLines = 6;
+    let characterNumber = 1;
+    let currentLine = 1;
+    const startNextLine = () => {
+      currentLine++;
+      characterNumber = 1;
+    }
+    const finishTyping = () => {
+      $interval.cancel(startTyping)
+      $rootScope.doneTyping = true;
+    }
+    const typeLine = (objNumber, selector) => {
+      const text = typeObject[objNumber].slice(0, characterNumber);
+      $(selector).text(text);
+      characterNumber++;
+      (characterNumber === typeObject[objNumber].length + 1) ? startNextLine() : null;
+      (currentLine === numberAboveTotalLines) ? finishTyping() : null;
+    }
+    const startTyping = $interval(() => {
+      if(currentLine === 1){ typeLine('one', '.typingLineOne'); }
+      if(currentLine === 2){ typeLine('two', '.typingLineTwo'); }
+      if(currentLine === 3){ typeLine('three', '.typingLineThree'); }
+      if(currentLine === 4){ typeLine('four', '.typingLineFour'); }
+      if(currentLine === 5){ typeLine('five', '.typingLineFive'); }
+    }, 15);
+
   }
 })
 

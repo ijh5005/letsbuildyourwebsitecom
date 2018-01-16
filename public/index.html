@@ -27,14 +27,24 @@
           <p></p>
         </div>
 
-        <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"'>
+        <div class="animationPagebody flexCol typeScreen" ng-if='screenVersion === "code"'>
+          <div class="typeScreenContainer flexCol">
+            <div class="typingLineOne"></div>
+            <div class="typingLineTwo tab"></div>
+            <div class="typingLineThree tab"></div>
+            <div class="typingLineFour tab"></div>
+            <div class="typingLineFive"></div>
+          </div>
+        </div>
+
+        <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"' ng-class='hidePage'>
           <div class="pageContent animationPagebodymainSection"></div>
           <div class="pageContent animationPagebodySideSection flexCol">
             <div class="sideSectionTop"></div>
             <div class="sideSectionBottom"></div>
           </div>
         </div>
-        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion2"'>
+        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion2"' ng-class='hidePage'>
           <div class="pageContent page2ImgTop"></div>
           <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
             <div class="page2Blocks"></div>
@@ -42,7 +52,7 @@
             <div class="page2Blocks"></div>
           </div>
         </div>
-        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion3"'>
+        <div class="animationPagebody flexCol screenVersion2 screenVersion3" ng-if='screenVersion === "screenVersion3"' ng-class='hidePage'>
           <div class="pageContent page2ImgTop flexRow">
             <div class="pageContentSignUpSignIn">SIGN UP</div>
           </div>
@@ -51,11 +61,13 @@
             <div class="page3Blocks two"></div>
           </div>
         </div>
-        <div class="animationPagebody flexRow screenVersion4" ng-if='screenVersion === "screenVersion4"'>
-          <div class="pageContent animationPagebodymainSection"></div>
-          <div class="pageContent animationPagebodySideSection flexCol">
-            <div class="sideSectionTop"></div>
-            <div class="sideSectionBottom"></div>
+        <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
+          <div class="pageContent page2ImgTop flexRow">
+            <div class="pageContentSignUpSignIn">SIGN UP</div>
+          </div>
+          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
+            <div class="page3Blocks one"></div>
+            <div class="page3Blocks two"></div>
           </div>
         </div>
 
