@@ -62,11 +62,16 @@
           </div>
         </div>
         <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop flexRow">
-            <div class="pageContentSignUpSignIn">SIGN UP</div>
+          <div class="pageContent page2ImgTop page4ImgTop flexRow">
+            <div class="signInBar flexRow">
+              <div class="pageContentSignUpSignIn p4sign">SIGN IN</div>
+              <div class="pageContentSignUpSignIn p4sign">SIGN UP</div>
+            </div>
           </div>
           <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks one"></div>
+            <div class="page3Blocks one flexRow">
+              <div class="p4img"></div>
+            </div>
             <div class="page3Blocks two"></div>
           </div>
         </div>
@@ -120,7 +125,11 @@
       <!-- MESSAGE FORM SECTIONS -->
       <div class="section">
         <div class="miniSection flexCol">
-          <h1 data="4" class="textHeading"><span data="4" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>EMAIL CUSTOMERS</h1>
+          <h1 data="4" class="textHeading">
+            <span data="4" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>
+            <span class="email1">E</span><span class="email2">M</span><span class="email3">A</span><span class="email4">I</span><span class="email5">L</span>
+            CUSTOMERS
+          </h1>
           <p>Send emails with this week's sales.</p>
         </div>
         <div class="miniSection flexCol">

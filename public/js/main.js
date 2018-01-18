@@ -38,6 +38,9 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   }
   task.startHomePageAnimation();
   task.watchForTagAnimation();
+  task.watchForTableAnimation();
+  task.watchForFooterAnimation();
+  task.emailAnimation();
   $scope.testing = () => {
     // animation.toggleHomePageScreen();
     // animation.type($rootScope.typeAnimationOne);
@@ -155,7 +158,6 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
       }
 
       const watchForTypingToFinish = $interval(() => {
-        console.log('watch');
         if($rootScope.doneTyping){
           $timeout(() => {
             $rootScope.screenVersion = nextPage;
@@ -195,12 +197,62 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     // animation.toggleHomePageScreen();
     // animation.type($rootScope.typeAnimationOne);
   }
-  this.watchForTagAnimation = () => {
+  this.watchForTableAnimation = () => {
     const watchForAnimation = $interval(() => {
       const positionFromTopOfPage = $('.mainContent').scrollTop();
       if(positionFromTopOfPage > 800){
         $interval.cancel(watchForAnimation);
         animation.tag('.navTag');
+      }
+    })
+  }
+  this.watchForTagAnimation = () => {
+    const watchForAnimation = $interval(() => {
+      const positionFromTopOfPage = $('.mainContent').scrollTop();
+      if(positionFromTopOfPage > 1200){
+        $interval.cancel(watchForAnimation);
+        $('.table').css('opacity', 1).css('left', '-30vw');
+        $timeout(() => {
+          $('.table').css('left', '0vw');
+        }, 400);
+      }
+    })
+  }
+  this.emailAnimation = () => {
+    const watchForAnimation = $interval(() => {
+      const positionFromTopOfPage = $('.mainContent').scrollTop();
+      if(positionFromTopOfPage > 2200){
+        $interval.cancel(watchForAnimation);
+        $('.email1').css('top', '6em').css('left', '8em');
+        $('.email2').css('top', '-6em').css('left', '-8em');
+        $('.email3').css('top', '4em').css('left', '-5em');
+        $('.email4').css('top', '-2em').css('left', '-3em');
+        $('.email5').css('top', '9em').css('left', '6em');
+        $timeout(() => {
+          $timeout(() => {
+            $('.email1').css('top', '3em').css('left', '-5em');
+            $('.email2').css('top', '-5em').css('left', '6em');
+            $('.email3').css('top', '-4em').css('left', '4em');
+            $('.email4').css('top', '6em').css('left', '-2em');
+            $('.email5').css('top', '-2em').css('left', '4em');
+            $timeout(() => {
+              $('.email1').css('top', '0em').css('left', '0em');
+              $('.email2').css('top', '0em').css('left', '0em');
+              $('.email3').css('top', '0em').css('left', '0em');
+              $('.email4').css('top', '0em').css('left', '0em');
+              $('.email5').css('top', '0em').css('left', '0em');
+            }, 300);
+          }, 300);
+        }, 300);
+      }
+    })
+  }
+  this.watchForFooterAnimation = () => {
+    const watchForAnimation = $interval(() => {
+      const positionFromTopOfPage = $('.mainContent').scrollTop();
+      if(positionFromTopOfPage > 3400){
+        $interval.cancel(watchForAnimation);
+        $('.footer').css('top', '0');
       }
     })
   }

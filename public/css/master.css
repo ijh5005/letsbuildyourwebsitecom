@@ -129,8 +129,8 @@ div.introAnimationBox {
   font-size: 1.2em;
   height: 10em;
   justify-content: space-between;
-  width: 85%;
   margin: 0 auto;
+  width: 85%;
 }
 
 .typingLineOne,
@@ -233,9 +233,33 @@ div.introAnimationBox {
   padding: 0.6em 3em;
 }
 
+.page4ImgTop {
+  align-items: flex-start;
+}
+
+.signInBar {
+  justify-content: flex-end;
+  padding-right: 1em;
+  width: 100%;
+}
+
 .page3Blocks {
   height: 100%;
   width: 50%;
+}
+
+.p4sign {
+  margin: 8px 2px;
+}
+
+.p4img {
+  height: 10em;
+  margin: 0 10px;
+  width: 9em;
+}
+
+.p4img {
+  background-color: #2d3143;
 }
 
 .page3Blocks.one {
@@ -284,7 +308,44 @@ div.introAnimationBox {
 
 div.section.table {
   border: 0.01em solid #215e5e;
+  left: 50vw;
+  opacity: 0;
   position: relative;
+  transition: left 0.5s, opacity 0.9s;
+}
+
+.email1,
+.email2,
+.email3,
+.email4,
+.email5 {
+  position: relative;
+  transition: top 0.6s, left 0.6s;
+}
+
+.email1 {
+  left: 3em;
+  top: 5em;
+}
+
+.email2 {
+  left: 10em;
+  top: 8em;
+}
+
+.email3 {
+  left: 9em;
+  top: -8em;
+}
+
+.email4 {
+  left: -8em;
+  top: 1em;
+}
+
+.email5 {
+  left: -3em;
+  top: -5em;
 }
 
 .details {
@@ -487,8 +548,10 @@ div.footer {
   background-color: #14161f;
   height: 15em;
   justify-content: flex-start;
-  margin-top: 10em;
   width: 100%;
+  position: relative;
+  top: 15em;
+  transition: top 0.5s;
 }
 
 .footer p {
