@@ -36,15 +36,26 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $scope.sendMessage = () => {
     ($scope.messageType === 'email') ? task.sendMessage('email') : task.sendMessage('text');;
   }
-  task.startHomePageAnimation();
-  task.watchForTagAnimation();
-  task.watchForTableAnimation();
-  task.watchForFooterAnimation();
-  task.emailAnimation();
-  $scope.testing = () => {
-    // animation.toggleHomePageScreen();
-    // animation.type($rootScope.typeAnimationOne);
+  $scope.showServicesSection = () => {
+    task.showServicesSection();
   }
+  $scope.showPricingMeSection = () => {
+    task.showPricingMeSection();
+  }
+  $scope.showContactCustomerSection = () => {
+    task.showContactCustomerSection();
+  }
+  $scope.showSignUpSection = () => {
+    task.showSignUpSection();
+  }
+  $scope.showContactMeSection = () => {
+    task.showContactMeSection();
+  }
+  animation.sideBar();
+  task.startHomePageAnimation();
+  task.watchForTableAnimation();
+  task.hideSections();
+  task.watchForContentAnimation();
 }])
 
 app.service('navigate', function(){
@@ -69,18 +80,18 @@ app.service('data', function(){
     {data: 0, point: 'home'},
     {data: 1, point: 'service'},
     {data: 2, point: 'cost'},
-    {data: 3, point: 'example'},
+    {data: 3, point: 'tips'},
     {data: 4, point: 'contact'}
   ]
   this.services = [
     {service: "website pages", price: "$50 each", description: "Includes a custom design. All content (ex: text, images, videos) you provide me with will be added."},
     {service: "payment/shopping cart", price: "$80", description: "Includes shopping cart and payment pages. I will also set up a third party payment service that is linked directly to your bank card. The service gives you access to customer payment history, receipts, refunds, and more."},
     {service: "device friendly layout", price: "$25 each", description: "Your website layout will fit devices of your choice including cell phones, tablets, desktops, and televisions."},
-    {service: "sign in/sign up", price: "$50", description: "Includes a sign in/sgin up forms page."},
-    {service: "email notifications", price: "$50", description: "An application to email your customers things such as promotional sales. This feature is a computer and mobile web app. It will not display on your website."},
-    {service: "text notifications", price: "$50", description: "An application to text customers things such as appointment reminders and thank you notes. This feature is a computer and mobile web app. It will not display on your website."},
+    {service: "sign in/sign up", price: "$50", description: "Includes a sign in/sgin up forms page linked to a database that stores usernames and passwords."},
+    {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website. see example below"},
+    {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website. see example below"},
     {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
-    {service: "contact and feedback forms", price: "$50", description: "A convenient way for customers to contact you with a feedback form and a contact form on a page of your website."}
+    {service: "contact and feedback forms", price: "$50", description: "These forms are convenient ways for customers to contact you and leave feedback. This form will be on a page of your website."}
   ]
   this.typeAnimationOne = {
     one: '<div class="pageContent page2ImgBottom flexRow">',
@@ -137,7 +148,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     }
     $timeout(() => {
       typeText();
-    }, 1000);
+    }, 2000);
   }
   this.startPageChanges = () => {
     const startTypingToFinish = (pagAanimation, nextPage) => {
@@ -197,62 +208,60 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     // animation.toggleHomePageScreen();
     // animation.type($rootScope.typeAnimationOne);
   }
-  this.watchForTableAnimation = () => {
-    const watchForAnimation = $interval(() => {
-      const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 800){
-        $interval.cancel(watchForAnimation);
-        animation.tag('.navTag');
+  this.watchForContentAnimation = () => {
+    const serviceDistanceWatch = $interval(() => {
+      const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
+      if(serviceDistance < $('.mainContent').scrollTop() + 400){
+        $interval.cancel(serviceDistanceWatch);
+        this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
+      }
+    })
+    const pricingDistanceWatch = $interval(() => {
+      const pricingDistance = $('#pricingSectionImgButton')[0].offsetTop;
+      if(pricingDistance < $('.mainContent').scrollTop() + 400){
+        $interval.cancel(pricingDistanceWatch);
+        this.revealSection('#pricingSectionImgButton', '#pricingSection', '.sectionContent2');
+      }
+    })
+    const contactCustomerDistanceWatch = $interval(() => {
+      const contactCustomerDistance = $('#contactCustomerSectionImgButton')[0].offsetTop;
+      if(contactCustomerDistance < $('.mainContent').scrollTop() + 400){
+        $interval.cancel(contactCustomerDistanceWatch);
+        this.revealSection('#contactCustomerSectionImgButton', '#contactCustomerSection', '.sectionContent3');
+      }
+    })
+    const signUpDistanceWatch = $interval(() => {
+      const signUpDistance = $('#signUpTipSectionImgButton')[0].offsetTop;
+      if(signUpDistance < $('.mainContent').scrollTop() + 200){
+        $interval.cancel(signUpDistanceWatch);
+        this.revealSection('#signUpTipSectionImgButton', '#signUpTipSection', '.sectionContent4');
+      }
+    })
+    const contantMeDistanceWatch = $interval(() => {
+      const contantMeDistance = $('#contactMeSectionImgButton')[0].offsetTop;
+      if(contantMeDistance < $('.mainContent').scrollTop() + 400){
+        $interval.cancel(contantMeDistanceWatch);
+        this.revealSection('#contactMeSectionImgButton', '#contactMeSection', '.sectionContent5');
       }
     })
   }
-  this.watchForTagAnimation = () => {
+  this.watchForTableAnimation = () => {
     const watchForAnimation = $interval(() => {
       const positionFromTopOfPage = $('.mainContent').scrollTop();
       if(positionFromTopOfPage > 1200){
         $interval.cancel(watchForAnimation);
-        $('.table').css('opacity', 1).css('left', '-30vw');
-        $timeout(() => {
-          $('.table').css('left', '0vw');
-        }, 400);
-      }
-    })
-  }
-  this.emailAnimation = () => {
-    const watchForAnimation = $interval(() => {
-      const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 2200){
-        $interval.cancel(watchForAnimation);
-        $('.email1').css('top', '6em').css('left', '8em');
-        $('.email2').css('top', '-6em').css('left', '-8em');
-        $('.email3').css('top', '4em').css('left', '-5em');
-        $('.email4').css('top', '-2em').css('left', '-3em');
-        $('.email5').css('top', '9em').css('left', '6em');
-        $timeout(() => {
+        let track = 0;
+        const tableLength = $('.table')[0].children.length - 1;
+        const fadeRowIn = (index) => {
+          $('.tableContent[data=' + index + ']').css('opacity', 1);
           $timeout(() => {
-            $('.email1').css('top', '3em').css('left', '-5em');
-            $('.email2').css('top', '-5em').css('left', '6em');
-            $('.email3').css('top', '-4em').css('left', '4em');
-            $('.email4').css('top', '6em').css('left', '-2em');
-            $('.email5').css('top', '-2em').css('left', '4em');
-            $timeout(() => {
-              $('.email1').css('top', '0em').css('left', '0em');
-              $('.email2').css('top', '0em').css('left', '0em');
-              $('.email3').css('top', '0em').css('left', '0em');
-              $('.email4').css('top', '0em').css('left', '0em');
-              $('.email5').css('top', '0em').css('left', '0em');
-            }, 300);
-          }, 300);
-        }, 300);
-      }
-    })
-  }
-  this.watchForFooterAnimation = () => {
-    const watchForAnimation = $interval(() => {
-      const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 3400){
-        $interval.cancel(watchForAnimation);
-        $('.footer').css('top', '0');
+            if(track != tableLength){
+              track++;
+              fadeRowIn(track);
+            }
+          }, 100)
+        }
+        fadeRowIn(0);
       }
     })
   }
@@ -288,9 +297,51 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     const hasEmptyField = values.includes("") || values.includes(undefined);
     return hasEmptyField;
   }
+  this.hideSections = () => {
+    // const sectionsToHide = ['#servicesSection', '#pricingSection', '#contactCustomerSection', '#signUpTipSection', '#contactMeSection', '.sectionContent1', '.sectionContent2', '.sectionContent3', '.sectionContent4', '.sectionContent5'];
+    const sectionsToHide = ['#servicesSection', '#pricingSectionImgButton', '#contactCustomerSectionImgButton', '#signUpTipSection', '#contactMeSectionImgButton', '.sectionContent1', '.sectionContent4', '.tableContent'];
+    sectionsToHide.map((section) => {
+      $(section).hide();
+    });
+  }
+  this.showServicesSection = () => {
+    this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
+  }
+  this.showPricingMeSection = () => {
+    this.revealSection('#pricingSectionImgButton', '#pricingSection', '.sectionContent2');
+  }
+  this.showContactCustomerSection = () => {
+    this.revealSection('#contactCustomerSectionImgButton', '#contactCustomerSection', '.sectionContent3');
+  }
+  this.showSignUpSection = () => {
+    this.revealSection('#signUpTipSectionImgButton', '#signUpTipSection', '.sectionContent4');
+  }
+  this.showContactMeSection = () => {
+    this.revealSection('#contactMeSectionImgButton', '#contactMeSection', '.sectionContent5');
+  }
+  this.revealSection = (sectionImg, section, fadeInContent) => {
+    const $sectionImgBtn = $(sectionImg + ' .imgHolder img');
+    $sectionImgBtn.css('opacity', 0.1);
+    $timeout(() => {
+      const left = ($(sectionImg).hasClass('imgButtonLeft')) ? '-100vw' : '100vw';
+      $sectionImgBtn.css('left', left);
+    }, 800).then(() => {
+      $timeout(() => {
+        $(sectionImg).hide();
+        $(section).show();
+      }, 1500).then(() => {
+        $(fadeInContent).fadeIn();
+      });
+    });
+  }
 })
 
 app.service('animation', function($rootScope, $timeout, $interval){
+  this.sideBar = () => {
+    $timeout(() => {
+      $('.sideBar').css('left', 0);
+    }, 500);
+  }
   this.tag = (selector) => {
     this.fadeIn(selector, 600)
   }

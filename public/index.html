@@ -62,17 +62,27 @@
           </div>
         </div>
         <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop page4ImgTop flexRow">
+          <div class="pageContent page2ImgTop page4ImgTop flexCol">
             <div class="signInBar flexRow">
               <div class="pageContentSignUpSignIn p4sign">SIGN IN</div>
               <div class="pageContentSignUpSignIn p4sign">SIGN UP</div>
             </div>
+            <div class="logoBox flexRow">
+              <p>YOUR LOGO</p>
+            </div>
           </div>
           <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks one flexRow">
-              <div class="p4img"></div>
+            <div class="page3Blocks page4Block two flexRow">
+              <div class="page4BlockImg">
+                <div class="page4BlockImgBlock"></div>
+              </div>
+              <div class="page4BlockText flexCol">
+                <div class="page4BlockTextLine"></div>
+                <div class="page4BlockTextLine"></div>
+                <div class="page4BlockTextLine"></div>
+                <div class="page4BlockTextLine"></div>
+              </div>
             </div>
-            <div class="page3Blocks two"></div>
           </div>
         </div>
 
@@ -80,18 +90,27 @@
 
       <!-- SECTION -->
       <div data="service"></div>
-      <div class="text section">
-        <div class="miniSection flexCol">
+      <!-- SERVICES IMG BUTTON -->
+      <div id="servicesSectionImgButton" class="imgButton flexRow">
+        <div class="imgHolder flexRow">
+          <div class="imgHolderText flexRow">
+            <p>Services</p>
+          </div>
+          <img src="../img/services.jpg" alt=""  class="pointer">
+        </div>
+      </div>
+      <div id="servicesSection" class="text section">
+        <div class="sectionContent1 miniSection flexCol">
           <h1 data="1" class="textHeading"><span data="1" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>MULTI-DEVICE</h1>
           <p>Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV.</p>
           <p class="details">We use coutless device types to surf the web. A three second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site on any device type. With my services your site will look amazing on all devices.</p>
         </div>
-        <div class="miniSection flexCol">
+        <div class="sectionContent1 miniSection flexCol">
           <h1 data="2" class="textHeading"><span data="2" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INTEGRATION</h1>
           <p>We can always add more features later. No pressure to get it all at once.</p>
           <p class="details">There are several services you can get on your website: a login in page, shopping cart, email notification sign up, subscription sign up, and many more. No need to worrying about everything you need at once. Services can always be added later. For now, focus on what is most important for your customers. When you get more feedback or a better idea what your customer wants in your website we will add it as we go.</p>
         </div>
-        <div class="miniSection flexCol">
+        <div class="sectionContent1 miniSection flexCol">
           <h1 data="3" class="textHeading"><span data="3" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INEXPENSIVE</h1>
           <p>Websites can cost thousands. No fear, I'm here, with affordable prices.</p>
           <p class="details">A web developer makes anywhere for $15 - $60/hr ( sometimes more! ). Websites can take weeks to finish depending on the complexity of the site so it gets expensive quick. I understand how it feels to inherit the stress and expenses of a business. So, let me remedy that expense by offering you a huge discount. Check out the pricing table below for details.</p>
@@ -99,32 +118,49 @@
       </div>
 
       <div data="cost"></div>
+      <!-- PRICING IMG BUTTON -->
+      <div id="pricingSectionImgButton" class="imgButton imgButtonLeft flexRow">
+        <div class="imgHolder flexRow">
+          <div class="imgHolderText flexRow">
+            <p>Pricing</p>
+          </div>
+          <img src="../img/pricing.jpg" alt=""  class="pointer">
+        </div>
+      </div>
       <!-- PRICE TABLE -->
-      <div id="table" class="section table" style="top: -4em; width: 52em">
-        <div class="row flexRow odd">
+      <div id="pricingSection" class="section table" style="top: -4em; width: 52em">
+        <div class="row sectionContent2 flexRow odd">
           <div class="row1 flexRow"><p>Service</p></div>
           <div class="row2 flexRow"><p>Description</p></div>
           <div class="row3 flexRow"><p>Starting Price</p></div>
         </div>
         <div class="" ng-repeat="service in services">
-          <div class="row flexRow odd" ng-if="$odd">
+          <div data={{$index}} class="row tableContent sectionContent2 flexRow odd" ng-if="$odd">
             <div class="row1 flexRow"><p>{{service.service}}</p></div>
             <div class="row2 flexRow"><p>{{service.description}}</p></div>
             <div class="row3 flexRow"><p>{{service.price}}</p></div>
           </div>
-          <div class="row flexRow even" ng-if="$even">
+          <div data={{$index}} class="row tableContent sectionContent2 flexRow even" ng-if="$even">
             <div class="row1 flexRow"><p>{{service.service}}</p></div>
             <div class="row2 flexRow"><p>{{service.description}}</p></div>
             <div class="row3 flexRow"><p>{{service.price}}</p></div>
           </div>
         </div>
-
       </div>
 
-      <div data="example"></div>
+      <div data="tips"></div>
+      <!-- TIPS IMG BUTTON -->
+      <div id="contactCustomerSectionImgButton" class="imgButton flexRow">
+        <div class="imgHolder flexRow">
+          <div class="imgHolderText flexRow">
+            <p>Contact Customers</p>
+          </div>
+          <img src="../img/contact.jpg" alt=""  class="pointer">
+        </div>
+      </div>
       <!-- MESSAGE FORM SECTIONS -->
-      <div class="section">
-        <div class="miniSection flexCol">
+      <div id="contactCustomerSection" class="section">
+        <div class="miniSection sectionContent3 flexCol">
           <h1 data="4" class="textHeading">
             <span data="4" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>
             <span class="email1">E</span><span class="email2">M</span><span class="email3">A</span><span class="email4">I</span><span class="email5">L</span>
@@ -132,12 +168,12 @@
           </h1>
           <p>Send emails with this week's sales.</p>
         </div>
-        <div class="miniSection flexCol">
+        <div class="miniSection sectionContent3 flexCol">
           <h1 data="5" class="textHeading"><span data="5" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>TEXT CUSTOMERS</h1>
           <p>Text appointment reminders and daily sales.</p>
         </div>
-        <p class="details">The following forms are linked to my email and cell phone. Try sending me a message with your name, contact, questions, and comments. I will get back to you as soon as I can!</p>
-        <div class="flexRow">
+        <p class="details sectionContent3">The following forms are linked to my email and cell phone. Try sending me a message with your name, contact, questions, and comments. I will get back to you as soon as I can!</p>
+        <div class="flexRow sectionContent3">
           <div class="form flexCol">
             <label ng-if="showLabelLabelMessage">{{labelMessage}}</label>
             <input id="first" type="text" name="" value="" placeholder="first name">
@@ -172,9 +208,18 @@
         </div>
       </div>
 
+      <!-- SIGN UP IMG BUTTON -->
+      <div id="signUpTipSectionImgButton" class="imgButton imgButtonLeft flexRow">
+        <div class="imgHolder flexRow">
+          <div class="imgHolderText flexRow">
+            <p>Sign Up Benefits</p>
+          </div>
+          <img src="../img/singup.jpg" alt=""  class="pointer">
+        </div>
+      </div>
       <!-- SIGN UP SECTION -->
-      <div class="section">
-        <div class="miniSection flexCol">
+      <div id="signUpTipSection" class="section">
+        <div class="miniSection sectionContent4 flexCol">
           <h1 data="6" class="textHeading"><span data="6" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>SIGN UP</h1>
           <p>Signing up to a site gives your customers a personalized feel on your website</p>
           <p class="details ul">5 Benefits for user sign up</p>
@@ -190,8 +235,17 @@
 
       <!-- CONTACT SECTION -->
       <div data="contact"></div>
-      <div class="section">
-        <div class="miniSection flexCol">
+      <!-- CONTACT IMG BUTTON -->
+      <div id="contactMeSectionImgButton" class="imgButton flexRow">
+        <div class="imgHolder flexRow">
+          <div class="imgHolderText flexRow">
+            <p>Call Me</p>
+          </div>
+          <img src="../img/ready.jpg" alt=""  class="pointer">
+        </div>
+      </div>
+      <div class="section" id="contactMeSection">
+        <div class="miniSection sectionContent5 flexCol">
           <h1 data="7" class="textHeading"><span data="7" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>CONTACT</h1>
           <p>questions?</p>
           <p class="details">If you have any questions at all do not hesitate to call, text, or email me!</p>

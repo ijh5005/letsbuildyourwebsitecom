@@ -39,8 +39,55 @@ p {
   color: #4bc0c0;
 }
 
+/*        IMG BUTTONS       */
+
+.imgButton {
+  background-color: #14161f;
+  height: 40em;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.imgButtonLeft {
+  justify-content: flex-start;
+}
+
+.imgHolder {
+  background-color: #14161f;
+  height: 40em;
+  position: relative;
+}
+
+.imgHolderText {
+  align-items: flex-start;
+  justify-content: flex-start;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.imgHolderText p {
+  color: #4bc0c0;
+  font-size: 2em;
+  left: 2em;
+  position: relative;
+  top: 2em;
+}
+
+.imgHolder img {
+  height: 94%;
+  left: 0;
+  opacity: 0.5;
+  position: relative;
+  transition: opacity 0.5s, left 1s;
+}
+
 /*        NAVIGATION POINTS       */
 .navigationPoint:hover {
+  color: #4bc0c0;
+}
+
+.navigationPointHover {
   color: #4bc0c0;
 }
 
@@ -50,7 +97,10 @@ p {
   color: #bdcadb;
   height: 100vh;
   justify-content: flex-start;
+  left: -20vw;
   padding-top: 10em;
+  position: relative;
+  transition: left 0.5s;
   width: 20vw;
 }
 
@@ -233,6 +283,15 @@ div.introAnimationBox {
   padding: 0.6em 3em;
 }
 
+.logoBox {
+  width: 100%;
+  height: 72%;
+}
+
+.logoBox p {
+  color: #494f69;
+}
+
 .page4ImgTop {
   align-items: flex-start;
 }
@@ -267,7 +326,35 @@ div.introAnimationBox {
 }
 
 .page3Blocks.two {
-  background-color: #545a78;
+  background-color: #494f69;
+}
+
+.page4Block {
+  height: 108%;
+  position: relative;
+  top: -15px;
+  width: 82%;
+}
+
+.page4BlockImg,
+.page4BlockText {
+  height: 72%;
+  width: 40%;
+}
+
+.page4BlockImgBlock {
+  height: 8em;
+  width: 8em;
+  background-color: #35394d;
+  border-radius: 50%;
+}
+
+.page4BlockTextLine {
+  background-color: #2d3143;
+  border-radius: 1em;
+  height: 1em;
+  width: 94%;
+  margin: 1em 0;
 }
 
 .openPagePast {
@@ -308,44 +395,8 @@ div.introAnimationBox {
 
 div.section.table {
   border: 0.01em solid #215e5e;
-  left: 50vw;
-  opacity: 0;
   position: relative;
   transition: left 0.5s, opacity 0.9s;
-}
-
-.email1,
-.email2,
-.email3,
-.email4,
-.email5 {
-  position: relative;
-  transition: top 0.6s, left 0.6s;
-}
-
-.email1 {
-  left: 3em;
-  top: 5em;
-}
-
-.email2 {
-  left: 10em;
-  top: 8em;
-}
-
-.email3 {
-  left: 9em;
-  top: -8em;
-}
-
-.email4 {
-  left: -8em;
-  top: 1em;
-}
-
-.email5 {
-  left: -3em;
-  top: -5em;
 }
 
 .details {
@@ -402,12 +453,12 @@ div.section.table {
   width: 20%;
 }
 
-/*        MESSAGE FORM SECTIONS       */
-.navTag {
-  left: -1em;
+.tableContent {
   opacity: 0;
-  position: relative;
+  transition: opacity 0.5s;
 }
+
+/*        MESSAGE FORM SECTIONS       */
 
 .navTag:hover {
   color: #bdcadb;
@@ -548,10 +599,8 @@ div.footer {
   background-color: #14161f;
   height: 15em;
   justify-content: flex-start;
-  width: 100%;
-  position: relative;
-  top: 15em;
   transition: top 0.5s;
+  width: 100%;
 }
 
 .footer p {
@@ -588,7 +637,7 @@ div.footer {
     .intro h1 {
       font-size: 3em;
     }
-    #table,
+    .table,
     .row {
       margin: 0;
       width: 100%;
