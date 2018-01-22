@@ -14,6 +14,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.typeAnimationTwo = data.typeAnimationTwo;
   $rootScope.typeAnimationThree = data.typeAnimationThree;
   $rootScope.typeAnimationFour = data.typeAnimationFour;
+  $rootScope.env = '';
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
@@ -282,12 +283,12 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     }
     const sendEmail = () => {
       animation.sendSignal();
-      const url = 'http://localhost:3000/email';
+      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/email' : 'https://letsbuildyourwebsite.herokuapp.com/email';
       server.sendEmail(sendObj, url);
     }
     const sendText = () => {
       animation.sendSignal();
-      const url = 'http://localhost:3000/text';
+      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/text' : 'https://letsbuildyourwebsite.herokuapp.com/text';
       server.sendText(sendObj, url);
     }
     (messageType === 'email') ? sendEmail() : sendText();
