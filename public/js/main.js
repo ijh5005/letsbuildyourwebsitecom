@@ -471,6 +471,7 @@ app.service('server', function($rootScope, $http){
     }
 
     const errorCallback = (err) => {
+      $rootScope.currentlySendingMessage = false;
       $rootScope.messageFailed = true;
       console.log(err);
     }
@@ -485,6 +486,9 @@ app.service('server', function($rootScope, $http){
               $rootScope.messageSent = true;
               console.log(success.data);
             },
-             error => console.log('error sending message') );
+             error => {
+               $rootScope.currentlySendingMessage = false;
+               console.log('error sending message')
+             } );
   }
 })
