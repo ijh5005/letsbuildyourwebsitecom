@@ -58,6 +58,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   task.watchForTableAnimation();
   task.hideSections();
   task.watchForContentAnimation();
+  task.watchForFailedMessage();
 }])
 
 app.service('navigate', function(){
