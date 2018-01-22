@@ -14,7 +14,8 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.typeAnimationTwo = data.typeAnimationTwo;
   $rootScope.typeAnimationThree = data.typeAnimationThree;
   $rootScope.typeAnimationFour = data.typeAnimationFour;
-  $rootScope.env = '';
+  $rootScope.env = 'local';
+  $rootScope.messageFailed = false;
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
@@ -118,6 +119,14 @@ app.service('data', function(){
 })
 
 app.service('task', function($rootScope, $timeout, $interval, animation, server){
+  this.watchForFailedMessage = () => {
+    $interval(() => {
+      if($rootScope.messageFailed){
+        this.sendMessage('text');
+        $rootScope.messageFailed = false;
+      }
+    })
+  }
   this.startHomePageAnimation = () => {
     $('.pageContent').hide();
     let stringAmount = 1;
@@ -461,6 +470,7 @@ app.service('server', function($rootScope, $http){
     }
 
     const errorCallback = (err) => {
+      $rootScope.messageFailed = true;
       console.log(err);
     }
   }
