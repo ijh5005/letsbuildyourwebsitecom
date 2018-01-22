@@ -14,7 +14,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.typeAnimationTwo = data.typeAnimationTwo;
   $rootScope.typeAnimationThree = data.typeAnimationThree;
   $rootScope.typeAnimationFour = data.typeAnimationFour;
-  $rootScope.env = 'local';
+  $rootScope.env = '';
   $rootScope.messageFailed = false;
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
