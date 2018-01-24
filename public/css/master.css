@@ -633,6 +633,37 @@ div.footer {
   margin: 4em;
 }
 
+div#pricingSection.section {
+  top: -4em;
+  width: 52em;
+}
+
+@media screen and (max-width: 1340px) {
+  #servicesSectionImgButton,
+  #signUpTipSectionImgButton {
+    display: none;
+  }
+  .servicesSection {
+    display: block !important;
+  }
+  div.section {
+    width: 76%;
+  }
+  .sideBar {
+    display: none;
+  }
+  .mainContent {
+    width: 100vw;
+  }
+  div#pricingSection.section {
+    top: -2em;
+    width: 90vw;
+  }
+  .row {
+    width: 90vw;
+  }
+}
+
 
 @media screen and (max-width: 1110px) {
     .sideBar,
@@ -656,6 +687,58 @@ div.footer {
     }
     div.section {
       width: 90%;
+    }
+    div#pricingSection.section,
+    .row {
+      opacity: 1;
+      width: 98vw;
+    }
+    .screen {
+      display: none;
+    }
+    div.form {
+      width: 40em;
+    }
+    p {
+      font-size: 0.8em;
+    }
+    .details {
+      font-size: 0.7rem;
+    }
+    .row div p {
+      font-size: 1.8em;
+    }
+    .form input, .form textarea {
+      font-size: 2em;
+    }
+    .footer p {
+      font-size: 2em;
+    }
+    .miniSection h1 {
+      width: 100%;
+    }
+    p {
+      width: 100%;
+    }
+    .selectedSendBtn p {
+      font-size: 2em;
+    }
+    .sendEmailBtn, .sendTextBtn {
+      height: 6em;
+      width: 12em;
+      text-align: center;
+    }
+    .sendTextBtn p {
+      font-size: 2em;
+    }
+    .sendBtn {
+      font-size: 2em;
+    }
+    .contactText {
+      font-size: 2em;
+    }
+    p.details {
+      /*font-size: 0.7em;*/
     }
 }
 
