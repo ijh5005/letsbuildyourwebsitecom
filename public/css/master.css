@@ -79,7 +79,7 @@ p {
   left: 0;
   opacity: 0.5;
   position: relative;
-  transition: opacity 0.5s, left 1s;
+  transition: opacity 1s, left 1s;
 }
 
 /*        NAVIGATION POINTS       */
@@ -665,7 +665,7 @@ div#pricingSection.section {
 }
 
 
-@media screen and (max-width: 1110px) {
+/*@media screen and (max-width: 1050px) {
     .sideBar,
     .introAnimationBox {
       display: none;
@@ -673,9 +673,16 @@ div#pricingSection.section {
     .mainContent {
       width: 100%;
     }
-}
+}*/
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1000px) {
+    .sideBar,
+    .introAnimationBox {
+      display: none;
+    }
+    .mainContent {
+      width: 100%;
+    }
     .screen {
       display: none;
     }
@@ -699,6 +706,8 @@ div#pricingSection.section {
     div.form {
       width: 40em;
     }
+
+    .details:hover,
     p {
       font-size: 0.8em;
     }
@@ -728,7 +737,9 @@ div#pricingSection.section {
       width: 12em;
       text-align: center;
     }
-    .sendTextBtn p {
+    .sendTextBtn p,
+    .sendEmailBtn p,
+    label {
       font-size: 2em;
     }
     .sendBtn {
@@ -739,6 +750,12 @@ div#pricingSection.section {
     }
     p.details {
       /*font-size: 0.7em;*/
+    }
+}
+
+@media screen and (max-width: 990px) {
+    ul {
+      width: 94%;
     }
 }
 

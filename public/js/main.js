@@ -310,9 +310,16 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   this.hideSections = () => {
     // const sectionsToHide = ['#servicesSection', '#pricingSection', '#contactCustomerSection', '#signUpTipSection', '#contactMeSection', '.sectionContent1', '.sectionContent2', '.sectionContent3', '.sectionContent4', '.sectionContent5'];
     const sectionsToHide = ['#servicesSection', '#pricingSectionImgButton', '#contactCustomerSectionImgButton', '#signUpTipSection', '#contactMeSectionImgButton', '.sectionContent1', '.sectionContent4', '.tableContent'];
+    const excludeOnPhone = ['#servicesSection', '#signUpTipSection', '.sectionContent1', '.sectionContent4'];
+    const bodyWidth = $('body').width();
     sectionsToHide.map((section) => {
       $(section).hide();
     });
+    if(bodyWidth < 1000){
+      excludeOnPhone.map((section) => {
+        $(section).show();
+      });
+    }
   }
   this.showServicesSection = () => {
     this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
