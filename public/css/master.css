@@ -39,11 +39,27 @@ p {
   color: #4bc0c0;
 }
 
+/*        WELCOME BAR       */
+
+.welcomeBar {
+  background-color: #3d435c;
+  height: 2.8em;
+  width: 100%;
+  position: absolute;
+  top: -2.8em;
+  left: 0;
+  transition: top 0.5s;
+}
+
+.welcomeText {
+  margin: 0 1em;
+}
+
 /*        IMG BUTTONS       */
 
 .imgButton {
   background-color: #14161f;
-  height: 40em;
+  height: 32em;
   justify-content: flex-end;
   width: 100%;
 }
@@ -54,7 +70,7 @@ p {
 
 .imgHolder {
   background-color: #14161f;
-  height: 40em;
+  height: 32em;
   position: relative;
 }
 
@@ -75,9 +91,9 @@ p {
 }
 
 .imgHolder img {
-  height: 94%;
+  height: 100%;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.4;
   position: relative;
   transition: opacity 1s, left 1s;
 }
@@ -117,6 +133,7 @@ p {
   justify-content: flex-start;
   overflow-y: scroll;
   width: 80vw;
+  position: relative;
 }
 
 .mainContent .section,
@@ -142,7 +159,7 @@ div.section {
   color: #fffffa;
   font-size: 4em;
   font-weight: 100;
-  margin-top: 3em;
+  margin-top: 2em;
 }
 
 /*        INTRO ANIMATION BOX       */
@@ -630,7 +647,9 @@ div.footer {
 }
 
 .footer p {
-  margin: 4em;
+  font-size: 1em;
+  font-style: italic;
+  margin: 0 4em;
 }
 
 div#pricingSection.section {

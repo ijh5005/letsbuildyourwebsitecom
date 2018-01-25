@@ -258,7 +258,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   this.watchForTableAnimation = () => {
     const watchForAnimation = $interval(() => {
       const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 1200){
+      if(positionFromTopOfPage > 1000){
         $interval.cancel(watchForAnimation);
         let track = 0;
         const tableLength = $('.table')[0].children.length - 1;
@@ -357,7 +357,15 @@ app.service('animation', function($rootScope, $timeout, $interval){
   this.sideBar = () => {
     $timeout(() => {
       $('.sideBar').css('left', 0);
-    }, 500);
+    }, 500).then(() => {
+      $timeout(() => {
+        $('.welcomeBar').css('top', 0);
+      }, 800).then(() => {
+        $timeout(() => {
+          $('.welcomeBar').css('top', '-2.8em');
+        }, 5000);
+      });
+    });
   }
   this.tag = (selector) => {
     this.fadeIn(selector, 600)
