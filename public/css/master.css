@@ -315,7 +315,6 @@ div.introAnimationBox {
 
 .signInBar {
   justify-content: flex-end;
-  padding-right: 1em;
   width: 100%;
 }
 
@@ -326,6 +325,8 @@ div.introAnimationBox {
 
 .p4sign {
   margin: 8px 2px;
+  position: relative;
+  left: -1em;
 }
 
 .p4img {
@@ -635,6 +636,11 @@ a {
 
 .contactText {
   letter-spacing: 3px;
+  margin: 0.4em 0 0 0;
+}
+
+.questions {
+  margin: 0 0 0.4em 0;
 }
 
 /*        FOOTER        */
