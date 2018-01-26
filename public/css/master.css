@@ -776,12 +776,57 @@ div#pricingSection.section {
     p.details {
       /*font-size: 0.7em;*/
     }
+
+
+
+    .sectionContent1 p.details,
+    .sectionContent3.details,
+    .sectionContent5 p.details,
+    #signUpTipSection,
+    #contactCustomerSection {
+      display: none !important;
+    }
+    p {
+      font-size: 3em;
+    }
+    .sectionContent5 p.details.contactText {
+      display: block !important;
+      font-size: 3em;
+    }
+    .miniSection h1 {
+      font-size: 4em;
+    }
+    .intro h1 {
+      font-size: 8em;
+    }
+    .welcomeBar {
+      font-size: 1.8em;
+    }
+    .welcomeBar p {
+      margin: 0.2em 1em;
+    }
+    #pricingSection {
+      border: none;
+      width: 100vw;
+      margin: 0;
+    }
+    .row {
+      width: 100vw;
+      font-size: 1.7em;
+    }
+    .row3 {
+      width: 15%;
+    }
+    .questions {
+      font-size: 3.2em;
+    }
 }
 
 @media screen and (max-width: 990px) {
     ul {
       width: 94%;
     }
+
 }
 
 @media screen and (max-width: 710px) {
