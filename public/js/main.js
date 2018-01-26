@@ -292,12 +292,12 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     }
     const sendEmail = () => {
       animation.sendSignal();
-      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/email' : 'https://letsbuildyourwebsite.herokuapp.com/email';
+      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/email' : 'http://letsbuildyourwebsite.com/email';
       server.sendEmail(sendObj, url);
     }
     const sendText = () => {
       animation.sendSignal();
-      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/text' : 'https://letsbuildyourwebsite.herokuapp.com/text';
+      const url = ($rootScope.env === 'local') ? 'http://localhost:3000/text' : 'http://letsbuildyourwebsite.com/text';
       server.sendText(sendObj, url);
     }
     (messageType === 'email') ? sendEmail() : sendText();
