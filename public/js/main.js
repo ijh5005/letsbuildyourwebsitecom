@@ -459,7 +459,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
             const data = allRowsInTable[i].attributes["0"].nodeValue;
             const selector = $('.tableContent[data="' + data + '"]');
             const offsetTop = selector.offset().top;
-            const inPosition = (offsetTop < 400);
+            const inPosition = (offsetTop < 200);
             if(inPosition) {
               selector.addClass('tableHighlight');
               selector["0"].children["0"].children["0"].classList.add('tableHighlight');
