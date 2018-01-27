@@ -476,6 +476,15 @@ div.section.table {
   transition: opacity 0.5s;
 }
 
+.tableHighlight {
+  opacity: 0.1;
+}
+
+p {
+  transition: opacity 0.5s;
+}
+
+
 /*        MESSAGE FORM SECTIONS       */
 
 .navTag:hover {
@@ -723,7 +732,7 @@ div#pricingSection.section {
     div#pricingSection.section,
     .row {
       opacity: 1;
-      width: 98vw;
+      width: 100vw;
     }
     .screen {
       display: none;
@@ -787,7 +796,10 @@ div#pricingSection.section {
       display: none !important;
     }
     p {
-      font-size: 3em;
+      font-size: 2rem;
+    }
+    .sectionContent1 p {
+      font-size: 2.2em;
     }
     .sectionContent5 p.details.contactText {
       display: block !important;
@@ -797,13 +809,16 @@ div#pricingSection.section {
       font-size: 4em;
     }
     .intro h1 {
-      font-size: 8em;
+      font-size: 9em;
     }
     .welcomeBar {
       font-size: 1.8em;
+      padding: 2em 0;
+      top: -7em;
     }
     .welcomeBar p {
-      margin: 0.2em 1em;
+      font-size: 2em;
+      text-align: center;
     }
     #pricingSection {
       border: none;
@@ -819,6 +834,17 @@ div#pricingSection.section {
     }
     .questions {
       font-size: 3.2em;
+    }
+    .mainContent .section,
+    .mainContent .introAnimationBox {
+      margin: 0 auto;
+    }
+    div#pricingSection.section.table {
+      margin: 4em 0;
+      transition: small;
+    }
+    #contactMeSection {
+      margin-bottom: 4em;
     }
 }
 

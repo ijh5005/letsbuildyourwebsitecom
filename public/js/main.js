@@ -53,6 +53,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
     task.showContactMeSection();
   }
   animation.sideBar();
+  animation.tableOnSmallScreen();
   task.startHomePageAnimation();
   task.watchForTableAnimation();
   task.hideSections();
@@ -90,8 +91,8 @@ app.service('data', function(){
     {service: "payment and shopping cart pages", price: "$80", description: "Includes shopping cart and payment pages. I will also set up a third party payment service that is linked directly to your bank card. The service gives you access to customer payment history, receipts, refunds, and more."},
     {service: "device friendly layout", price: "$25 each", description: "Your website layout will fit devices of your choice including cell phones, tablets, desktops, and televisions."},
     {service: "sign in/sign up", price: "$50", description: "Includes a sign in/sign up forms page linked to a database that stores usernames and passwords."},
-    {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website. see example below"},
-    {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website. see example below"},
+    {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website."},
+    {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website."},
     {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
     {service: "contact and feedback forms", price: "$50", description: "These forms are convenient ways for customers to contact you and leave feedback. This form will be on a page of your website."}
   ]
@@ -355,6 +356,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
 
 app.service('animation', function($rootScope, $timeout, $interval){
   this.sideBar = () => {
+    const top = $('.welcomeBar').css('top');
     $timeout(() => {
       $('.sideBar').css('left', 0);
     }, 500).then(() => {
@@ -362,7 +364,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
         $('.welcomeBar').css('top', 0);
       }, 800).then(() => {
         $timeout(() => {
-          $('.welcomeBar').css('top', '-2.8em');
+          $('.welcomeBar').css('top', top);
         }, 5000);
       });
     });
@@ -446,6 +448,32 @@ app.service('animation', function($rootScope, $timeout, $interval){
       if(currentLine === 5){ typeLine('five', '.typingLineFive'); }
     }, 15);
 
+  }
+  this.tableOnSmallScreen = () => {
+    const isOnSmallScreen = $('.table').css('transition');
+    if(isOnSmallScreen.includes('small')){
+      $timeout(() => {
+        $interval(() => {
+          const allRowsInTable = $('.tableContent');
+          for(let i = 0; i < allRowsInTable.length; i++){
+            const data = allRowsInTable[i].attributes["0"].nodeValue;
+            const selector = $('.tableContent[data="' + data + '"]');
+            const offsetTop = selector.offset().top;
+            const inPosition = (offsetTop < 400);
+            if(inPosition) {
+              selector.addClass('tableHighlight');
+              selector["0"].children["0"].children["0"].classList.add('tableHighlight');
+              selector["0"].children["1"].children["0"].classList.add('tableHighlight');
+              selector["0"].children["2"].children["0"].classList.add('tableHighlight');
+            } else {
+              selector["0"].children["0"].children["0"].classList.remove('tableHighlight');
+              selector["0"].children["1"].children["0"].classList.remove('tableHighlight');
+              selector["0"].children["2"].children["0"].classList.remove('tableHighlight');
+            }
+          }
+        })
+      });
+    }
   }
 })
 
