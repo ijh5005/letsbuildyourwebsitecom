@@ -307,7 +307,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   this.watchForContentAnimation = () => {
     const serviceDistanceWatch = $interval(() => {
       const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
-      if(serviceDistance < $('.mainContent').scrollTop() + 400){
+      if(serviceDistance < $('.mainContent').scrollTop() + 200){
         $interval.cancel(serviceDistanceWatch);
         this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
       }
@@ -344,7 +344,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   this.watchForTableAnimation = () => {
     const watchForAnimation = $interval(() => {
       const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 1000){
+      if(positionFromTopOfPage > 1200){
         $interval.cancel(watchForAnimation);
         let track = 0;
         const tableLength = $('.table')[0].children.length - 1;
