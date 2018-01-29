@@ -2,7 +2,8 @@
 
 var app = angular.module('app', []);
 
-app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation){
+app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server){
+  $rootScope.name = null;
   $rootScope.url = 'yourwebsite.com';
   $rootScope.messageSent = false;
   $rootScope.currentlySendingMessage = false;
@@ -15,9 +16,11 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.typeAnimationThree = data.typeAnimationThree;
   $rootScope.typeAnimationFour = data.typeAnimationFour;
   $rootScope.messageFailed = false;
+  $rootScope.successfullyLoggedIn = false;
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
+  $scope.logo = 'YOUR LOGO';
   $rootScope.homePageAnimationOpen = false;
   $scope.navigationPoints = data.navigationPoints;
   $scope.services = data.services;
@@ -51,6 +54,67 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   }
   $scope.showContactMeSection = () => {
     task.showContactMeSection();
+  }
+  $rootScope.currentSignPage = 'signup';
+  $scope.signin = () => {
+    $scope.bringToTopOfPage(null, 'home');
+    task.signin('signin');
+  }
+  $scope.signup = () => {
+    $scope.bringToTopOfPage(null, 'home');
+    task.signin('signup');
+  }
+  $scope.signInSubmit = () => {
+    //get input field values
+    const username = $('.signInUsername').val();
+    const password = $('.signInPassword').val();
+    const url = "/login";
+    const signInObj = { username: username, password: password }
+    //check for complete form
+    const hasEmptyField = task.hasEmptyFieldCheck(signInObj);
+    if(hasEmptyField){
+      $(".signFormMessage p").text("Please fill in all fields. Thanks!");
+      $('.signFormMessage').fadeIn();
+      return null;
+    }
+    //send login request
+    server.loginRequest(signInObj, url);
+
+    //watch for login callback
+    const checkForLogIn = $interval(function () {
+      //successfullyLoggedIn === true after logged in
+      if(!$rootScope.successfullyLoggedIn){ return null }
+      //cancel when logged in and proceed
+      $interval.cancel(checkForLogIn);
+      task.startHomePageAnimation();
+      $scope.logo = $rootScope.name + ' LOGO';
+      //Do stuff when logged in
+      task.hideSignIn();
+    }, 10);
+  }
+  $scope.signUpSubmit = () => {
+    //get input field values
+    const firstname = $('.signUpFirstname').val();
+    const lastname = $('.signUpLastname').val();
+    const username = $('.signUpUsername').val();
+    const password = $('.signUpPassword').val();
+    const url = "/register";
+    const signUpObj = { firstname: firstname, lastname: lastname, username: username, password: password }
+    //check for complete form
+    const hasEmptyField = task.hasEmptyFieldCheck(signUpObj);
+    if(hasEmptyField){
+      $(".signFormMessage p").text("Please fill in all fields. Thanks!");
+      $('.signFormMessage').css('opacity', 1);
+      $timeout(() => {
+        $('.signFormMessage').css('opacity', 0);
+      }, 6000);
+    } else {
+      //send sign up request
+      server.register(signUpObj, url);
+    }
+  }
+  $scope.hideSignIn = () => {
+    task.hideSignIn();
   }
   animation.sideBar();
   animation.tableOnSmallScreen();
@@ -120,6 +184,26 @@ app.service('data', function(){
 })
 
 app.service('task', function($rootScope, $timeout, $interval, animation, server){
+  this.hideSignIn = () => {
+    $('.page4Block').css('top', '20em');
+    $timeout(() => {
+      $('.signInForm').css('zIndex', -1);
+      $('.page4Block').css('top', '-15px');
+    }, 800);
+  }
+  this.signin = (signin) => {
+    $('.page4Block').css('top', '20em');
+    $timeout(() => {
+      $rootScope.currentSignPage = (signin === 'signin') ? 'signin' : 'signup';
+      $('.signInForm').css('zIndex', 0);
+      $('.page4Block').css('top', '-15px');
+    }, 800);
+  }
+  this.hasEmptyFieldCheck = (obj) => {
+    const values = Object.values(obj);
+    const hasEmptyField = values.includes("") || values.includes(undefined);
+    return hasEmptyField;
+  }
   this.watchForFailedMessage = () => {
     $interval(() => {
       if($rootScope.messageFailed){
@@ -129,6 +213,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
     })
   }
   this.startHomePageAnimation = () => {
+    $rootScope.url = ($rootScope.successfullyLoggedIn) ? $rootScope.name + 'website.com' : 'yourwebsite.com';
     $('.pageContent').hide();
     let stringAmount = 1;
     const $selector = $(".url p");
@@ -193,7 +278,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
                   animation.toggleHomePageScreen();
                   $('.' + nextPage + '').removeClass('ninetydegrees');
                   $timeout(() => {
-                    (nextPage === 'screenVersion4') ? console.log('done') : toNextScreenAnimation();
+                    (nextPage === 'screenVersion4') ? $('.signToMyPage').css('opacity', 1) : toNextScreenAnimation();
                   }, 1000);
                 },)
               },)
@@ -477,7 +562,60 @@ app.service('animation', function($rootScope, $timeout, $interval){
   }
 })
 
-app.service('server', function($rootScope, $http){
+app.service('server', function($rootScope, $http, $timeout){
+  this.loginRequest = (signInObj, url) => {
+    $http({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(signInObj),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      console.log("successfully logged in");
+      $rootScope.name = success.data.firstname;
+      $rootScope.successfullyLoggedIn = true;
+    }
+
+    const errorCallback = () => {
+      console.log("error logging in");
+      $(".signFormMessage p").text("Username or Password incorrect");
+      $('.signFormMessage').fadeIn();
+    }
+  };
+  this.register = (signUpObj, url) => {
+    $http({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(signUpObj),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      console.log("successfully registered");
+      $rootScope.currentSignPage = 'signin';
+      $(".signFormMessage p").text("Thanks For Registering! Try Signing in");
+      $('.signFormMessage').css('opacity', 1);
+      $timeout(() => {
+        $('.signFormMessage').css('opacity', 0);
+      }, 6000);
+    }
+
+    const errorCallback = () => {
+      console.log("error registering");
+      $(".signFormMessage p").text("Username taken. sorry...");
+      $('.signFormMessage').css('opacity', 1);
+      $timeout(() => {
+        $('.signFormMessage').css('opacity', 0);
+      }, 6000);
+    }
+  }
   this.sendEmail = (obj, url) => {
     obj.subject = "from customer";
     let sendMessage = "";

@@ -5,9 +5,10 @@ const router = express.Router();
 //database
 const mongoose = require('mongoose');
 //connect to database
-const dbuser = "isaiah";
-const dbpassword = "databasesetup";
-mongoose.connect('mongodb://' + dbuser + ':' + dbpassword + '@ds251277.mlab.com:51277/isaiahserversetup');
+const dbuser = "letsbuildyourwebsite";
+const dbpassword = "letsbuildyourwebsite321";
+const mLabUrlEnd = '@ds117858.mlab.com:17858/letsbuildyourwebsite';
+mongoose.connect('mongodb://' + dbuser + ':' + dbpassword + mLabUrlEnd);
 
 //services
 const twilio = require('twilio');

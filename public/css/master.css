@@ -44,11 +44,11 @@ p {
 .welcomeBar {
   background-color: #3d435c;
   height: 2.8em;
-  width: 100%;
+  left: 0;
   position: absolute;
   top: -2.8em;
-  left: 0;
   transition: top 0.5s;
+  width: 100%;
 }
 
 .welcomeText {
@@ -132,8 +132,8 @@ p {
   height: 100vh;
   justify-content: flex-start;
   overflow-y: scroll;
-  width: 80vw;
   position: relative;
+  width: 80vw;
 }
 
 .mainContent .section,
@@ -221,6 +221,7 @@ div.introAnimationBox {
   height: 80%;
   justify-content: space-around;
   transition: transform 0.5s;
+  overflow: hidden;
 }
 
 .urlCircle {
@@ -329,15 +330,14 @@ div.introAnimationBox {
 }
 
 .p4sign {
+  left: -1em;
   margin: 8px 2px;
   position: relative;
-  left: -1em;
-  transition: top 0.5s;
+  transition: background-color 0.5s;
 }
 
 .p4sign:hover {
-  position: relative;
-  top: -0.5em;
+  background-color: #494f69;
 }
 
 .p4img {
@@ -356,6 +356,7 @@ div.introAnimationBox {
 
 .page3Blocks.two {
   background-color: #494f69;
+  overflow: hidden;
 }
 
 .page4Block {
@@ -363,6 +364,7 @@ div.introAnimationBox {
   position: relative;
   top: -15px;
   width: 82%;
+  transition: top 0.8s;
 }
 
 .page4BlockImg,
@@ -371,12 +373,55 @@ div.introAnimationBox {
   width: 40%;
 }
 
+.signFormMessage {
+  opacity: 0;
+  text-align: center;
+  transition: opacity 0.5s;
+}
+
+.signFormMessage p {
+  color: #4bc0c0;
+  font-size: 1.2em;
+}
+
+input {
+  background-color: #2d3143;
+  border: none;
+  border-radius: 1em;
+  color: #eee;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8em;
+  margin-top: 0.2em;
+  outline: 0;
+  text-align: center;
+}
+
+.submit {
+  background-color: #2d3143;
+  border-radius: 1em;
+  height: 2em;
+  margin: 0.2em;
+  width: 8em;
+}
+
+.submit:hover {
+  opacity: 0.6;
+}
+
+.signInForm {
+  background-color: #494f69;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
 .page4BlockImgBlock {
   background-color: #35394d;
   border-radius: 50%;
   height: 8em;
-  width: 8em;
   transition: border-radius 0.5s;
+  width: 8em;
 }
 
 .page4BlockImgBlock:hover {
@@ -388,8 +433,8 @@ div.introAnimationBox {
   border-radius: 1em;
   height: 1em;
   margin: 1em 0;
-  width: 94%;
   transition: width 0.5s;
+  width: 94%;
 }
 
 .page4BlockTextLine:hover {
@@ -640,10 +685,10 @@ label {
   background-color: #888;
   border-radius: 50%;
   height: 2em;
-  width: 2em;
+  left: 16%;
   position: absolute;
   top: 7.2em;
-  left: 16%;
+  width: 2em;
   /*16  48   80*/
 }
 
@@ -653,6 +698,27 @@ label {
 
 .signUpFadeInTextSections {
   width: 33.3%;
+}
+
+.signToMyPage {
+  opacity: 0;
+  transition: opacity 1;
+}
+
+.signBtn {
+  background-color: #2d3143;
+  border: 1px solid #215e5e;
+  color: #4bc0c0;
+  margin: 0.4em;
+  transition: background-color 0.5s;
+}
+
+.signBtn:hover {
+  background-color: #494f69;
+}
+
+.signBtn p {
+  padding: 0.2em 0.6em;
 }
 
 /*CONTACT SECTION*/
@@ -789,8 +855,8 @@ div#pricingSection.section {
     }
     .sendEmailBtn, .sendTextBtn {
       height: 6em;
-      width: 12em;
       text-align: center;
+      width: 12em;
     }
     .sendTextBtn p,
     .sendEmailBtn p,
@@ -843,12 +909,12 @@ div#pricingSection.section {
     }
     #pricingSection {
       border: none;
-      width: 100vw;
       margin: 0;
+      width: 100vw;
     }
     .row {
-      width: 100vw;
       font-size: 1.7em;
+      width: 100vw;
     }
     .row3 {
       width: 15%;

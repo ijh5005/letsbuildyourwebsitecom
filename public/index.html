@@ -21,7 +21,7 @@
 
       <div class="intro section">
         <div data="home"></div>
-        <h1>Let's build your website</h1>
+        <h1>Let's build your website {{name}}</h1>
         <p>you've thought up a website to serve business needs... you've written details outlining its content, purpose, and audience... you've done enough... now let me build it.</p>
       </div>
 
@@ -69,11 +69,11 @@
         <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
           <div class="pageContent page2ImgTop page4ImgTop flexCol">
             <div class="signInBar flexRow">
-              <div class="pageContentSignUpSignIn p4sign">SIGN IN</div>
-              <div class="pageContentSignUpSignIn p4sign">SIGN UP</div>
+              <div class="pageContentSignUpSignIn p4sign" ng-click='signin()'>SIGN IN</div>
+              <div class="pageContentSignUpSignIn p4sign" ng-click='signup()'>SIGN UP</div>
             </div>
             <div class="logoBox flexRow">
-              <p>YOUR LOGO</p>
+              <p>{{logo | uppercase}}</p>
             </div>
           </div>
           <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
@@ -86,6 +86,40 @@
                 <div class="page4BlockTextLine"></div>
                 <div class="page4BlockTextLine"></div>
                 <div class="page4BlockTextLine"></div>
+              </div>
+              <div class="signInForm">
+                <div class="signFormMessage">
+                  <p>Thanks For Registering! Try Signing in</p>
+                </div>
+                <div class="formLiner flexCol">
+                  <form class="flexCol" action="/register" method="post" ng-if="currentSignPage === 'signup'">
+                    <input class="signUpFirstname" type="text" name="firstname" value="" placeholder="firstname">
+                    <input class="signUpLastname" type="text" name="lastname" value="" placeholder="lastname">
+                    <input class="signUpUsername" type="text" name="username" value="" placeholder="username">
+                    <input class="signUpPassword" type="password" name="password" value="" placeholder="password">
+                    <div class="flexRow">
+                      <div class="submit flexRow" ng-click='signUpSubmit()'>
+                        <p>sign up</p>
+                      </div>
+                      <div class="submit flexRow" ng-click='hideSignIn()'>
+                        <p>back</p>
+                      </div>
+                    </div>
+                  </form>
+                  <form class="flexCol" action="/login" method="post" ng-if="currentSignPage === 'signin'">
+                    <input class="signInUsername" type="text" name="username" value="" placeholder="username">
+                    <input class="signInPassword" type="password" name="password" value="" placeholder="password">
+
+                    <div class="flexRow">
+                      <div class="submit flexRow" ng-click='signInSubmit()'>
+                        <p>sign in</p>
+                      </div>
+                      <div class="submit flexRow" ng-click='hideSignIn()'>
+                        <p>back</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -235,6 +269,17 @@
             <li class="details">Personalized user profiles by having customizable options such as page theme</li>
             <li class="details">Receipt storage in one spot to save the customer time looking through emails</li>
           </ul>
+          <div class="signToMyPage">
+            <p class="details">Try Signing up for my site here!</p>
+            <div class="flexRow">
+              <div class="signBtn pointer" ng-click='signin()'>
+                <p>SIGN IN</p>
+              </div>
+              <div class="signBtn pointer" ng-click='signup()'>
+                <p>SIGN UP</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="signUpSectionAnimation flexCol" style="display: none">
           <div class="signUpFadeInText flexRow">
