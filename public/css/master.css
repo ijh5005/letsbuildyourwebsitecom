@@ -307,6 +307,11 @@ div.introAnimationBox {
 
 .logoBox p {
   color: #494f69;
+  transition: color 0.5s;
+}
+
+.logoBox p:hover {
+  color: #4bc0c0;
 }
 
 .page4ImgTop {
@@ -327,6 +332,12 @@ div.introAnimationBox {
   margin: 8px 2px;
   position: relative;
   left: -1em;
+  transition: top 0.5s;
+}
+
+.p4sign:hover {
+  position: relative;
+  top: -0.5em;
 }
 
 .p4img {
@@ -365,6 +376,11 @@ div.introAnimationBox {
   border-radius: 50%;
   height: 8em;
   width: 8em;
+  transition: border-radius 0.5s;
+}
+
+.page4BlockImgBlock:hover {
+  border-radius: 10%;
 }
 
 .page4BlockTextLine {
@@ -373,6 +389,11 @@ div.introAnimationBox {
   height: 1em;
   margin: 1em 0;
   width: 94%;
+  transition: width 0.5s;
+}
+
+.page4BlockTextLine:hover {
+  width: 60%;
 }
 
 .openPagePast {
