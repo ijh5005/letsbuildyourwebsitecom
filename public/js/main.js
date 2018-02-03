@@ -3,6 +3,8 @@
 var app = angular.module('app', []);
 
 app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server){
+  $rootScope.isSmallScreen = false;
+  $rootScope.isBigScreen = false;
   $rootScope.name = null;
   $rootScope.url = 'yourwebsite.com';
   $rootScope.messageSent = false;
@@ -123,6 +125,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   task.hideSections();
   task.watchForContentAnimation();
   task.watchForFailedMessage();
+  task.screenCheck();
 }])
 
 app.service('navigate', function(){
@@ -184,6 +187,13 @@ app.service('data', function(){
 })
 
 app.service('task', function($rootScope, $timeout, $interval, animation, server){
+  this.screenCheck = () => {
+    $interval(() => {
+      const isSmall = $('.table').css('transition').includes('small');
+      $rootScope.isSmallScreen = (isSmall) ? true : false;
+      $rootScope.isBigScreen = (isSmall) ? false : true;
+    })
+  }
   this.hideSignIn = () => {
     $('.page4Block').css('top', '20em');
     $timeout(() => {
@@ -537,14 +547,22 @@ app.service('animation', function($rootScope, $timeout, $interval){
   this.tableOnSmallScreen = () => {
     const isOnSmallScreen = $('.table').css('transition');
     if(isOnSmallScreen.includes('small')){
+
       $timeout(() => {
+        $('.sectionContent1 p').css('transition', 'opacity 2s').css('left', '-2em');
+        $('.sectionContent1 p').animate({
+          left: 0
+        }, 2400)
+        $('.sectionContent1 p').css('opacity', 1);
         $interval(() => {
           const allRowsInTable = $('.tableContent');
           for(let i = 0; i < allRowsInTable.length; i++){
             const data = allRowsInTable[i].attributes["0"].nodeValue;
             const selector = $('.tableContent[data="' + data + '"]');
             const offsetTop = selector.offset().top;
-            const inPosition = (offsetTop < 200);
+            const height = selector.height();
+            const inPosition = ((offsetTop + (height*0.6)) < 200);
+            const inPositionForPriceFlip = ((offsetTop) < 1000);
             if(inPosition) {
               selector.addClass('tableHighlight');
               selector["0"].children["0"].children["0"].classList.add('tableHighlight');
@@ -554,6 +572,12 @@ app.service('animation', function($rootScope, $timeout, $interval){
               selector["0"].children["0"].children["0"].classList.remove('tableHighlight');
               selector["0"].children["1"].children["0"].classList.remove('tableHighlight');
               selector["0"].children["2"].children["0"].classList.remove('tableHighlight');
+            }
+
+            if(inPositionForPriceFlip) {
+              selector["0"].children["2"].classList.add('flip');
+            } else {
+              selector["0"].children["2"].classList.remove('flip');
             }
           }
         })

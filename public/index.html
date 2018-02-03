@@ -15,13 +15,17 @@
 
     <div id="mainContent" class="mainContent">
 
-      <div class="welcomeBar flexRow">
+      <div class="welcomeBar flexRow" ng-if='isBigScreen'>
         <p class="details contactText welcomeText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span></p>
       </div>
 
       <div class="intro section">
         <div data="home"></div>
-        <h1>Let's build your website {{name}}</h1>
+        <h1 ng-if='isBigScreen'>Let's build your website {{name}}</h1>
+        <div class="homeSmallScreenHeader flexRow" ng-if='isSmallScreen'>
+          <p class="details contactText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span></p>
+        </div>
+
         <p>you've thought up a website to serve business needs... you've written details outlining its content, purpose, and audience... you've done enough... now let me build it.</p>
       </div>
 
@@ -171,7 +175,7 @@
         <div class="row sectionContent2 flexRow odd">
           <div class="row1 flexRow"><p>Service</p></div>
           <div class="row2 flexRow"><p>Description</p></div>
-          <div class="row3 flexRow"><p>Starting Price</p></div>
+          <div id="price" class="row3 flexRow"><p>Starting Price</p></div>
         </div>
         <div class="" ng-repeat="service in services">
           <div data={{$index}} class="row tableContent sectionContent2 flexRow odd" ng-if="$odd">
@@ -314,7 +318,7 @@
           <p class="contactText questions">questions?</p>
           <p class="details">If you have any questions at all do not hesitate to call, text, or email me!</p>
           <p class="details">You could also send me a message with the email and text forms above</p>
-          <a href="tel:+8147530157"><p class="details contactText">814 753 0157</p></a>
+          <a href="tel:+8147530157"><p id="number" class="details contactText">814 753 0157</p></a>
           <p class="details contactText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span>@outlook.com</p>
         </div>
       </div>
