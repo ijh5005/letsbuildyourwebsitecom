@@ -968,6 +968,24 @@ div#pricingSection.section {
       transition: opacity 2s;
       position: relative;
     }
+    .miniSection {
+      padding: 0 4em;
+    }
+    #servicesSection {
+      margin-top: 4em;
+      background-color: #525a7a;
+      width: 100vw;
+      padding-bottom: 6em;
+    }
+    div#pricingSection.section.table {
+      margin: 2em 0;
+    }
+    #tableHeader {
+      padding: 1em 0;
+    }
+    .odd {
+      background-color: #525a7a;
+    }
 }
 
 @media screen and (max-width: 990px) {
