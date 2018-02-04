@@ -563,7 +563,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
             const offsetTop = selector.offset().top;
             const height = selector.height();
             const inPosition = ((offsetTop + (height*0.6)) < 200);
-            const inPositionForPriceFlip = ((offsetTop) < 1000);
+            const inPositionForPriceFlip = ((offsetTop - (height * 0.2)) < 1000);
             if(inPosition) {
               selector.addClass('tableHighlight');
               selector["0"].children["0"].children["0"].classList.add('tableHighlight');
