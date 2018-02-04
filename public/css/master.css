@@ -586,6 +586,10 @@ div.screen {
   -o-transform: rotateY(90deg); /* Opera */
   -ms-transform: rotateY(90deg); /* Internet Explorer */
   transition: transform 0.5s;
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  -o-transition: -o-transform 0.5s;
+  -o-transition: -ms-transform 0.5s;
 }
 
 .arrowOne,
@@ -966,6 +970,10 @@ div#pricingSection.section {
       -o-transform: rotateY(90deg); /* Opera */
       -ms-transform: rotateY(90deg); /* Internet Explorer */
       transition: transform 0.5s;
+      -webkit-transition: -webkit-transform 0.5s;
+      -moz-transition: -moz-transform 0.5s;
+      -o-transition: -o-transform 0.5s;
+      -o-transition: -ms-transform 0.5s;
     }
     .flip,
     #price {
