@@ -451,11 +451,12 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
 
 app.service('animation', function($rootScope, $timeout, $interval){
   this.sideBar = () => {
-    const top = $('.welcomeBar').css('top');
+    let top;
     $timeout(() => {
       $('.sideBar').css('left', 0);
     }, 500).then(() => {
       $timeout(() => {
+        top = $('.welcomeBar').css('top');
         $('.welcomeBar').css('top', 0);
       }, 800).then(() => {
         $timeout(() => {
