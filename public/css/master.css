@@ -581,6 +581,10 @@ div.screen {
 
 div.screen {
   transform: rotateY(90deg);
+  -webkit-transform: rotateY(90deg); /* WebKit */
+  -moz-transform: rotateY(90deg); /* Mozilla */
+  -o-transform: rotateY(90deg); /* Opera */
+  -ms-transform: rotateY(90deg); /* Internet Explorer */
   transition: transform 0.5s;
 }
 
@@ -957,11 +961,19 @@ div#pricingSection.section {
     }
     .row3 {
       transform: rotateY(90deg);
+      -webkit-transform: rotateY(90deg); /* WebKit */
+      -moz-transform: rotateY(90deg); /* Mozilla */
+      -o-transform: rotateY(90deg); /* Opera */
+      -ms-transform: rotateY(90deg); /* Internet Explorer */
       transition: transform 0.5s;
     }
     .flip,
     #price {
       transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg); /* WebKit */
+      -moz-transform: rotateY(0deg); /* Mozilla */
+      -o-transform: rotateY(0deg); /* Opera */
+      -ms-transform: rotateY(0deg); /* Internet Explorer */
     }
     .sectionContent1 p {
       opacity: 0;
