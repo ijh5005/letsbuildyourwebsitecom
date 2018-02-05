@@ -155,6 +155,10 @@ div.section {
   margin: 10em 0 2em 0;
 }
 
+.yourName {
+  color: #4bc0c0;
+}
+
 .intro h1 {
   color: #fffffa;
   font-size: 4em;
@@ -680,32 +684,6 @@ label {
 /*        SIGN UP SECTION       */
 .ul {
   margin-top: 1em;
-}
-
-.signUpSectionAnimation {
-  background-color: #222;
-  height: 10em;
-  position: relative;
-  width: 100%;
-}
-
-.movingBall {
-  background-color: #888;
-  border-radius: 50%;
-  height: 2em;
-  left: 16%;
-  position: absolute;
-  top: 7.2em;
-  width: 2em;
-  /*16  48   80*/
-}
-
-.signUpFadeInText {
-  width: 100%;
-}
-
-.signUpFadeInTextSections {
-  width: 33.3%;
 }
 
 .signToMyPage {

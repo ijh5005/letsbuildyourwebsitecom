@@ -21,7 +21,7 @@
 
       <div class="intro section">
         <div data="home"></div>
-        <h1 ng-if='isBigScreen'>Let's build your website {{name}}</h1>
+        <h1 ng-if='isBigScreen'>Let's build your website <span class="yourName">{{name}}</span></h1>
         <div class="homeSmallScreenHeader flexRow" ng-if='isSmallScreen'>
           <p class="details contactText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span></p>
         </div>
@@ -284,20 +284,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="signUpSectionAnimation flexCol" style="display: none">
-          <div class="signUpFadeInText flexRow">
-            <div class="signUpFadeInTextSections flexRow">
-              <p>Loyalty</p>
-            </div>
-            <div class="signUpFadeInTextSections flexRow">
-              <p>=</p>
-            </div>
-            <div class="signUpFadeInTextSections flexRow">
-              <p>$###,###...</p>
-            </div>
-          </div>
-          <div class="movingBall"></div>
         </div>
       </div>
 
