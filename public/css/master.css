@@ -26,6 +26,10 @@ p {
   justify-content: center;
 }
 
+.none {
+  display: none;
+}
+
 .pointer {
   cursor: pointer;
   user-select: none;

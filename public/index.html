@@ -6,7 +6,7 @@
   </head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300|Montserrat:900" rel="stylesheet">
   <link rel="stylesheet" href="./css/master.css">
-  <body class="body flexRow" ng-app='app' ng-controller='ctrl' ng-cloak>
+  <body class="body flexRow none" ng-app='app' ng-controller='ctrl' ng-cloak>
 
     <div class="sideBar flexCol">
       <p data={{navigationPoint.data}} class="navigationPoint pointer" ng-repeat='navigationPoint in navigationPoints' ng-click="bringToTopOfPage(null, navigationPoint.point)">{{navigationPoint.point}}</p>

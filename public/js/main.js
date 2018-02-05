@@ -1,5 +1,11 @@
 "use strict";
 
+$(document).ready(() => {
+  setTimeout(() => {
+    $('body').removeClass('none');
+  }, 10)
+})
+
 var app = angular.module('app', []);
 
 app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server){
