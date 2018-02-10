@@ -7,6 +7,10 @@ body {
   padding: 0;
 }
 
+body {
+  transition: opacity 1s;
+}
+
 p {
   color: #bdcadb;
   font-size: 1.4em;
@@ -28,6 +32,10 @@ p {
 
 .none {
   display: none;
+}
+
+.opacityZero {
+  opacity: 0;
 }
 
 .pointer {
@@ -176,6 +184,7 @@ div.introAnimationBox {
   height: 34em;
   justify-content: space-around;
   width: 50em;
+  /*perspective: 100em;*/
 }
 
 .url,

@@ -2,7 +2,7 @@
 
 $(document).ready(() => {
   setTimeout(() => {
-    $('body').removeClass('none');
+    $('body').removeClass('opacityZero');
   }, 10)
 })
 
@@ -124,6 +124,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $scope.hideSignIn = () => {
     task.hideSignIn();
   }
+
   animation.sideBar();
   animation.tableOnSmallScreen();
   task.startHomePageAnimation();
@@ -322,6 +323,7 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   }
   this.watchForContentAnimation = () => {
     const serviceDistanceWatch = $interval(() => {
+      debugger
       const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
       if(serviceDistance < $('.mainContent').scrollTop() + 200){
         $interval.cancel(serviceDistanceWatch);
