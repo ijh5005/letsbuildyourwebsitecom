@@ -504,12 +504,16 @@ div.section.table {
 .details {
   color: #7b96b7;
   font-size: 1.2rem;
-  transition: font-size 0.2s;
+  transition: font-size 0.2s, color 1s;
 }
 
 .details:hover {
   color: #bdcadb;
   font-size: 1.4rem;
+}
+
+li.details {
+  margin: 0 0.2em;
 }
 
 /*        PRICE TABLE       */
@@ -598,6 +602,7 @@ div.screen {
 }
 
 div.screen {
+  perspective: 500px;
   transform: rotateY(90deg);
   -webkit-transform: rotateY(90deg); /* WebKit */
   -moz-transform: rotateY(90deg); /* Mozilla */
@@ -654,6 +659,11 @@ textarea::placeholder {
   border: 0.01em solid #215e5e;
   border-radius: 0.1em;
   padding: 1em;
+  transition: background-color 0.5s;
+}
+
+.sendBtn:hover {
+  background-color: #494f69;
 }
 
 .arrowSection {
@@ -702,7 +712,7 @@ label {
 
 .signToMyPage {
   opacity: 0;
-  transition: opacity 1;
+  transition: opacity 1s;
 }
 
 .signBtn {

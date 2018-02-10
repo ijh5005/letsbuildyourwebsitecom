@@ -323,7 +323,6 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
   }
   this.watchForContentAnimation = () => {
     const serviceDistanceWatch = $interval(() => {
-      debugger
       const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
       if(serviceDistance < $('.mainContent').scrollTop() + 200){
         $interval.cancel(serviceDistanceWatch);
