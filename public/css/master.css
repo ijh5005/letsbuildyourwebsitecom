@@ -56,11 +56,12 @@ p {
 .welcomeBar {
   background-color: #3d435c;
   height: 2.8em;
-  left: 0;
-  position: absolute;
+  right: 0;
+  position: fixed;
   top: -2.8em;
   transition: top 0.5s;
-  width: 100%;
+  width: 80vw;
+  z-index: 2;
 }
 
 .welcomeText {
@@ -752,7 +753,7 @@ a {
 /*        FOOTER        */
 div.footer {
   background-color: #14161f;
-  height: 15em;
+  height: 6em;
   justify-content: flex-start;
   transition: top 0.5s;
   width: 100%;
