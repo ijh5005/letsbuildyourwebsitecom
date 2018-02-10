@@ -186,7 +186,7 @@ div.introAnimationBox {
   height: 34em;
   justify-content: space-around;
   width: 50em;
-  /*perspective: 100em;*/
+  perspective: 200em;
 }
 
 .url,
