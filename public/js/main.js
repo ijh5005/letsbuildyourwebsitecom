@@ -297,8 +297,8 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
                   $timeout(() => {
                     (nextPage === 'screenVersion4') ? $('.signToMyPage').css('opacity', 1) : toNextScreenAnimation();
                   }, 1000);
-                },)
-              },)
+                })
+              })
             })
             // animation.toggleHomePageScreen();
           }, 500);
