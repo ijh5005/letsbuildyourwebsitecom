@@ -169,7 +169,7 @@ app.service('data', function(){
     {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website."},
     {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website."},
     {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
-    {service: "contact form", price: "25", description: "This form is a convenient way for customers to contact you. This form will be on a page of your website."}
+    {service: "contact form", price: "25", description: "This form is a convenient way for customers to contact you. This form will be on a page of your website."},
     {service: "feedback form", price: "25", description: "This form is a convenient way for customers to leave feedback. This form will be on a page of your website."}
   ]
   this.typeAnimationOne = {
