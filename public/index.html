@@ -40,11 +40,7 @@
 
         <div class="animationPagebody flexCol typeScreen" ng-if='screenVersion === "code"'>
           <div class="typeScreenContainer flexCol">
-            <div class="typingLineOne"></div>
-            <div class="typingLineTwo tab"></div>
-            <div class="typingLineThree tab"></div>
-            <div class="typingLineFour tab"></div>
-            <div class="typingLineFive"></div>
+
           </div>
         </div>
 
@@ -59,89 +55,6 @@
           </div>
         </div>
 
-        <!-- <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"' ng-class='hidePage'>
-          <div class="pageContent animationPagebodymainSection"></div>
-          <div class="pageContent animationPagebodySideSection flexCol">
-            <div class="sideSectionTop"></div>
-            <div class="sideSectionBottom"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion2"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop"></div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page2Blocks"></div>
-            <div class="page2Blocks"></div>
-            <div class="page2Blocks"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2 screenVersion3" ng-if='screenVersion === "screenVersion3"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop flexRow">
-            <div class="pageContentSignUpSignIn">SIGN UP</div>
-          </div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks one"></div>
-            <div class="page3Blocks two"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop page4ImgTop flexCol">
-            <div class="signInBar flexRow">
-              <div class="pageContentSignUpSignIn p4sign" ng-click='signin()'>SIGN IN</div>
-              <div class="pageContentSignUpSignIn p4sign" ng-click='signup()'>SIGN UP</div>
-            </div>
-            <div class="logoBox flexRow">
-              <p>{{logo | uppercase}}</p>
-            </div>
-          </div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks page4Block two flexRow">
-              <div class="page4BlockImg">
-                <div class="page4BlockImgBlock"></div>
-              </div>
-              <div class="page4BlockText flexCol">
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-              </div>
-              <div class="signInForm">
-                <div class="signFormMessage">
-                  <p>Thanks For Registering! Try Signing in</p>
-                </div>
-                <div class="formLiner flexCol">
-                  <form class="flexCol" action="/register" method="post" ng-if="currentSignPage === 'signup'">
-                    <input class="signUpFirstname" type="text" name="firstname" value="" placeholder="firstname">
-                    <input class="signUpLastname" type="text" name="lastname" value="" placeholder="lastname">
-                    <input class="signUpUsername" type="text" name="username" value="" placeholder="username">
-                    <input class="signUpPassword" type="password" name="password" value="" placeholder="password">
-                    <div class="flexRow">
-                      <div class="submit flexRow" ng-click='signUpSubmit()'>
-                        <p>sign up</p>
-                      </div>
-                      <div class="submit flexRow" ng-click='hideSignIn()'>
-                        <p>back</p>
-                      </div>
-                    </div>
-                  </form>
-                  <form class="flexCol" action="/login" method="post" ng-if="currentSignPage === 'signin'">
-                    <input class="signInUsername" type="text" name="username" value="" placeholder="username">
-                    <input class="signInPassword" type="password" name="password" value="" placeholder="password">
-
-                    <div class="flexRow">
-                      <div class="submit flexRow" ng-click='signInSubmit()'>
-                        <p>sign in</p>
-                      </div>
-                      <div class="submit flexRow" ng-click='hideSignIn()'>
-                        <p>back</p>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
       </div>
 
       <!-- SECTION -->
@@ -152,7 +65,7 @@
           <div class="imgHolderText flexRow">
             <p>Services</p>
           </div>
-          <img src="../img/services.jpg" alt=""  class="pointer">
+          <img src="../img/services.jpg" alt=""  class="pointer fullHeight">
         </div>
       </div>
       <div id="servicesSection" class="text section">
@@ -174,15 +87,6 @@
       </div>
 
       <div data="cost"></div>
-      <!-- PRICING IMG BUTTON -->
-      <div id="pricingSectionImgButton" class="imgButton imgButtonLeft flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Pricing</p>
-          </div>
-          <img src="../img/pricing.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <!-- PRICE TABLE -->
       <div id="pricingSection" class="section table" >
         <div id="tableHeader" class="row sectionContent2 flexRow odd">
@@ -205,15 +109,6 @@
       </div>
 
       <div data="tips"></div>
-      <!-- TIPS IMG BUTTON -->
-      <div id="contactCustomerSectionImgButton" class="imgButton flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Contact Customers</p>
-          </div>
-          <img src="../img/contact.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <!-- MESSAGE FORM SECTIONS -->
       <div id="contactCustomerSection" class="section">
         <div class="miniSection sectionContent3 flexCol">
@@ -270,7 +165,7 @@
           <div class="imgHolderText flexRow">
             <p>Taking time to thank you for visiting</p>
           </div>
-          <img src="../img/thankyou.jpg" alt=""  class="pointer">
+          <img src="../img/thankyou.jpg" alt=""  class="pointer fullHeight">
         </div>
       </div>
       <!-- SIGN UP SECTION -->
@@ -302,15 +197,6 @@
 
       <!-- CONTACT SECTION -->
       <div data="contact"></div>
-      <!-- CONTACT IMG BUTTON -->
-      <div id="contactMeSectionImgButton" class="imgButton flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Call Me</p>
-          </div>
-          <img src="../img/ready.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <div class="section" id="contactMeSection">
         <div class="miniSection sectionContent5 flexCol">
           <h1 data="7" class="textHeading"><span data="7" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>CONTACT</h1>

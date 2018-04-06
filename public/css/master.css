@@ -22,23 +22,6 @@ p {
   margin: 0;
 }
 
-.flexRow {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
-.flexCol {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.none {
-  display: none;
-}
-
 .opacityZero {
   opacity: 0;
 }
@@ -50,10 +33,6 @@ p {
 
 .body {
   align-items: flex-start;
-}
-
-.highlight {
-  color: var(--highlight);
 }
 
 /*        WELCOME BAR       */
@@ -79,7 +58,6 @@ p {
   background-color: #14161f;
   height: 32em;
   justify-content: flex-end;
-  width: 100%;
 }
 
 .imgButtonLeft {
@@ -109,7 +87,6 @@ p {
 }
 
 .imgHolder img {
-  height: 100%;
   left: 0;
   opacity: 0.4;
   position: relative;
@@ -118,10 +95,6 @@ p {
 
 /*        NAVIGATION POINTS       */
 .navigationPoint:hover {
-  color: var(--highlight);
-}
-
-.navigationPointHover {
   color: var(--highlight);
 }
 
@@ -224,18 +197,6 @@ div.introAnimationBox {
   width: 85%;
 }
 
-.typingLineOne,
-.typingLineTwo,
-.typingLineThree,
-.typingLineFour,
-.typingLineFive {
-  letter-spacing: 3px;
-}
-
-.tab {
-  padding-left: 2em;
-}
-
 .url {
   height: 10%;
   justify-content: flex-start;
@@ -264,226 +225,8 @@ div.introAnimationBox {
   position: relative;
 }
 
-.urlClicked {
-  background-color: var(--highlight);
-}
-
 .pageContent {
   opacity: 0;
-}
-
-.animationPagebodymainSection {
-  background-color: #2d3143;
-}
-
-.animationPagebodymainSection,
-.animationPagebodySideSection {
-  height: 90%;
-  width: 46%;
-}
-
-.animationPagebodySideSection {
-  justify-content: space-around;
-}
-
-.sideSectionTop,
-.sideSectionBottom,
-.page2ImgTop,
-.page2Blocks,
-.page3Blocks {
-  background-color: #2d3143;
-}
-
-.sideSectionTop,
-.sideSectionBottom {
-  height: 45%;
-  width: 60%;
-}
-
-.page2ImgTop {
-  height: 50%;
-  width: 100%;
-}
-
-.page2ImgBottom {
-  height: 50%;
-  width: 100%;
-}
-
-.page2Blocks {
-  border-radius: 1em;
-  height: 9em;
-  width: 14em;
-}
-
-.pageContentSignUpSignIn {
-  background-color: #35394d;
-  border-radius: 0.1em;
-  color: var(--highlight);
-  font-weight: bold;
-  margin: 2em;
-  padding: 0.6em 3em;
-}
-
-.logoBox {
-  height: 72%;
-  width: 100%;
-}
-
-.logoBox p {
-  color: #494f69;
-  transition: color 0.5s;
-}
-
-.logoBox p:hover {
-  color: var(--highlight);
-}
-
-.page4ImgTop {
-  align-items: flex-start;
-}
-
-.signInBar {
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.page3Blocks {
-  height: 100%;
-  width: 50%;
-}
-
-.p4sign {
-  left: -1em;
-  margin: 8px 2px;
-  position: relative;
-  transition: background-color 0.5s;
-}
-
-.p4sign:hover {
-  background-color: #494f69;
-}
-
-.p4img {
-  height: 10em;
-  margin: 0 10px;
-  width: 9em;
-}
-
-.p4img {
-  background-color: #2d3143;
-}
-
-.page3Blocks.one {
-  background-color: #35394d;
-}
-
-.page3Blocks.two {
-  background-color: #494f69;
-  overflow: hidden;
-}
-
-.page4Block {
-  height: 108%;
-  position: relative;
-  top: -15px;
-  width: 82%;
-  transition: top 0.8s;
-}
-
-.page4BlockImg,
-.page4BlockText {
-  height: 72%;
-  width: 40%;
-}
-
-.signFormMessage {
-  opacity: 0;
-  text-align: center;
-  transition: opacity 0.5s;
-}
-
-.signFormMessage p {
-  color: var(--highlight);
-  font-size: 1.2em;
-}
-
-input {
-  background-color: #2d3143;
-  border: none;
-  border-radius: 1em;
-  color: #eee;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.8em;
-  margin-top: 0.2em;
-  outline: 0;
-  text-align: center;
-}
-
-.submit {
-  background-color: #2d3143;
-  border-radius: 1em;
-  height: 2em;
-  margin: 0.2em;
-  width: 8em;
-}
-
-.submit:hover {
-  opacity: 0.6;
-}
-
-.signInForm {
-  background-color: #494f69;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: -1;
-}
-
-.page4BlockImgBlock {
-  background-color: #35394d;
-  border-radius: 50%;
-  height: 8em;
-  transition: border-radius 0.5s;
-  width: 8em;
-}
-
-.page4BlockImgBlock:hover {
-  border-radius: 10%;
-}
-
-.page4BlockTextLine {
-  background-color: #2d3143;
-  border-radius: 1em;
-  height: 1em;
-  margin: 1em 0;
-  transition: width 0.5s;
-  width: 94%;
-}
-
-.page4BlockTextLine:hover {
-  width: 60%;
-}
-
-.openPagePast {
-  transform: rotateY(92deg);
-}
-
-.openPage {
-  transform: rotateY(90deg);
-}
-
-.closePagePast {
-  transform: rotateY(-2deg);
-}
-
-.closePage {
-  transform: rotateY(0deg);
-}
-
-.ninetydegrees {
-  transform: rotateY(90deg) !important;
-  transition: transform 0s;
 }
 
 .zeroOpacity {
