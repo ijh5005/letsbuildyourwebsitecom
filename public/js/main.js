@@ -127,7 +127,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
 
   animation.sideBar();
   animation.tableOnSmallScreen();
-  task.startHomePageAnimation();
+  //task.startHomePageAnimation();
   task.watchForTableAnimation();
   task.hideSections();
   task.watchForContentAnimation();

@@ -7,12 +7,17 @@ body {
   padding: 0;
 }
 
+:root {
+  --pColor: #bdcadb;
+  --highlight: #4bc0c0;
+}
+
 body {
   transition: opacity 1s;
 }
 
 p {
-  color: #bdcadb;
+  color: var(--pColor);
   font-size: 1.4em;
   margin: 0;
 }
@@ -48,7 +53,7 @@ p {
 }
 
 .highlight {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 /*        WELCOME BAR       */
@@ -96,7 +101,7 @@ p {
 }
 
 .imgHolderText p {
-  color: #4bc0c0;
+  color: var(--highlight);
   font-size: 2em;
   left: 2em;
   position: relative;
@@ -113,17 +118,17 @@ p {
 
 /*        NAVIGATION POINTS       */
 .navigationPoint:hover {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 .navigationPointHover {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 /*        SIDE BAR        */
 .sideBar {
   background-color: #2d3143;
-  color: #bdcadb;
+  color: var(--pColor);
   height: 100vh;
   justify-content: flex-start;
   left: -20vw;
@@ -170,7 +175,7 @@ div.section {
 }
 
 .yourName {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 .intro h1 {
@@ -211,7 +216,7 @@ div.introAnimationBox {
 .typeScreenContainer {
   align-items: flex-start;
   background-color: transparent;
-  color: #4bc0c0;
+  color: var(--highlight);
   font-size: 1.2em;
   height: 10em;
   justify-content: space-between;
@@ -253,14 +258,14 @@ div.introAnimationBox {
 }
 
 .url p {
-  color: #4bc0c0;
+  color: var(--highlight);
   left: 3em;
   letter-spacing: 3px;
   position: relative;
 }
 
 .urlClicked {
-  background-color: #4bc0c0;
+  background-color: var(--highlight);
 }
 
 .pageContent {
@@ -314,7 +319,7 @@ div.introAnimationBox {
 .pageContentSignUpSignIn {
   background-color: #35394d;
   border-radius: 0.1em;
-  color: #4bc0c0;
+  color: var(--highlight);
   font-weight: bold;
   margin: 2em;
   padding: 0.6em 3em;
@@ -331,7 +336,7 @@ div.introAnimationBox {
 }
 
 .logoBox p:hover {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 .page4ImgTop {
@@ -399,7 +404,7 @@ div.introAnimationBox {
 }
 
 .signFormMessage p {
-  color: #4bc0c0;
+  color: var(--highlight);
   font-size: 1.2em;
 }
 
@@ -491,7 +496,7 @@ input {
 }
 
 .miniSection h1 {
-  color: #4bc0c0;
+  color: var(--highlight);
   font-size: 2.2em;
   font-weight: 100;
 }
@@ -509,7 +514,7 @@ div.section.table {
 }
 
 .details:hover {
-  color: #bdcadb;
+  color: var(--pColor);
   font-size: 1.4rem;
 }
 
@@ -523,7 +528,7 @@ li.details {
 }
 
 .row div {
-  color: #bdcadb;
+  color: var(--pColor);
   height: 100%;
 }
 
@@ -537,7 +542,7 @@ li.details {
 
 .row .row2 p {
   background-color: transparent;
-  color: #bdcadb;
+  color: var(--pColor);
 }
 
 .odd {
@@ -577,7 +582,7 @@ p {
 /*        MESSAGE FORM SECTIONS       */
 
 .navTag:hover {
-  color: #bdcadb;
+  color: var(--pColor);
   font-weight: 400;
 }
 
@@ -593,7 +598,7 @@ p {
 }
 
 .selectedSendBtn p {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 div.form,
@@ -619,7 +624,7 @@ div.screen {
 .arrowOne,
 .arrowTwo,
 .arrowThree {
-  color: #4bc0c0;
+  color: var(--highlight);
   opacity: 0;
 }
 
@@ -634,7 +639,7 @@ div.sendBtnSection {
   border: none;
   border-radius: 0.1em;
   box-shadow: none;
-  color: #bdcadb;
+  color: var(--pColor);
   font-family: 'Roboto', sans-serif;
   font-size: 1.4em;
   margin: 0.25em 0;
@@ -651,7 +656,7 @@ div.sendBtnSection {
 
 input::placeholder,
 textarea::placeholder {
-  color: #bdcadb;
+  color: var(--pColor);
   opacity: 0.4;
 }
 
@@ -701,7 +706,7 @@ div.deviceScreen.messageSent {
 }
 
 label {
-  color: #4bc0c0;
+  color: var(--highlight);
   font-size: 1.4em;
   font-weight: 100;
 }
@@ -719,7 +724,7 @@ label {
 .signBtn {
   background-color: #2d3143;
   border: 1px solid #215e5e;
-  color: #4bc0c0;
+  color: var(--highlight);
   margin: 0.4em;
   transition: background-color 0.5s;
 }
@@ -734,7 +739,7 @@ label {
 
 /*CONTACT SECTION*/
 .highlightEmail {
-  color: #4bc0c0;
+  color: var(--highlight);
 }
 
 a {

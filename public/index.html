@@ -5,7 +5,9 @@
     <title>letsbuildyourwebsite</title>
   </head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300|Montserrat:900" rel="stylesheet">
+  <link rel="stylesheet" href="./css/library.css">
   <link rel="stylesheet" href="./css/master.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
   <body class="body flexRow opacityZero" ng-app='app' ng-controller='ctrl' ng-cloak>
 
     <div class="sideBar flexCol">
@@ -47,6 +49,17 @@
         </div>
 
         <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"' ng-class='hidePage'>
+          <div class="" style="display: none">
+            <i class="fas fa-desktop"></i>
+            <i class="fas fa-mobile"></i>
+            <i class="fas fa-tablet"></i>
+            <i class="far fa-money-bill-alt"></i>
+            <i class="fas fa-puzzle-piece"></i>
+            <i class="fas fa-wrench"></i>
+          </div>
+        </div>
+
+        <!-- <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"' ng-class='hidePage'>
           <div class="pageContent animationPagebodymainSection"></div>
           <div class="pageContent animationPagebodySideSection flexCol">
             <div class="sideSectionTop"></div>
@@ -127,7 +140,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
