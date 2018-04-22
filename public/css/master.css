@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: #1c1f2b;
+  background-color: #161A28;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   overflow: hidden;
@@ -112,8 +112,14 @@ p {
 }
 
 /*        NAVIGATION POINTS       */
+.navigationPoint {
+  transition: transform 0.5s;
+}
+
 .navigationPoint:hover {
-  color: #4bc0c0;
+  color: #C18187;
+  font-weight: bold;
+  transform: scale(1.2);
 }
 
 .navigationPointHover {
@@ -122,7 +128,7 @@ p {
 
 /*        SIDE BAR        */
 .sideBar {
-  background-color: #2d3143;
+  background-color: #272C42;
   color: #bdcadb;
   height: 100vh;
   justify-content: flex-start;
@@ -137,7 +143,6 @@ p {
   font-size: 1em;
   letter-spacing: 3px;
   margin: 1em;
-  transition: color 0.5s;
 }
 
 /*        MAIN CONTENT        */
@@ -528,7 +533,7 @@ li.details {
 }
 
 .row div p {
-  background-color: #2d3143;
+  background-color: #2E3349;
   color: #9dbed8;
   font-weight: 100;
   margin: 0.1em;
@@ -541,11 +546,11 @@ li.details {
 }
 
 .odd {
-  background-color: #2d3143;
+  background-color: #2E3349;
 }
 
 .even {
-  background-color: #35394d;
+  background-color: #272C42;
 }
 
 .row1 {
@@ -579,6 +584,17 @@ p {
 .navTag:hover {
   color: #bdcadb;
   font-weight: 400;
+}
+
+span.navTag,
+.at,
+.your {
+  color: #C18187;
+  font-weight: bold;
+}
+
+.your {
+  font-weight: bold;
 }
 
 .sendEmailBtn,
