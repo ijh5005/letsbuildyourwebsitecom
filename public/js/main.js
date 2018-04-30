@@ -35,6 +35,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.messageFailed = false;
   $rootScope.successfullyLoggedIn = false;
   $rootScope.appContent;
+  $rootScope.introText;
 
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
@@ -453,6 +454,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   }
   this.setContent = () => {
     this.setProducts();
+    this.page1();
     this.page2();
   }
   this.setProducts = () => {
@@ -461,8 +463,10 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       data['services'].push(product);
     })
   }
+  this.page1 = () => {
+    $rootScope.introText = $rootScope.appContent['pages']['_0']['content'][0];
+  }
   this.page2 = () => {
-    debugger
     $rootScope.appContent['pages']['_1']['content'].map((productData) => {
       const product = { head: productData['_0'], p1: productData['_1'], p2: productData['_2'] }
       data['page2Content'].push(product);
