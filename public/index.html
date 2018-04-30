@@ -143,20 +143,10 @@
         </div>
       </div>
       <div id="servicesSection" class="text section">
-        <div class="sectionContent1 miniSection flexCol">
-          <h1 data="1" class="textHeading"><span data="1" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>MULTI-DEVICE</h1>
-          <p>Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV.</p>
-          <p class="details">We use countless device types to surf the web. A three-second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site for any device type. With my services, your site will look amazing on all devices.</p>
-        </div>
-        <div class="sectionContent1 miniSection flexCol">
-          <h1 data="2" class="textHeading"><span data="2" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INTEGRATION</h1>
-          <p>We can always add more features later. No pressure to get it all at once.</p>
-          <p class="details">There are several services you can get on your website: a login in page, shopping cart, email notification sign up, subscription sign up, and many more. No need to worrying about everything you need at once. Services can always be added later. For now, focus on what is most important for your customers. When you get more feedback or a better idea what your customer wants on your website we will add it as we go.</p>
-        </div>
-        <div class="sectionContent1 miniSection flexCol">
-          <h1 data="3" class="textHeading"><span data="3" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>INEXPENSIVE</h1>
-          <p>Websites can cost thousands. No fear, I'm here, with affordable prices.</p>
-          <p class="details">A web developer makes anywhere from $15 - $60/hr ( sometimes more! ). Websites can take weeks to finish depending on the complexity of the site so it gets expensive quick. I understand how it feels to inherit the stress and expenses of a business. So, let me remedy that expense by offering you a huge discount. Check out the pricing table below for details.</p>
+        <div class="sectionContent1 miniSection flexCol" ng-repeat='page2Content in page2'>
+          <h1 data="1" class="textHeading"><span data="1" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>{{page2Content.head}}</h1>
+          <p>{{page2Content.p1}}</p>
+          <p class="details">{{page2Content.p2}}</p>
         </div>
       </div>
 
@@ -171,7 +161,7 @@
         </div>
       </div>
       <!-- PRICE TABLE -->
-      <div id="pricingSection" class="section table" >
+      <div id="pricingSection" class="section table">
         <div id="tableHeader" class="row sectionContent2 flexRow odd">
           <div class="row1 flexRow"><p>Service</p></div>
           <div class="row2 flexRow"><p>Description</p></div>
@@ -206,8 +196,7 @@
         <div class="miniSection sectionContent3 flexCol">
           <h1 data="4" class="textHeading">
             <span data="4" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>
-            <span class="email1">E</span><span class="email2">M</span><span class="email3">A</span><span class="email4">I</span><span class="email5">L</span>
-            CUSTOMERS
+            EMAIL CUSTOMERS
           </h1>
           <p>Send emails promoting this week's sales.</p>
         </div>

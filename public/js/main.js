@@ -9,6 +9,15 @@ $(document).ready(() => {
 var app = angular.module('app', []);
 
 app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server){
+  //database name
+  $rootScope.db = 'letsbuildyourwebsitedashboard';
+  //database collection name
+  $rootScope.coll = 'dashboardContent';
+  //api key
+  $rootScope.apiKey = '7sJF23PwcfBVjIeJCuUDIXcWr3kJgx3d';
+  //the id of the content in the collection
+  $rootScope.id = '5ae47beef36d282906c3334c';
+
   $rootScope.isSmallScreen = false;
   $rootScope.isBigScreen = false;
   $rootScope.name = null;
@@ -25,6 +34,8 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.typeAnimationFour = data.typeAnimationFour;
   $rootScope.messageFailed = false;
   $rootScope.successfullyLoggedIn = false;
+  $rootScope.appContent;
+
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
@@ -32,6 +43,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.homePageAnimationOpen = false;
   $scope.navigationPoints = data.navigationPoints;
   $scope.services = data.services;
+  $scope.page2 = data.page2Content;
   $scope.changeMessageStatusToEmail = () => {
     $scope.messageType = 'email';
     $scope.emailStatus = 'selectedSendBtn';
@@ -133,6 +145,10 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   task.watchForContentAnimation();
   task.watchForFailedMessage();
   task.screenCheck();
+
+  //get application data
+  task.get();
+
 }])
 
 app.service('navigate', function(){
@@ -152,50 +168,7 @@ app.service('navigate', function(){
   }
 });
 
-app.service('data', function(){
-  this.navigationPoints = [
-    {data: 0, point: 'home'},
-    {data: 1, point: 'service'},
-    {data: 2, point: 'cost'},
-    {data: 3, point: 'tips'},
-    {data: 4, point: 'contact'}
-  ]
-  this.services = [
-    {service: "website pages", price: "$50 each", description: "Includes a custom design. All content (ex: text, images, videos) you provide me with will be added."},
-    {service: "dashboard", price: "$10 / month", description: "With the dashboard, you can edit content on your website, edit existing product information, and add additional products at the click of a button. This is a computer application."},
-    {service: "shopping cart", price: "$80", description: "Includes shopping cart and payment pages. I will also set up a third party payment service that is linked directly to your bank card. The service gives you access to customer payment history, receipts, refunds, and more."},
-    {service: "device friendly layout", price: "$25 each", description: "Your website layout will fit devices of your choice including cell phones, tablets, desktops, and televisions."},
-    {service: "sign in/sign up", price: "$50", description: "Includes a sign in/sign up forms page linked to a database that stores usernames and passwords."},
-    {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website."},
-    {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website."},
-    {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
-    {service: "contact form", price: "$25", description: "This form is a convenient way for customers to contact you. This form will be on a page of your website."},
-    {service: "feedback form", price: "$25", description: "This form is a convenient way for customers to leave feedback. This form will be on a page of your website."}
-  ]
-  this.typeAnimationOne = {
-    one: '<div class="pageContent page2ImgBottom flexRow">',
-    two: '<div class="page2Blocks"></div>',
-    three: '<div class="page2Blocks"></div>',
-    four: '<div class="page2Blocks"></div>',
-    five: '</div>'
-  },
-  this.typeAnimationTwo = {
-    one: '.page3Blocks {',
-    two: 'background-color: #2d3143;',
-    three: 'height: 100%;',
-    four: 'width: 50%;',
-    five: '}'
-  },
-  this.typeAnimationThree = {
-    one: 'blah blah blah',
-    two: 'blah blah blah blah',
-    three: 'blah blah blah blah',
-    four: 'blah blah blah blah',
-    five: 'blah blah blah'
-  }
-})
-
-app.service('task', function($rootScope, $timeout, $interval, animation, server){
+app.service('task', function($rootScope, $timeout, $interval, $http, animation, server, data){
   this.screenCheck = () => {
     $interval(() => {
       const isSmall = $('.table').css('transition').includes('small');
@@ -456,6 +429,93 @@ app.service('task', function($rootScope, $timeout, $interval, animation, server)
       });
     });
   }
+  //api calls
+  this.get = () => {
+    const url = `https://api.mlab.com/api/1/databases/${$rootScope.db}/collections/${$rootScope.db}?apiKey=${$rootScope.apiKey}`;
+    $http({
+      method: 'GET',
+      url: url,
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      $rootScope.appContent = success['data'][0];
+      this.setContent();
+      console.log("data fitched");
+    }
+
+    const errorCallback = () => {
+      console.log("error in fitching data");
+    }
+  }
+  this.setContent = () => {
+    this.setProducts();
+    this.page2();
+  }
+  this.setProducts = () => {
+    $rootScope.appContent['pages']['_2']['content'].map((productData) => {
+      const product = { service: productData['_0'], price: productData['_2'], description: productData['_1'] }
+      data['services'].push(product);
+    })
+  }
+  this.page2 = () => {
+    debugger
+    $rootScope.appContent['pages']['_1']['content'].map((productData) => {
+      const product = { head: productData['_0'], p1: productData['_1'], p2: productData['_2'] }
+      data['page2Content'].push(product);
+    })
+  }
+})
+
+app.service('data', function(){
+  this.navigationPoints = [
+    {data: 0, point: 'home'},
+    {data: 1, point: 'service'},
+    {data: 2, point: 'cost'},
+    {data: 3, point: 'tips'},
+    {data: 4, point: 'contact'}
+  ]
+  this.services = [
+    // {service: "website pages", price: "$50 each", description: "Includes a custom design. All content (ex: text, images, videos) you provide me with will be added."},
+    // {service: "dashboard", price: "$10 / month", description: "With the dashboard, you can edit content on your website, edit existing product information, and add additional products at the click of a button. This is a computer application."},
+    // {service: "shopping cart", price: "$80", description: "Includes shopping cart and payment pages. I will also set up a third party payment service that is linked directly to your bank card. The service gives you access to customer payment history, receipts, refunds, and more."},
+    // {service: "device friendly layout", price: "$25 each", description: "Your website layout will fit devices of your choice including cell phones, tablets, desktops, and televisions."},
+    // {service: "sign in/sign up", price: "$50", description: "Includes a sign in/sign up forms page linked to a database that stores usernames and passwords."},
+    // {service: "email notifications", price: "$50", description: "An application to email customers (ex. promotional sales). This computer and mobile app not to be displayed on your website."},
+    // {service: "text notifications", price: "$50", description: "An application to text customers (ex. appointment reminders). This computer and mobile app not to be displayed on your website."},
+    // {service: "page animations", price: "$50", description: "Custom animation to help your website stand out and build a smooth customer experience."},
+    // {service: "contact form", price: "$25", description: "This form is a convenient way for customers to contact you. This form will be on a page of your website."},
+    // {service: "feedback form", price: "$25", description: "This form is a convenient way for customers to leave feedback. This form will be on a page of your website."}
+  ]
+  this.typeAnimationOne = {
+    one: '<div class="pageContent page2ImgBottom flexRow">',
+    two: '<div class="page2Blocks"></div>',
+    three: '<div class="page2Blocks"></div>',
+    four: '<div class="page2Blocks"></div>',
+    five: '</div>'
+  }
+  this.typeAnimationTwo = {
+    one: '.page3Blocks {',
+    two: 'background-color: #2d3143;',
+    three: 'height: 100%;',
+    four: 'width: 50%;',
+    five: '}'
+  }
+  this.typeAnimationThree = {
+    one: 'blah blah blah',
+    two: 'blah blah blah blah',
+    three: 'blah blah blah blah',
+    four: 'blah blah blah blah',
+    five: 'blah blah blah'
+  }
+  this.page2Content = [
+    // { head: 'MULTI-DEVICE', p1: 'Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV.', p2:  'We use countless device types to surf the web. A three-second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site for any device type. With my services, your site will look amazing on all devices.'},
+    // { head: 'INTEGRATION', p1: 'We can always add more features later. No pressure to get it all at once.', p2:  'There are several services you can get on your website: a login in page, shopping cart, email notification sign up, subscription sign up, and many more. No need to worrying about everything you need at once. Services can always be added later. For now, focus on what is most important for your customers. When you get more feedback or a better idea what your customer wants on your website we will add it as we go.'},
+    // { head: 'INEXPENSIVE', p1: 'Websites can cost thousands. No fear, I\'m here, with affordable prices.', p2:  'A web developer makes anywhere from $15 - $60/hr ( sometimes more! ). Websites can take weeks to finish depending on the complexity of the site so it gets expensive quick. I understand how it feels to inherit the stress and expenses of a business. So, let me remedy that expense by offering you a huge discount. Check out the pricing table below for details.'}
+  ];
 })
 
 app.service('animation', function($rootScope, $timeout, $interval){
