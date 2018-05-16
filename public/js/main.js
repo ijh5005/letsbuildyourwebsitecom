@@ -21,12 +21,10 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $rootScope.isSmallScreen = false;
   $rootScope.isBigScreen = false;
   $rootScope.name = null;
-  $rootScope.url = 'yourwebsite.com';
   $rootScope.messageSent = false;
   $rootScope.currentlySendingMessage = false;
   $rootScope.labelMessage = "";
   $rootScope.showLabelLabelMessage = false;
-  $rootScope.screenVersion = 'screenVersion1';
   $rootScope.doneTyping = true;
   $rootScope.typeAnimationOne = data.typeAnimationOne;
   $rootScope.typeAnimationTwo = data.typeAnimationTwo;
@@ -40,7 +38,6 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $scope.messageType = 'email';
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
-  $scope.logo = 'YOUR LOGO';
   $rootScope.homePageAnimationOpen = false;
   $scope.navigationPoints = data.navigationPoints;
   $scope.services = data.services;
@@ -107,10 +104,9 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
       if(!$rootScope.successfullyLoggedIn){ return null }
       //cancel when logged in and proceed
       $interval.cancel(checkForLogIn);
-      task.startHomePageAnimation();
       $scope.logo = $rootScope.name + ' LOGO';
       //Do stuff when logged in
-      task.hideSignIn();
+
     }, 10);
   }
   $scope.signUpSubmit = () => {
@@ -134,13 +130,8 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
       server.register(signUpObj, url);
     }
   }
-  $scope.hideSignIn = () => {
-    task.hideSignIn();
-  }
-
   animation.sideBar();
   animation.tableOnSmallScreen();
-  task.startHomePageAnimation();
   task.watchForTableAnimation();
   task.hideSections();
   task.watchForContentAnimation();
@@ -149,6 +140,38 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
 
   //get application data
   task.get();
+
+  $timeout(() => {
+    $('.firstLift').addClass('screenLift1');
+  }, 500).then(() => {
+    $timeout(() => {
+      $('.secondLift').addClass('screenLift2');
+    }, 1000).then(() => {
+      $timeout(() => {
+        $('#screen').addClass('rotateFront');
+      }, 1000).then(() => {
+        $timeout(() => {
+          $('.firstLift').removeClass('screenLift1');
+          $('.secondLift').removeClass('screenLift2');
+        }, 1400).then(() => {
+          $timeout(() => {
+            $('#screen').addClass('backgroundColorFadeIn');
+            $('.bottomSection').addClass('shadow');
+          }, 500)
+        })
+      })
+    });
+  });
+
+  $interval(() => {
+    const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
+    const random1 = Math.floor(Math.random() * numbers.length);
+    numbers.splice(numbers.indexOf(random1), 1);
+    const random2 = numbers[Math.floor(Math.random() * numbers.length)];
+    $('#screenInsideTopBottom > * > span').removeClass('lighter');
+    $(`#screenInsideTopBottom > * > span[data="${random1}"]`).addClass('lighter');
+    $(`#screenInsideTopBottom > * > span[data="${random2}"]`).addClass('lighter');
+  }, 2000)
 
 }])
 
@@ -164,8 +187,7 @@ app.service('navigate', function(){
   }
   this.navigateTo = (selector) => {
     const offsetTop = parseInt(selector[0].offsetTop);
-    const element = document.getElementById('mainContent');
-    element.scrollTop = offsetTop - 140;
+    $('#mainContent').animate({ scrollTop: offsetTop - 140 }, 250);
   }
 });
 
@@ -176,13 +198,6 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       $rootScope.isSmallScreen = (isSmall) ? true : false;
       $rootScope.isBigScreen = (isSmall) ? false : true;
     })
-  }
-  this.hideSignIn = () => {
-    $('.page4Block').css('top', '20em');
-    $timeout(() => {
-      $('.signInForm').css('zIndex', -1);
-      $('.page4Block').css('top', '-15px');
-    }, 800);
   }
   this.signin = (signin) => {
     $('.page4Block').css('top', '20em');
@@ -204,98 +219,6 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
         $rootScope.messageFailed = false;
       }
     })
-  }
-  this.startHomePageAnimation = () => {
-    $rootScope.url = ($rootScope.successfullyLoggedIn) ? $rootScope.name + 'website.com' : 'yourwebsite.com';
-    $('.pageContent').hide();
-    let stringAmount = 1;
-    const $selector = $(".url p");
-    const pressEnter = () => {
-      $('.urlCircle').css('opacity', 0.6).addClass('urlClicked');
-      $timeout(() => {
-        $('.urlCircle').css('opacity', 1).removeClass('urlClicked')
-      }, 200);
-      $timeout(() => {
-        $('.pageContent').animate({ opacity: 1 });
-        this.startPageChanges();
-      }, 500);
-    }
-    const typeText = () => {
-      const continueTyping = () => {
-        stringAmount++;
-        $selector.text(text);
-        const delay = (Math.floor(Math.random() * 3) + 1) * 100;
-        $timeout(() => { typeText() }, delay);
-      }
-      const text = $rootScope.url.slice(0, stringAmount);
-      const atEndOfUrl = (stringAmount === ($rootScope.url.length + 1));
-      if(atEndOfUrl){
-        pressEnter();
-      } else {
-        continueTyping();
-      }
-    }
-    $timeout(() => {
-      typeText();
-    }, 2000);
-  }
-  this.startPageChanges = () => {
-    const startTypingToFinish = (pagAanimation, nextPage) => {
-      $rootScope.hidePage = 'zeroOpacity';
-      $rootScope.screenVersion = 'code';
-      if (pagAanimation === 1) {
-        animation.type($rootScope.typeAnimationOne);
-      } else if (pagAanimation === 2) {
-        animation.type($rootScope.typeAnimationTwo);
-      } else if (pagAanimation === 3) {
-        animation.type($rootScope.typeAnimationThree);
-      }
-
-      const toNextScreenAnimation = () => {
-        nextPageIndex++;
-        pagAanimation++;
-        startAnimation(pagAanimation, nextPageArray[nextPageIndex]);
-      }
-
-      const watchForTypingToFinish = $interval(() => {
-        if($rootScope.doneTyping){
-          $timeout(() => {
-            $rootScope.screenVersion = nextPage;
-            $timeout(() => {
-              const $thisPage = $('.' + nextPage + '');
-              $thisPage.addClass('ninetydegrees');
-              $timeout(() => {
-                $('.pageContent').css('opacity', 1);
-                $rootScope.hidePage = "";
-                $timeout(() => {
-                  animation.toggleHomePageScreen();
-                  $('.' + nextPage + '').removeClass('ninetydegrees');
-                  $timeout(() => {
-                    (nextPage === 'screenVersion4') ? $('.signToMyPage').css('opacity', 1) : toNextScreenAnimation();
-                  }, 1000);
-                })
-              })
-            })
-            // animation.toggleHomePageScreen();
-          }, 500);
-          $interval.cancel(watchForTypingToFinish);
-        }
-      })
-    }
-    const startAnimation = (pagAanimation, nextPage) => {
-      $timeout(() => {
-        animation.toggleHomePageScreen();
-        $timeout(() => {
-          startTypingToFinish(pagAanimation, nextPage);
-        }, 1200)
-      }, 1500)
-    }
-    let pagAanimation = 1;
-    let nextPageIndex = 0;
-    let nextPageArray = ['screenVersion2', 'screenVersion3', 'screenVersion4'];
-    startAnimation(pagAanimation, nextPageArray[nextPageIndex]);
-    // animation.toggleHomePageScreen();
-    // animation.type($rootScope.typeAnimationOne);
   }
   this.watchForContentAnimation = () => {
     const serviceDistanceWatch = $interval(() => {
@@ -425,6 +348,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       $timeout(() => {
         $(sectionImg).hide();
         $(section).show();
+        $(fadeInContent).css('display', 'none');
       }, 1500).then(() => {
         $(fadeInContent).fadeIn();
       });
@@ -472,39 +396,6 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       data['page2Content'].push(product);
     })
   }
-
-  $timeout(() => {
-    $('.firstLift').addClass('screenLift1');
-  }, 500).then(() => {
-    $timeout(() => {
-      $('.secondLift').addClass('screenLift2');
-    }, 1000).then(() => {
-      $timeout(() => {
-        $('#screen').addClass('rotateFront');
-      }, 1000).then(() => {
-        $timeout(() => {
-          $('.firstLift').removeClass('screenLift1');
-          $('.secondLift').removeClass('screenLift2');
-        }, 1400).then(() => {
-          $timeout(() => {
-            $('#screen').addClass('backgroundColorFadeIn');
-            $('.bottomSection').addClass('shadow');
-          }, 500)
-        })
-      })
-    });
-  });
-
-  $interval(() => {
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
-    const random1 = Math.floor(Math.random() * numbers.length);
-    numbers.splice(numbers.indexOf(random1), 1);
-    const random2 = numbers[Math.floor(Math.random() * numbers.length)];
-    $('#screenInsideTopBottom > * > span').removeClass('lighter');
-    $(`#screenInsideTopBottom > * > span[data="${random1}"]`).addClass('lighter');
-    $(`#screenInsideTopBottom > * > span[data="${random2}"]`).addClass('lighter');
-  }, 2000)
-
 })
 
 app.service('data', function(){
@@ -564,7 +455,7 @@ app.service('animation', function($rootScope, $timeout, $interval){
       $timeout(() => {
         top = $('.welcomeBar').css('top');
         $('.welcomeBar').css('top', 0);
-      }, 800).then(() => {
+      }, 6000).then(() => {
         $timeout(() => {
           $('.welcomeBar').css('top', top);
         }, 5000);
