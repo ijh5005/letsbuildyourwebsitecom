@@ -277,7 +277,8 @@ div.section {
 }
 
 #screenInsideTopBottom > * > span.lighter {
-  opacity: 0.2;
+  color: #C18187;
+  opacity: 0.8;
 }
 
 #screenInsideBottom {
