@@ -15,7 +15,10 @@
     <title>letsbuildyourwebsite</title>
   </head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300|Montserrat:900" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/library.css">
   <link rel="stylesheet" href="./css/master.css">
+  <link rel="stylesheet" href="./css/animation.css">
   <body class="body flexRow opacityZero" ng-app='app' ng-controller='ctrl' ng-cloak>
 
     <div class="sideBar flexCol">
@@ -40,102 +43,102 @@
       </div>
 
       <!-- INTRO ANIMATION BOX -->
-      <div class="introAnimationBox flexCol pointer">
-        <div class="url flexRow"  ng-click="testing()">
-          <div class="urlCircle"></div>
-          <p></p>
-        </div>
+      <div class="h80">
 
-        <div class="animationPagebody flexCol typeScreen" ng-if='screenVersion === "code"'>
-          <div class="typeScreenContainer flexCol">
-            <div class="typingLineOne"></div>
-            <div class="typingLineTwo tab"></div>
-            <div class="typingLineThree tab"></div>
-            <div class="typingLineFour tab"></div>
-            <div class="typingLineFive"></div>
-          </div>
-        </div>
-
-        <div class="animationPagebody flexRow screenVersion1" ng-if='screenVersion === "screenVersion1"' ng-class='hidePage'>
-          <div class="pageContent animationPagebodymainSection"></div>
-          <div class="pageContent animationPagebodySideSection flexCol">
-            <div class="sideSectionTop"></div>
-            <div class="sideSectionBottom"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2" ng-if='screenVersion === "screenVersion2"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop"></div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page2Blocks"></div>
-            <div class="page2Blocks"></div>
-            <div class="page2Blocks"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2 screenVersion3" ng-if='screenVersion === "screenVersion3"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop flexRow">
-            <div class="pageContentSignUpSignIn">SIGN UP</div>
-          </div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks one"></div>
-            <div class="page3Blocks two"></div>
-          </div>
-        </div>
-        <div class="animationPagebody flexCol screenVersion2 screenVersion4" ng-if='screenVersion === "screenVersion4"' ng-class='hidePage'>
-          <div class="pageContent page2ImgTop page4ImgTop flexCol">
-            <div class="signInBar flexRow">
-              <div class="pageContentSignUpSignIn p4sign" ng-click='signin()'>SIGN IN</div>
-              <div class="pageContentSignUpSignIn p4sign" ng-click='signup()'>SIGN UP</div>
-            </div>
-            <div class="logoBox flexRow">
-              <p>{{logo | uppercase}}</p>
-            </div>
-          </div>
-          <div class="pageContent animationPagebodySideSection page2ImgBottom flexRow">
-            <div class="page3Blocks page4Block two flexRow">
-              <div class="page4BlockImg">
-                <div class="page4BlockImgBlock"></div>
+        <div id="screenContainer" class="">
+          <div id="screen" class="fullHeight fullWidth phoneScreen">
+            <div id="bottomScreen" class="fullHeight fullWidth flexCol">
+              <div id="urlBar" class="flexRow h10 w90">
+                <div id="urlCircle"></div>
+                <p id="urlText" class="hideElement">yourwebsite.com</p>
               </div>
-              <div class="page4BlockText flexCol">
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-                <div class="page4BlockTextLine"></div>
-              </div>
-              <div class="signInForm">
-                <div class="signFormMessage">
-                  <p>Thanks For Registering! Try Signing in</p>
-                </div>
-                <div class="formLiner flexCol">
-                  <form class="flexCol" action="/register" method="post" ng-if="currentSignPage === 'signup'">
-                    <input class="signUpFirstname" type="text" name="firstname" value="" placeholder="firstname">
-                    <input class="signUpLastname" type="text" name="lastname" value="" placeholder="lastname">
-                    <input class="signUpUsername" type="text" name="username" value="" placeholder="username">
-                    <input class="signUpPassword" type="password" name="password" value="" placeholder="password">
-                    <div class="flexRow">
-                      <div class="submit flexRow" ng-click='signUpSubmit()'>
+              <div id="screenInside" class="h80 w90 hideElement">
+                <div id="screenInsideTop" class="h50 fullWidth">
+                  <div id="screenInsideTopTop" class="h25 fullWidth flexRow">
+                    <div id="screenMenu" class="">
+                      <i class="fas fa-bars"></i>
+                    </div>
+                    <div id="screenSignIn" class="flexRow">
+                      <div class="">
                         <p>sign up</p>
                       </div>
-                      <div class="submit flexRow" ng-click='hideSignIn()'>
-                        <p>back</p>
-                      </div>
-                    </div>
-                  </form>
-                  <form class="flexCol" action="/login" method="post" ng-if="currentSignPage === 'signin'">
-                    <input class="signInUsername" type="text" name="username" value="" placeholder="username">
-                    <input class="signInPassword" type="password" name="password" value="" placeholder="password">
-
-                    <div class="flexRow">
-                      <div class="submit flexRow" ng-click='signInSubmit()'>
+                      <div class="">
                         <p>sign in</p>
                       </div>
-                      <div class="submit flexRow" ng-click='hideSignIn()'>
-                        <p>back</p>
-                      </div>
                     </div>
-                  </form>
+                  </div>
+                  <div id="screenInsideTopBottom" class="h75 fullWidth flexRow">
+                    <p><span data='0'>I</span><span data='1'>N</span><span data='2'>N</span><span data='3'>O</span><span data='4'>V</span><span data='5'>A</span><span data='6'>T</span><span data='7'>E</span></p>
+                  </div>
+                </div>
+                <div id="screenInsideBottom" class="h50 fullWidth flexRow">
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-hands-helping"></i></div>
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-money-bill-wave"></i></div>
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-chart-line"></i></div>
                 </div>
               </div>
             </div>
+            <div id="middleScreen" class="fullHeight fullWidth firstLift flexCol">
+              <div id="urlBar" class="flexRow h10 w90 hideElementBC">
+                <div id="urlCircle" class="hideElement"></div>
+                <p id="urlText" class="">yourwebsite.com</p>
+              </div>
+              <div id="screenInside" class="h80 w90">
+                <div id="screenInsideTop" class="h50 fullWidth">
+                  <div id="screenInsideTopTop" class="h25 fullWidth flexRow">
+                    <div id="screenMenu" class="hideElement">
+                      <i class="fas fa-bars"></i>
+                    </div>
+                    <div id="screenSignIn" class="flexRow hideElement">
+                      <div class="">
+                        <p>sign up</p>
+                      </div>
+                      <div class="">
+                        <p>sign in</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="screenInsideTopBottom" class="h75 fullWidth flexRow hideElement">
+                    <p><span data='0'>I</span><span data='1'>N</span><span data='2'>N</span><span data='3'>O</span><span data='4'>V</span><span data='5'>A</span><span data='6'>T</span><span data='7'>E</span></p>
+                  </div>
+                </div>
+                <div id="screenInsideBottom" class="h50 fullWidth flexRow">
+                  <div class="bottomSection h75 w25 flexRow hideElement"><i class="fas fa-hands-helping"></i></div>
+                  <div class="bottomSection h75 w25 flexRow hideElement"><i class="fas fa-money-bill-wave"></i></div>
+                  <div class="bottomSection h75 w25 flexRow hideElement"><i class="fas fa-chart-line"></i></div>
+                </div>
+              </div>
+            </div>
+            <div id="frontScreen" class="fullHeight fullWidth firstLift secondLift flexCol">
+              <div id="urlBar" class="flexRow h10 w90 hideElement">
+                <div id="urlCircle"></div>
+                <p id="urlText">yourwebsite.com</p>
+              </div>
+              <div id="screenInside" class="h80 w90 hideElementBC">
+                <div id="screenInsideTop" class="h50 fullWidth">
+                  <div id="screenInsideTopTop" class="h25 fullWidth flexRow">
+                    <div id="screenMenu" class="">
+                      <i class="fas fa-bars"></i>
+                    </div>
+                    <div id="screenSignIn" class="flexRow">
+                      <div class="">
+                        <p>sign up</p>
+                      </div>
+                      <div class="">
+                        <p>sign in</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="screenInsideTopBottom" class="h75 fullWidth flexRow">
+                    <p><span data='0'>I</span><span data='1'>N</span><span data='2'>N</span><span data='3'>O</span><span data='4'>V</span><span data='5'>A</span><span data='6'>T</span><span data='7'>E</span></p>
+                  </div>
+                </div>
+                <div id="screenInsideBottom" class="h50 fullWidth flexRow hideElementBC">
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-hands-helping"></i></div>
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-money-bill-wave"></i></div>
+                  <div class="bottomSection h75 w25 flexRow"><i class="fas fa-chart-line"></i></div>
+                </div>
+              </div>
           </div>
         </div>
 

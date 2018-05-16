@@ -1,0 +1,21 @@
+#screen {
+  transition: all 2s;
+}
+
+#screen > * {
+  transition: all 1s;
+}
+
+#screenSignIn > * > *,
+#screenInsideTopBottom > * > span,
+.bottomSection {
+  transition: all 0.5s;
+}
+
+#screenSignIn > * > *:hover {
+  background-color: var(--sectionColor);
+}
+
+.bottomSection:hover {
+  transform: scale(1.2);
+}
