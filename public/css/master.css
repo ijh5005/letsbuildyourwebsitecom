@@ -467,6 +467,11 @@ span.navTag,
   font-weight: bold;
 }
 
+span.navTag,
+.your {
+  opacity: 0.9;
+}
+
 .your {
   font-weight: bold;
 }
