@@ -223,7 +223,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   this.watchForContentAnimation = () => {
     const serviceDistanceWatch = $interval(() => {
       const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
-      if(serviceDistance < $('.mainContent').scrollTop() + 200){
+      if(serviceDistance < $('.mainContent').scrollTop() + 290){
         $interval.cancel(serviceDistanceWatch);
         this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
       }
@@ -237,14 +237,14 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
     })
     const contactCustomerDistanceWatch = $interval(() => {
       const contactCustomerDistance = $('#contactCustomerSectionImgButton')[0].offsetTop;
-      if(contactCustomerDistance < $('.mainContent').scrollTop() + 400){
+      if(contactCustomerDistance < $('.mainContent').scrollTop() + 350){
         $interval.cancel(contactCustomerDistanceWatch);
         this.revealSection('#contactCustomerSectionImgButton', '#contactCustomerSection', '.sectionContent3');
       }
     })
     const signUpDistanceWatch = $interval(() => {
       const signUpDistance = $('#signUpTipSectionImgButton')[0].offsetTop;
-      if(signUpDistance < $('.mainContent').scrollTop() + 200){
+      if(signUpDistance < $('.mainContent').scrollTop() + 350){
         $interval.cancel(signUpDistanceWatch);
         this.revealSection('#signUpTipSectionImgButton', '#signUpTipSection', '.sectionContent4');
       }
@@ -340,7 +340,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   }
   this.revealSection = (sectionImg, section, fadeInContent) => {
     const $sectionImgBtn = $(sectionImg + ' .imgHolder img');
-    $sectionImgBtn.css('opacity', 0.1);
+    $sectionImgBtn.css('opacity', 0.05);
     $timeout(() => {
       const left = ($(sectionImg).hasClass('imgButtonLeft')) ? '-100vw' : '100vw';
       $sectionImgBtn.css('left', left);

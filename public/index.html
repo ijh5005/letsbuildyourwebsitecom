@@ -19,9 +19,13 @@
   <link rel="stylesheet" href="./css/library.css">
   <link rel="stylesheet" href="./css/master.css">
   <link rel="stylesheet" href="./css/animation.css">
+  <link rel="shortcut icon" type="image/png" href="./img/icon.png"/>
   <body class="body flexRow opacityZero" ng-app='app' ng-controller='ctrl' ng-cloak>
 
     <div class="sideBar flexCol">
+      <div id="logoBox" class="fullWidth flexRow">
+        <img src="./img/icon.png" alt="">
+      </div>
       <p data={{navigationPoint.data}} class="navigationPoint pointer" ng-repeat='navigationPoint in navigationPoints' ng-click="bringToTopOfPage(null, navigationPoint.point)">{{navigationPoint.point}}</p>
     </div>
     <!-- end sideBar -->
@@ -257,7 +261,7 @@
       <div id="signUpTipSectionImgButton" class="imgButton imgButtonLeft flexRow">
         <div class="imgHolder flexRow">
           <div class="imgHolderText flexRow">
-            <p>Taking time to thank you for visiting</p>
+            <p>Thank you for visiting</p>
           </div>
           <img src="../img/thankyou.jpg" alt=""  class="pointer">
         </div>

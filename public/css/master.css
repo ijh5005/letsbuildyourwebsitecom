@@ -100,11 +100,13 @@ p {
   left: 0;
   position: absolute;
   top: 0;
+  z-index: 2;
 }
 
 .imgHolderText p {
   color: #4bc0c0;
-  font-size: 2em;
+  font-size: 4em;
+  font-weight: 100;
   left: 2em;
   position: relative;
   top: 2em;
@@ -113,7 +115,7 @@ p {
 .imgHolder img {
   height: 100%;
   left: 0;
-  opacity: 0.4;
+  opacity: 0.2;
   position: relative;
   transition: opacity 1s, left 1s;
 }
@@ -140,10 +142,18 @@ p {
   height: 100vh;
   justify-content: flex-start;
   left: -20vw;
-  padding-top: 10em;
   position: relative;
   transition: left 0.5s;
   width: 20vw;
+}
+
+#logoBox {
+  height: 10em;
+}
+
+#logoBox img {
+  height: 4em;
+  opacity: 0.6;
 }
 
 .sideBar p {
