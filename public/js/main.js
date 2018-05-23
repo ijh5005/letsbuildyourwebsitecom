@@ -137,41 +137,9 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   task.watchForContentAnimation();
   task.watchForFailedMessage();
   task.screenCheck();
-
+  task.startHomePageAnimation();
   //get application data
   task.get();
-
-  $timeout(() => {
-    $('.firstLift').addClass('screenLift1');
-  }, 500).then(() => {
-    $timeout(() => {
-      $('.secondLift').addClass('screenLift2');
-    }, 1000).then(() => {
-      $timeout(() => {
-        $('#screen').addClass('rotateFront');
-      }, 1000).then(() => {
-        $timeout(() => {
-          $('.firstLift').removeClass('screenLift1');
-          $('.secondLift').removeClass('screenLift2');
-        }, 1400).then(() => {
-          $timeout(() => {
-            $('#screen').addClass('backgroundColorFadeIn');
-            $('.bottomSection').addClass('shadow');
-          }, 500)
-        })
-      })
-    });
-  });
-
-  $interval(() => {
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
-    const random1 = Math.floor(Math.random() * numbers.length);
-    numbers.splice(numbers.indexOf(random1), 1);
-    const random2 = numbers[Math.floor(Math.random() * numbers.length)];
-    $('#screenInsideTopBottom > * > span').removeClass('lighter');
-    $(`#screenInsideTopBottom > * > span[data="${random1}"]`).addClass('lighter');
-    $(`#screenInsideTopBottom > * > span[data="${random2}"]`).addClass('lighter');
-  }, 2000)
 
 }])
 
@@ -192,6 +160,39 @@ app.service('navigate', function(){
 });
 
 app.service('task', function($rootScope, $timeout, $interval, $http, animation, server, data){
+  this.startHomePageAnimation = () => {
+    $timeout(() => {
+      $('.firstLift').addClass('screenLift1');
+    }, 500).then(() => {
+      $timeout(() => {
+        $('.secondLift').addClass('screenLift2');
+      }, 1000).then(() => {
+        $timeout(() => {
+          $('#screen').addClass('rotateFront');
+        }, 1000).then(() => {
+          $timeout(() => {
+            $('.firstLift').removeClass('screenLift1');
+            $('.secondLift').removeClass('screenLift2');
+          }, 1400).then(() => {
+            $timeout(() => {
+              $('#screen').addClass('backgroundColorFadeIn');
+              $('.bottomSection').addClass('shadow');
+            }, 500)
+          })
+        })
+      });
+    });
+
+    $interval(() => {
+      const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
+      const random1 = Math.floor(Math.random() * numbers.length);
+      numbers.splice(numbers.indexOf(random1), 1);
+      const random2 = numbers[Math.floor(Math.random() * numbers.length)];
+      $('#screenInsideTopBottom > * > span').removeClass('lighter');
+      $(`#screenInsideTopBottom > * > span[data="${random1}"]`).addClass('lighter');
+      $(`#screenInsideTopBottom > * > span[data="${random2}"]`).addClass('lighter');
+    }, 2000)
+  };
   this.screenCheck = () => {
     $interval(() => {
       const isSmall = $('.table').css('transition').includes('small');
@@ -370,6 +371,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       $rootScope.appContent = success['data'][0];
       this.setContent();
       console.log("data fitched");
+      $('.mainContent').addClass('showWhenContentLoaded');
     }
 
     const errorCallback = () => {
@@ -383,7 +385,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   }
   this.setProducts = () => {
     $rootScope.appContent['pages']['_2']['content'].map((productData) => {
-      const product = { service: productData['_0'], price: productData['_2'], description: productData['_1'] }
+      const product = { service: productData.service, price: productData.price, description: productData.description }
       data['services'].push(product);
     })
   }
@@ -392,7 +394,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   }
   this.page2 = () => {
     $rootScope.appContent['pages']['_1']['content'].map((productData) => {
-      const product = { head: productData['_0'], p1: productData['_1'], p2: productData['_2'] }
+      const product = { head: productData.header, p1: productData.subText, p2: productData.body }
       data['page2Content'].push(product);
     })
   }
