@@ -2,13 +2,21 @@
   transition: all 2s;
 }
 
-#screen > * {
+#screen > *,
+#loginBox {
   transition: all 1s;
 }
 
 #screenSignIn > * > *,
 #screenInsideTopBottom > * > span,
-.bottomSection {
+#signInBtn,
+#authScreen,
+.bottomSection,
+.middleSectionOption,
+#dashboardMiddleEven p,
+#dashboardMiddleOdd p,
+#updateBtn,
+#updateBtn > p {
   transition: all 0.5s;
 }
 
@@ -18,4 +26,30 @@
 
 .bottomSection:hover {
   transform: scale(1.2);
+}
+
+#signInBtn:hover {
+  background-color: #215e5e;
+}
+
+#authScreen.closeAuthScreen > div#loginBox {
+  opacity: 0;
+  top: -4em;
+}
+
+.middleSectionOptionHolder:hover > p {
+  left: 1em;
+}
+
+#dashboardMiddleEven:hover > p,
+#dashboardMiddleOdd:hover > p {
+  color: #4bc0c0;
+}
+
+#updateBtn:hover {
+  border-color: #4bc0c0;
+}
+
+#updateBtn:hover > p {
+  color: #4bc0c0;
 }

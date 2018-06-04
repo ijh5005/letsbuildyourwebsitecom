@@ -20,7 +20,27 @@
   <link rel="stylesheet" href="./css/master.css">
   <link rel="stylesheet" href="./css/animation.css">
   <link rel="shortcut icon" type="image/png" href="./img/icon.png"/>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
   <body class="body flexRow opacityZero" ng-app='app' ng-controller='ctrl' ng-cloak>
+
+    <div id="authScreen" class="flexRow closeAuthScreen">
+      <div id="authBackgr" class="fullSize" ng-click='closeAuthScreen()'></div>
+      <div id="loginBox" class="flexCol">
+        <p class="bgSignInText">DASHBOARD SIGN IN</p>
+        <p id="signInTopText">DASHBOARD SIGN IN</p>
+        <input class="uname" type="text" name="username" placeholder="username" value="">
+        <input class="psw" type="password" name="password" placeholder="password" value="">
+
+        <!-- SAVE THE DB AND API KEY TO REFRENCE WHEN POPULATING THE DASHBOARD -->
+        <!-- <input type="password" name="password" placeholder="password" value=""> -->
+
+        <div id="signInBtn" class="pointer" ng-click='authenticate()'>
+          <p>SIGN IN</p>
+        </div>
+      </div>
+    </div>
 
     <div class="sideBar flexCol">
       <div id="logoBox" class="fullWidth flexRow">
@@ -31,21 +51,17 @@
     <!-- end sideBar -->
 
     <div id="mainContent" class="mainContent">
-
       <div class="welcomeBar flexRow" ng-if='isBigScreen'>
         <p class="details contactText welcomeText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span></p>
       </div>
-
       <div class="intro section h20">
         <div data="home"></div>
-        <h1 ng-if='isBigScreen'>Let's build <span class="your">your</span> website <span class="yourName">{{name}}</span></h1>
+        <h1 ng-if='isBigScreen'>Let's build <span class="your">your</span> website</h1>
         <div class="homeSmallScreenHeader flexRow" ng-if='isSmallScreen'>
           <p class="details contactText">lets<span class="highlightEmail">build</span>your<span class="highlightEmail">website</span></p>
         </div>
-
         <p id="introText">{{introText}}</p>
       </div>
-
       <!-- INTRO ANIMATION BOX -->
       <div class="h80">
 
@@ -125,10 +141,10 @@
                       <i class="fas fa-bars"></i>
                     </div>
                     <div id="screenSignIn" class="flexRow">
-                      <div class="">
+                      <div class="pointer" ng-click='showSignUp()'>
                         <p>sign up</p>
                       </div>
-                      <div class="">
+                      <div class="pointer" ng-click='showSignIn()'>
                         <p>sign in</p>
                       </div>
                     </div>
@@ -147,7 +163,6 @@
         </div>
 
       </div>
-
       <!-- SECTION -->
       <div data="service"></div>
       <!-- SERVICES IMG BUTTON -->
@@ -168,15 +183,6 @@
       </div>
 
       <div data="cost"></div>
-      <!-- PRICING IMG BUTTON -->
-      <div id="pricingSectionImgButton" class="imgButton imgButtonLeft flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Pricing</p>
-          </div>
-          <img src="../img/pricing.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <!-- PRICE TABLE -->
       <div id="pricingSection" class="section table">
         <div id="tableHeader" class="row sectionContent2 flexRow odd">
@@ -199,15 +205,6 @@
       </div>
 
       <div data="tips"></div>
-      <!-- TIPS IMG BUTTON -->
-      <div id="contactCustomerSectionImgButton" class="imgButton flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Contact Customers</p>
-          </div>
-          <img src="../img/contact.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <!-- MESSAGE FORM SECTIONS -->
       <div id="contactCustomerSection" class="section">
         <div class="miniSection sectionContent3 flexCol">
@@ -295,15 +292,6 @@
 
       <!-- CONTACT SECTION -->
       <div data="contact"></div>
-      <!-- CONTACT IMG BUTTON -->
-      <div id="contactMeSectionImgButton" class="imgButton flexRow">
-        <div class="imgHolder flexRow">
-          <div class="imgHolderText flexRow">
-            <p>Call Me</p>
-          </div>
-          <img src="../img/ready.jpg" alt=""  class="pointer">
-        </div>
-      </div>
       <div class="section" id="contactMeSection">
         <div class="miniSection sectionContent5 flexCol">
           <h1 data="7" class="textHeading"><span data="7" class="navTag pointer" ng-click="bringToTopOfPage($event)"># </span>CONTACT</h1>
@@ -319,8 +307,49 @@
       <div class="flexRow footer">
         <p>Copyright &copy; 2018 letsbuildyourwebsite</p>
       </div>
+
+      </div>
     </div>
     <!-- end mainContent -->
+
+    <div id="dashboard" class="flexRow none">
+
+        <div id="middleBar" class="flexCol fullHeight w15 show">
+          <div class="middleSectionOptionHolder fullWidth" ng-repeat='option in middleSectionOptions track by $index'>
+            <p class="pointer middleSectionOption" ng-click='choosePageToEdit($index)'>{{option}}</p>
+          </div>
+        </div>
+
+        <div class="fullHeight w85">
+          <div id="titleSection" class="flexRow fullWidth h15">
+            <p>DASHBOARD</p>
+          </div>
+          <div id="helpText" class="flexRow fullWidth h5 show">
+            help text section
+          </div>
+          <div class="flexRow fullWidth h80">
+            <div id="contentArea" class="fullHeight w50">
+              <div class="" ng-repeat='content in pageEditContent track by $index'>
+                <div data=${index} id="dashboardMiddleOdd" class="dashBoardBody fullHeight flexRow" ng-if="$odd" ng-click='chooseContentToEdit(content, $index)'>
+                  <p>{{content}}</p>
+                </div>
+                <div data=${index} id="dashboardMiddleEven" class="dashBoardBody fullHeight flexRow" ng-if="$even" ng-click='chooseContentToEdit(content, $index)'>
+                  <p>{{content}}</p>
+                </div>
+              </div>
+            </div>
+            <div id="inputBox" class="fullHeight w50" ng-if='showInputSection'>
+              <div id="updateBtn" class="fullWidth flexRow" ng-click='updateContent()'>
+                <p>UPDATE</p>
+              </div>
+              <div class="fullWidth h80">
+                <textarea class="fullSize" name="name" rows="8" cols="80"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>

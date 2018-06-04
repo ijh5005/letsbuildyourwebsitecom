@@ -5,10 +5,16 @@ const router = express.Router();
 //database
 const mongoose = require('mongoose');
 //connect to database
-const dbuser = "letsbuildyourwebsite";
-const dbpassword = "letsbuildyourwebsite321";
-const mLabUrlEnd = '@ds117858.mlab.com:17858/letsbuildyourwebsite';
-mongoose.connect('mongodb://' + dbuser + ':' + dbpassword + mLabUrlEnd);
+// const dbuser = "letsbuildyourwebsite";
+// const dbpassword = "letsbuildyourwebsite321";
+// const mLabUrlEnd = '@ds117858.mlab.com:17858/letsbuildyourwebsite';
+// mongoose.connect('mongodb://' + dbuser + ':' + dbpassword + mLabUrlEnd);
+
+//connect to mlab database
+const dbuser = 'auth';
+const dbpassword = 'auth1234';
+const endpoint = `mongodb://${dbuser}:${dbpassword}@ds135540.mlab.com:35540/letsbuildyourlogin`;
+mongoose.connect(endpoint);
 
 //services
 const twilio = require('twilio');
@@ -77,15 +83,11 @@ router.post('/register', function(req, res, next) {
   //cache profile information
   const username = req.body.username;
   const password = req.body.password;
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
   //create in instance of the user schema
   let userProfile = new user();
   //set profile information
   userProfile.username = username;
   userProfile.password = password;
-  userProfile.firstname = firstname;
-  userProfile.lastname = lastname;
   //save profile information
   userProfile.save((err, userObj) => {
     //send status

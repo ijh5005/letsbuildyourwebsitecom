@@ -63,8 +63,8 @@ p {
 .welcomeBar {
   background-color: #3d435c;
   height: 2.8em;
-  right: 0;
   position: fixed;
+  right: 0;
   top: -2.8em;
   transition: top 0.5s;
   width: 80vw;
@@ -73,6 +73,152 @@ p {
 
 .welcomeText {
   margin: 0 1em;
+}
+
+/*        AUTH SCREEN        */
+
+#authScreen {
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+#authScreen.closeAuthScreen {
+  opacity: 0;
+  z-index: -10;
+}
+
+#authBackgr {
+  background-color: rgba(22, 26, 40, 0.8);
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+#loginBox {
+  background-color: rgb(22, 26, 40);
+  border: 0.01em solid #215e5e;
+  height: 28em;
+  opacity: 1;
+  position: relative;
+  top: 0em;
+  width: 40em;
+  z-index: 2;
+}
+
+#loginBox p {
+  letter-spacing: 3px;
+}
+
+#loginBox p.bgSignInText {
+  font-size: 4em;
+  letter-spacing: 0px;
+  opacity: 0.2;
+  position: absolute;
+}
+
+#loginBox input {
+  background-color: rgba(22, 26, 40, 0.8);
+  border: 0.01em solid #215e5e;
+  color: #fff;
+  font-size: 2em;
+  font-weight: 100;
+  margin: 0.5em;
+  text-align: center;
+  z-index: 2;
+}
+
+#loginBox input::placeholder {
+  color: #fff;
+}
+
+#signInBtn {
+  background-color: rgba(33, 94, 94, 0.2);
+  padding: 0.25em 2em;
+}
+
+/*      DASHBOARD        */
+#dashboard {
+  background-color: #161A28;
+  color: #fff;
+  height: auto;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 80vw;
+  z-index: -1;
+}
+
+#middleBar {
+  background-color: #14161f;
+  justify-content: flex-start;
+  min-width: 14em;
+  padding-top: 20em;
+}
+
+#middleBar p {
+  line-height: 2;
+}
+
+#titleSection {
+
+}
+
+#titleSection p {
+  font-size: 6em;
+}
+
+#helpText {
+  background-color: #272C42;
+  min-height: 4em;
+}
+
+#contentArea {
+  overflow: scroll;
+}
+
+#dashboardMiddleOdd {
+  background-color: #131626;
+  padding: 2em;
+}
+
+#dashboardMiddleEven {
+  padding: 2em;
+}
+
+#inputBox {
+  background-color: #151826;
+}
+
+#inputBox > div > textarea {
+  background: transparent;
+  border: none;
+  font-size: 2em;
+  color: #bdcadb;
+  padding: 1rem;
+}
+
+#updateBtn {
+  border-bottom: 01em solid #161A28;
+  height: 4em;
+}
+
+#updateBtn > p {
+  color: #fff;
+  font-weight: bold;
+}
+
+.middleSectionOptionHolder {
+  text-align: center;
+}
+
+.middleSectionOption {
+  left: 0;
+  position: relative;
 }
 
 /*        IMG BUTTONS       */
@@ -164,12 +310,17 @@ p {
 
 /*        MAIN CONTENT        */
 .mainContent {
+  background-color: #161A28;
   height: auto;
   height: 100vh;
   justify-content: flex-start;
   overflow-y: scroll;
   position: relative;
   width: 80vw;
+  z-index: 2;
+  /* background-image: url('../img/bgc.png');
+  background-size: cover;
+  background-repeat: no-repeat; */
 }
 
 .mainContent .section,
@@ -189,10 +340,6 @@ div.section {
 
 .intro {
   margin: 10em 0 2em 0;
-}
-
-.yourName {
-  color: #4bc0c0;
 }
 
 .intro h1 {
@@ -268,10 +415,10 @@ div.section {
 #screenSignIn > * > * {
   background-color: transparent;
   border-radius: 0.02rem;
+  color: var(--green);
+  font-size: 1rem;
   padding: 0.4rem 0.6rem;
   text-align: center;
-  font-size: 1rem;
-  color: var(--green);
   width: 6em;
 }
 
@@ -318,9 +465,9 @@ div.section {
 
 #screenContainer {
   height: 34em;
+  margin: 2em auto;
   perspective: 1000px;
   width: 50em;
-  margin: 2em auto;
 }
 
 .phoneScreen {
@@ -498,17 +645,17 @@ div.screen {
 }
 
 div.screen {
-  perspective: 500px;
-  transform: rotateY(90deg);
-  -webkit-transform: rotateY(90deg); /* WebKit */
   -moz-transform: rotateY(90deg); /* Mozilla */
-  -o-transform: rotateY(90deg); /* Opera */
-  -ms-transform: rotateY(90deg); /* Internet Explorer */
-  transition: transform 0.5s;
-  -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;
+  -ms-transform: rotateY(90deg); /* Internet Explorer */
+  -o-transform: rotateY(90deg); /* Opera */
   -o-transition: -o-transform 0.5s;
   -o-transition: -ms-transform 0.5s;
+  -webkit-transform: rotateY(90deg); /* WebKit */
+  -webkit-transition: -webkit-transform 0.5s;
+  perspective: 500px;
+  transform: rotateY(90deg);
+  transition: transform 0.5s;
 }
 
 .arrowOne,
@@ -849,8 +996,8 @@ div#pricingSection.section {
       background-color: #3d435c;
     }
     .row div p {
-      text-align: center;
       border-radius: 0.4em;
+      text-align: center;
     }
     .row1 {
       width: 26%;
@@ -875,25 +1022,25 @@ div#pricingSection.section {
     }*/
     .flip,
     #price {
-      transform: rotateY(0deg);
-      -webkit-transform: rotateY(0deg); /* WebKit */
       -moz-transform: rotateY(0deg); /* Mozilla */
-      -o-transform: rotateY(0deg); /* Opera */
       -ms-transform: rotateY(0deg); /* Internet Explorer */
+      -o-transform: rotateY(0deg); /* Opera */
+      -webkit-transform: rotateY(0deg); /* WebKit */
+      transform: rotateY(0deg);
     }
     .sectionContent1 p {
       opacity: 0;
-      transition: opacity 2s;
       position: relative;
+      transition: opacity 2s;
     }
     .miniSection {
       padding: 0 4em;
     }
     #servicesSection {
-      margin-top: 4em;
       background-color: #474f6b;
-      width: 100vw;
+      margin-top: 4em;
       padding-bottom: 6em;
+      width: 100vw;
     }
     div#pricingSection.section.table {
       margin: 2em 0;
@@ -908,11 +1055,11 @@ div#pricingSection.section {
       font-weight: 400;
     }
     .mainContent .section.intro {
-      margin: 0;
-      display: flex;
       align-items: center;
-      justify-content: center;
+      display: flex;
       flex-direction: column;
+      justify-content: center;
+      margin: 0;
       width: 100vw;
     }
     #introText {

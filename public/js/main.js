@@ -8,28 +8,26 @@ $(document).ready(() => {
 
 var app = angular.module('app', []);
 
-app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server){
+app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'navigate', 'data', 'task', 'animation', 'server', 'dashboard', function($rootScope, $scope, $interval, $timeout, navigate, data, task, animation, server, dashboard){
+  ////////////    dashboard functionality   ////////////
+  $rootScope.loggedInToDashboard = false;
+
   //database name
   $rootScope.db = 'letsbuildyourwebsitedashboard';
-  //database collection name
-  $rootScope.coll = 'dashboardContent';
   //api key
   $rootScope.apiKey = '7sJF23PwcfBVjIeJCuUDIXcWr3kJgx3d';
   //the id of the content in the collection
   $rootScope.id = '5ae47beef36d282906c3334c';
 
+  $rootScope.env = 'local';
+
   $rootScope.isSmallScreen = false;
   $rootScope.isBigScreen = false;
-  $rootScope.name = null;
   $rootScope.messageSent = false;
   $rootScope.currentlySendingMessage = false;
   $rootScope.labelMessage = "";
   $rootScope.showLabelLabelMessage = false;
   $rootScope.doneTyping = true;
-  $rootScope.typeAnimationOne = data.typeAnimationOne;
-  $rootScope.typeAnimationTwo = data.typeAnimationTwo;
-  $rootScope.typeAnimationThree = data.typeAnimationThree;
-  $rootScope.typeAnimationFour = data.typeAnimationFour;
   $rootScope.messageFailed = false;
   $rootScope.successfullyLoggedIn = false;
   $rootScope.appContent;
@@ -39,7 +37,7 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
   $scope.emailStatus = 'selectedSendBtn';
   $scope.textStatus = '';
   $rootScope.homePageAnimationOpen = false;
-  $scope.navigationPoints = data.navigationPoints;
+  $scope.navigationPoints = ($rootScope.loggedInToDashboard) ? data.dashboardOptions : data.navigationPoints;
   $scope.services = data.services;
   $scope.page2 = data.page2Content;
   $scope.changeMessageStatusToEmail = () => {
@@ -53,10 +51,15 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
     $scope.textStatus = 'selectedSendBtn';
   }
   $scope.bringToTopOfPage = (e, dataValue) => {
-    (dataValue === undefined) ? navigate.toTagWithEvent(e) : navigate.toTagWithDataValue(dataValue);
+    if(!$rootScope.loggedInToDashboard){
+      (dataValue === undefined) ? navigate.toTagWithEvent(e) : navigate.toTagWithDataValue(dataValue);
+    } else {
+      task.handleDashboardOptionClick(task.findDashboardOptionIndex(dataValue));
+    }
   }
   $scope.sendMessage = () => {
-    ($scope.messageType === 'email') ? task.sendMessage('email') : task.sendMessage('text');;
+    task.sendMessage('text');
+    // ($scope.messageType === 'email') ? task.sendMessage('email') : task.sendMessage('text');
   }
   $scope.showServicesSection = () => {
     task.showServicesSection();
@@ -74,73 +77,70 @@ app.controller('ctrl', ['$rootScope', '$scope', '$interval', '$timeout', 'naviga
     task.showContactMeSection();
   }
   $rootScope.currentSignPage = 'signup';
-  $scope.signin = () => {
-    $scope.bringToTopOfPage(null, 'home');
-    task.signin('signin');
-  }
-  $scope.signup = () => {
-    $scope.bringToTopOfPage(null, 'home');
-    task.signin('signup');
-  }
-  $scope.signInSubmit = () => {
-    //get input field values
-    const username = $('.signInUsername').val();
-    const password = $('.signInPassword').val();
-    const url = "/login";
-    const signInObj = { username: username, password: password }
-    //check for complete form
-    const hasEmptyField = task.hasEmptyFieldCheck(signInObj);
-    if(hasEmptyField){
-      $(".signFormMessage p").text("Please fill in all fields. Thanks!");
-      $('.signFormMessage').fadeIn();
-      return null;
-    }
-    //send login request
-    server.loginRequest(signInObj, url);
+  $rootScope.signIn = true;
 
-    //watch for login callback
-    const checkForLogIn = $interval(function () {
-      //successfullyLoggedIn === true after logged in
-      if(!$rootScope.successfullyLoggedIn){ return null }
-      //cancel when logged in and proceed
-      $interval.cancel(checkForLogIn);
-      $scope.logo = $rootScope.name + ' LOGO';
-      //Do stuff when logged in
+  //authentication
+  $scope.closeAuthScreen = () => {
+    $('#authScreen').addClass('closeAuthScreen');
+  }
+  $scope.showSignIn = () => {
+    $('#authScreen').removeClass('closeAuthScreen');
+    $rootScope.signIn = true;
+  }
+  $scope.showSignUp = () => {
+    $('#authScreen').removeClass('closeAuthScreen');
+    $rootScope.signIn = false;
+  }
+  $scope.authenticate = () => {
+    task.authenticate();
+  }
 
-    }, 10);
-  }
-  $scope.signUpSubmit = () => {
-    //get input field values
-    const firstname = $('.signUpFirstname').val();
-    const lastname = $('.signUpLastname').val();
-    const username = $('.signUpUsername').val();
-    const password = $('.signUpPassword').val();
-    const url = "/register";
-    const signUpObj = { firstname: firstname, lastname: lastname, username: username, password: password }
-    //check for complete form
-    const hasEmptyField = task.hasEmptyFieldCheck(signUpObj);
-    if(hasEmptyField){
-      $(".signFormMessage p").text("Please fill in all fields. Thanks!");
-      $('.signFormMessage').css('opacity', 1);
-      $timeout(() => {
-        $('.signFormMessage').css('opacity', 0);
-      }, 6000);
-    } else {
-      //send sign up request
-      server.register(signUpObj, url);
-    }
-  }
+
   animation.sideBar();
   animation.tableOnSmallScreen();
-  task.watchForTableAnimation();
   task.hideSections();
   task.watchForContentAnimation();
-  task.watchForFailedMessage();
   task.screenCheck();
   task.startHomePageAnimation();
   //get application data
-  task.get();
+  task.get($rootScope.db, $rootScope.apiKey);
 
+  $scope.middleDashboardOptions = data.middleDashboardOptions;
+
+
+  ////////////    dashboard functionality   ////////////
+  $rootScope.showInputSection = false;
+  $rootScope.dashboardContent = [];
+  $rootScope.middleSectionOptions = [];
+  $rootScope.pageEditContent = [];
+  $rootScope.pageEditContentStrings = [];
+  $rootScope.selectedOption = '';
+  $rootScope.pageEditIndex;
+  $rootScope.pageSectionIndex;
+  //the id of the content in the collection
+  $rootScope.dashBoardId = '5ae47beef36d282906c3334c';
+  $scope.choosePageToEdit = (index) => {
+    //empty the textarea content
+    $('#inputBox > div > textarea').val('');
+    $rootScope.pageEditIndex = index;
+    task.setMiddleSectionContent(index);
+  }
+  //fill textarea with selected text for editing
+  $scope.chooseContentToEdit = (content, index) => {
+    //set the textarea content
+    $('#inputBox > div > textarea').val(content);
+    $rootScope.pageSectionIndex = index;
+  }
+  $scope.updateContent = () => {
+    const content = $('#inputBox > div > textarea').val();
+    const stringMapArray = $rootScope.pageEditContentStrings[$rootScope.pageSectionIndex].split('|');
+    if(stringMapArray.length == 2){
+      $rootScope['dashboardContent']['pages'][`_${$rootScope.pageEditIndex}`][stringMapArray[0]][stringMapArray[1]] = content;
+    } else if (stringMapArray.length == 3) {
+      $rootScope['dashboardContent']['pages'][`_${$rootScope.pageEditIndex}`][stringMapArray[0]][stringMapArray[1]][stringMapArray[2]] = content;
+    }
+    dashboard.update($rootScope.dashBoardId, $rootScope['dashboardContent']);
+  }
 }])
 
 app.service('navigate', function(){
@@ -160,6 +160,7 @@ app.service('navigate', function(){
 });
 
 app.service('task', function($rootScope, $timeout, $interval, $http, animation, server, data){
+  //start the homepage animation
   this.startHomePageAnimation = () => {
     $timeout(() => {
       $('.firstLift').addClass('screenLift1');
@@ -193,6 +194,7 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       $(`#screenInsideTopBottom > * > span[data="${random2}"]`).addClass('lighter');
     }, 2000)
   };
+  //check if we are on a mobile device
   this.screenCheck = () => {
     $interval(() => {
       const isSmall = $('.table').css('transition').includes('small');
@@ -200,84 +202,138 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
       $rootScope.isBigScreen = (isSmall) ? false : true;
     })
   }
-  this.signin = (signin) => {
-    $('.page4Block').css('top', '20em');
-    $timeout(() => {
-      $rootScope.currentSignPage = (signin === 'signin') ? 'signin' : 'signup';
-      $('.signInForm').css('zIndex', 0);
-      $('.page4Block').css('top', '-15px');
-    }, 800);
+  //authentication
+  this.authenticate = () => {
+    //get username and password
+    const signInCredentials = {
+      username: document.querySelector('.uname').value,
+      password: document.querySelector('.psw').value
+    }
+    const url = ($rootScope.signIn) ? "/login" : "/register";
+    //check for complete form
+    const hasEmptyField = this.hasEmptyFields(signInCredentials);
+    if(hasEmptyField){
+      $("#signInTopText").text("Please fill in all fields. Thanks!");
+      $timeout(() => {
+        $('#signInTopText').css('opacity', 0);
+      }, 6000);
+    } else {
+      ($rootScope.signIn) ? server.loginRequest(signInCredentials, url) : server.register(signInCredentials, url);
+    }
   }
-  this.hasEmptyFieldCheck = (obj) => {
+  //check if an object is empty
+  this.hasEmptyFields = (obj) => {
     const values = Object.values(obj);
-    const hasEmptyField = values.includes("") || values.includes(undefined);
-    return hasEmptyField;
+    return values.includes("") || values.includes(undefined);
   }
-  this.watchForFailedMessage = () => {
-    $interval(() => {
-      if($rootScope.messageFailed){
-        this.sendMessage('text');
-        $rootScope.messageFailed = false;
-      }
-    })
+  //send text message
+  this.sendTextMessage = () => {
+    this.sendMessage('text');
   }
+  //animation on scroll
   this.watchForContentAnimation = () => {
-    const serviceDistanceWatch = $interval(() => {
+    const doneAnimation = [];
+    $('#mainContent').scroll(() => {
       const serviceDistance = $('#servicesSectionImgButton')[0].offsetTop;
-      if(serviceDistance < $('.mainContent').scrollTop() + 290){
-        $interval.cancel(serviceDistanceWatch);
-        this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
-      }
-    })
-    const pricingDistanceWatch = $interval(() => {
-      const pricingDistance = $('#pricingSectionImgButton')[0].offsetTop;
-      if(pricingDistance < $('.mainContent').scrollTop() + 400){
-        $interval.cancel(pricingDistanceWatch);
-        this.revealSection('#pricingSectionImgButton', '#pricingSection', '.sectionContent2');
-      }
-    })
-    const contactCustomerDistanceWatch = $interval(() => {
-      const contactCustomerDistance = $('#contactCustomerSectionImgButton')[0].offsetTop;
-      if(contactCustomerDistance < $('.mainContent').scrollTop() + 350){
-        $interval.cancel(contactCustomerDistanceWatch);
-        this.revealSection('#contactCustomerSectionImgButton', '#contactCustomerSection', '.sectionContent3');
-      }
-    })
-    const signUpDistanceWatch = $interval(() => {
       const signUpDistance = $('#signUpTipSectionImgButton')[0].offsetTop;
-      if(signUpDistance < $('.mainContent').scrollTop() + 350){
-        $interval.cancel(signUpDistanceWatch);
+      const mainContentScrollPosition = $('.mainContent').scrollTop();
+      if((serviceDistance < mainContentScrollPosition + 290) && !doneAnimation.includes('serviceDistance')){
+        this.revealSection('#servicesSectionImgButton', '#servicesSection', '.sectionContent1');
+        doneAnimation.push('serviceDistance');
+      } else if((signUpDistance < mainContentScrollPosition + 350) && !doneAnimation.includes('signUpDistance')){
         this.revealSection('#signUpTipSectionImgButton', '#signUpTipSection', '.sectionContent4');
-      }
-    })
-    const contantMeDistanceWatch = $interval(() => {
-      const contantMeDistance = $('#contactMeSectionImgButton')[0].offsetTop;
-      if(contantMeDistance < $('.mainContent').scrollTop() + 400){
-        $interval.cancel(contantMeDistanceWatch);
-        this.revealSection('#contactMeSectionImgButton', '#contactMeSection', '.sectionContent5');
+        doneAnimation.push('signUpDistance');
+      } else if(mainContentScrollPosition > 1200){
+        this.tableAnimation();
       }
     })
   }
-  this.watchForTableAnimation = () => {
-    const watchForAnimation = $interval(() => {
-      const positionFromTopOfPage = $('.mainContent').scrollTop();
-      if(positionFromTopOfPage > 1200){
-        $interval.cancel(watchForAnimation);
-        let track = 0;
-        const tableLength = $('.table')[0].children.length - 1;
-        const fadeRowIn = (index) => {
-          $('.tableContent[data=' + index + ']').css('opacity', 1);
-          $timeout(() => {
-            if(track != tableLength){
-              track++;
-              fadeRowIn(track);
-            }
-          }, 100)
+  //table animation
+  this.tableAnimation = () => {
+    let track = 0;
+    const tableLength = $('.table')[0].children.length - 1;
+    const fadeRowIn = (index) => {
+      $('.tableContent[data=' + index + ']').css('opacity', 1);
+      $timeout(() => {
+        if(track != tableLength){
+          track++;
+          fadeRowIn(track);
         }
-        fadeRowIn(0);
+      }, 100)
+    }
+    fadeRowIn(0);
+  }
+  //revealing content animation
+  this.revealSection = (sectionImg, section, fadeInContent) => {
+    const $sectionImgBtn = $(sectionImg + ' .imgHolder img');
+    $sectionImgBtn.css('opacity', 0.05);
+    $timeout(() => {
+      const left = ($(sectionImg).hasClass('imgButtonLeft')) ? '-100vw' : '100vw';
+      $sectionImgBtn.css('left', left);
+    }, 800).then(() => {
+      $timeout(() => {
+        $(sectionImg).hide();
+        $(section).show();
+        $(fadeInContent).css('display', 'none');
+      }, 1500).then(() => {
+        $(fadeInContent).fadeIn();
+      });
+    });
+  }
+  //api call for data and set page content
+  this.get = (db, apiKey) => {
+    const url = `https://api.mlab.com/api/1/databases/${db}/collections/${db}?apiKey=${apiKey}`;
+    $http({
+      method: 'GET',
+      url: url,
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      data.allData = success;
+      if($rootScope.loggedInToDashboard){
+        $rootScope.dashboardContent = success['data'][0];
+      } else {
+        $rootScope.appContent = success['data'][0];
+        this.setContent();
       }
+      console.log("data fitched");
+      $('.mainContent').addClass('showWhenContentLoaded');
+    }
+
+    const errorCallback = () => {
+      console.log("error in fitching data");
+    }
+  }
+  this.setContent = () => {
+    this.setProducts();
+    this.setPage1Content();
+    this.setPage2Content();
+  }
+  this.setProducts = () => {
+    $rootScope.appContent['pages']['_2']['content'].map((productData) => {
+      const product = { service: productData.service, price: productData.price, description: productData.description }
+      data['services'].push(product);
     })
   }
+  this.setPage1Content = () => {
+    $rootScope.introText = $rootScope.appContent['pages']['_0']['content'][0];
+  }
+  this.setPage2Content = () => {
+    $rootScope.appContent['pages']['_1']['content'].map((productData) => {
+      data['page2Content'].push({
+        head: productData.header,
+        p1: productData.subText,
+        p2: productData.body
+      });
+    })
+  }
+
+
+  //may need refactoring
   this.sendMessage = (messageType) => {
     if($rootScope.currentlySendingMessage){ return null }
     $rootScope.currentlySendingMessage = true;
@@ -296,12 +352,12 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
     const sendEmail = () => {
       animation.sendSignal();
       const url = ($rootScope.env === 'local') ? 'http://localhost:3000/email' : 'http://letsbuildyourwebsite.com/email';
-      server.sendEmail(sendObj, url);
+      server.sendEmail(sendObj, url, this.sendTextMessage);
     }
     const sendText = () => {
       animation.sendSignal();
       const url = ($rootScope.env === 'local') ? 'http://localhost:3000/text' : 'http://letsbuildyourwebsite.com/text';
-      server.sendText(sendObj, url);
+      server.sendText(sendObj, url, this.sendTextMessage);
     }
     (messageType === 'email') ? sendEmail() : sendText();
   }
@@ -339,68 +395,84 @@ app.service('task', function($rootScope, $timeout, $interval, $http, animation, 
   this.showContactMeSection = () => {
     this.revealSection('#contactMeSectionImgButton', '#contactMeSection', '.sectionContent5');
   }
-  this.revealSection = (sectionImg, section, fadeInContent) => {
-    const $sectionImgBtn = $(sectionImg + ' .imgHolder img');
-    $sectionImgBtn.css('opacity', 0.05);
+
+  //dashboard functionality
+  this.selectPageToEdit = (index) => {
+    this.changeHelpText('contentChoice');
+    //reset $rootScope.objIndex
+    $rootScope.objIndex = null;
+    $rootScope.innerIndex = '';
+    //set page index
+    $rootScope.pageIndex = index;
+    //set the content to be displayed in the middle section
+    $rootScope.editContent = $rootScope.appContent['pages'][`_${index}`]['content'];
     $timeout(() => {
-      const left = ($(sectionImg).hasClass('imgButtonLeft')) ? '-100vw' : '100vw';
-      $sectionImgBtn.css('left', left);
-    }, 800).then(() => {
+      //clear the middle section of any page content
+      $rootScope.middleDashboardOptions = [];
       $timeout(() => {
-        $(sectionImg).hide();
-        $(section).show();
-        $(fadeInContent).css('display', 'none');
-      }, 1500).then(() => {
-        $(fadeInContent).fadeIn();
-      });
+        //loop through the content to append in the middle section
+        $rootScope.editContent.map(data => {
+          $rootScope.middleDashboardOptions.push(data);
+        })
+      })
+    })
+  }
+  //find index of dashboard option picked
+  this.findDashboardOptionIndex = (dataValue) => {
+    let index = '';
+    data['dashboardOptions'].filter((data, i) => {
+      index = (data['point'] === dataValue) ? i : index
     });
+    return index;
+  };
+  //handle the dashboard picked option action
+  this.handleDashboardOptionClick = (index) => {
+    $rootScope.dashboardIndex = index;
+    $rootScope.pageEditContent = [];
+    $rootScope.showInputSection = false;
+    $rootScope.middleSectionOptions = (index === 0) ? this.findPageNames() : null;
   }
-  //api calls
-  this.get = () => {
-    const url = `https://api.mlab.com/api/1/databases/${$rootScope.db}/collections/${$rootScope.db}?apiKey=${$rootScope.apiKey}`;
-    $http({
-      method: 'GET',
-      url: url,
-      headers: { 'Content-Type': 'application/json' }
-    }).then(
-        (success) => { successCallback(success) },
-        (error) => { errorCallback(error.data) }
-      );
-
-    const successCallback = (success) => {
-      $rootScope.appContent = success['data'][0];
-      this.setContent();
-      console.log("data fitched");
-      $('.mainContent').addClass('showWhenContentLoaded');
+  //return array of page names
+  this.findPageNames = () => {
+    let allPageNames = [];
+    for(let i = 0; i < Object.keys(data.allData.data["0"].pages).length; i++){
+      allPageNames.push(data.allData.data["0"].pages[`_${i}`]['name']);
     }
-
-    const errorCallback = () => {
-      console.log("error in fitching data");
+    return allPageNames;
+  }
+  //set the middle section content
+  this.setMiddleSectionContent = (index) => {
+    $rootScope.pageEditContentStrings = [];
+    //$rootScope.dashboardIndex === 0 if we are editing content for a page
+    if($rootScope.dashboardIndex === 0){
+      //array to hold the page content
+      const contentArray = [];
+      //cache the content for the selected page
+      const content = $rootScope['dashboardContent']['pages'][`_${index}`]['content'];
+      //extract any page content that is contained in an object
+      const extractContent = (content, index) => {
+        const contentKeys = Object.keys(content)
+        for(let i = 0; i < contentKeys.length; i++){
+          contentArray.push(content[contentKeys[i]]);
+          $rootScope.pageEditContentStrings.push(`content|${index}|${contentKeys[i]}`);
+        }
+      }
+      //loop through the content and store it in the contentArray
+      for(let i = 0; i < content.length; i++){
+        const isString = typeof content[i] === 'string';
+        const a = $rootScope.dashboardContent;
+        (isString) ? $rootScope.pageEditContentStrings.push(`content|${i}`) : null;
+        (isString) ? contentArray.push(content[i]) : extractContent(content[i], i);
+      }
+      //set the pageEditContent content to the content array
+      $rootScope.pageEditContent = contentArray;
+      $rootScope.showInputSection = true;
     }
-  }
-  this.setContent = () => {
-    this.setProducts();
-    this.page1();
-    this.page2();
-  }
-  this.setProducts = () => {
-    $rootScope.appContent['pages']['_2']['content'].map((productData) => {
-      const product = { service: productData.service, price: productData.price, description: productData.description }
-      data['services'].push(product);
-    })
-  }
-  this.page1 = () => {
-    $rootScope.introText = $rootScope.appContent['pages']['_0']['content'][0];
-  }
-  this.page2 = () => {
-    $rootScope.appContent['pages']['_1']['content'].map((productData) => {
-      const product = { head: productData.header, p1: productData.subText, p2: productData.body }
-      data['page2Content'].push(product);
-    })
   }
 })
 
 app.service('data', function(){
+  this.allData = []
   this.navigationPoints = [
     {data: 0, point: 'home'},
     {data: 1, point: 'service'},
@@ -408,6 +480,24 @@ app.service('data', function(){
     {data: 3, point: 'tips'},
     {data: 4, point: 'contact'}
   ]
+  this.dashboardOptions = [
+    {data: 0, point: 'edit page text'},
+    {data: 1, point: 'report bug'},
+    {data: 2, point: 'contact developer'},
+    {data: 3, point: 'add products'},
+    {data: 4, point: 'feature ideas'}
+  ];
+  this.helpText = {
+    initialText: 'CHOOSE FROM THE ABOVE OPTIONS',
+    pageChoice: 'WHICH PAGE WOULD YOU LIKE TO EDIT?',
+    contentChoice: 'WHICH SECTION OF THE PAGE WOULD YOU LIKE TO EDIT?',
+    changeText: 'CHANGE THE TEXT AND PRESS UPDATE WHEN YOUR READY',
+    bugFix: 'EXPLAIN THE BUG IN AS MUCH DETAIL AS POSSIBLE AND PRESS SEND',
+    contact: 'SEND A MESSAGE AND I WILL GET BACK TO YOU AS SOON AS POSSIBLE',
+    addProducts: 'WHICH PRODUCTS WOULD YOU LIKE TO ADD',
+    ideas: 'WHAT WOULD YOU LIKE TO SEE ON THE DASHBOARD. I TAKE YOUR SUGGESTIONS SERIOUSLY AND WILL TRY TO GIVE YOU MORE.',
+    comingSoon: 'FEATURE COMING SOON'
+  }
   this.services = [
     // {service: "website pages", price: "$50 each", description: "Includes a custom design. All content (ex: text, images, videos) you provide me with will be added."},
     // {service: "dashboard", price: "$10 / month", description: "With the dashboard, you can edit content on your website, edit existing product information, and add additional products at the click of a button. This is a computer application."},
@@ -420,32 +510,18 @@ app.service('data', function(){
     // {service: "contact form", price: "$25", description: "This form is a convenient way for customers to contact you. This form will be on a page of your website."},
     // {service: "feedback form", price: "$25", description: "This form is a convenient way for customers to leave feedback. This form will be on a page of your website."}
   ]
-  this.typeAnimationOne = {
-    one: '<div class="pageContent page2ImgBottom flexRow">',
-    two: '<div class="page2Blocks"></div>',
-    three: '<div class="page2Blocks"></div>',
-    four: '<div class="page2Blocks"></div>',
-    five: '</div>'
-  }
-  this.typeAnimationTwo = {
-    one: '.page3Blocks {',
-    two: 'background-color: #2d3143;',
-    three: 'height: 100%;',
-    four: 'width: 50%;',
-    five: '}'
-  }
-  this.typeAnimationThree = {
-    one: 'blah blah blah',
-    two: 'blah blah blah blah',
-    three: 'blah blah blah blah',
-    four: 'blah blah blah blah',
-    five: 'blah blah blah'
-  }
   this.page2Content = [
     // { head: 'MULTI-DEVICE', p1: 'Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV.', p2:  'We use countless device types to surf the web. A three-second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site for any device type. With my services, your site will look amazing on all devices.'},
     // { head: 'INTEGRATION', p1: 'We can always add more features later. No pressure to get it all at once.', p2:  'There are several services you can get on your website: a login in page, shopping cart, email notification sign up, subscription sign up, and many more. No need to worrying about everything you need at once. Services can always be added later. For now, focus on what is most important for your customers. When you get more feedback or a better idea what your customer wants on your website we will add it as we go.'},
     // { head: 'INEXPENSIVE', p1: 'Websites can cost thousands. No fear, I\'m here, with affordable prices.', p2:  'A web developer makes anywhere from $15 - $60/hr ( sometimes more! ). Websites can take weeks to finish depending on the complexity of the site so it gets expensive quick. I understand how it feels to inherit the stress and expenses of a business. So, let me remedy that expense by offering you a huge discount. Check out the pricing table below for details.'}
   ];
+  this.middleDashboardOptions = [
+    {
+      body: "We use countless device types to surf the web. A three-second look at a website from any one of those devices will mean the difference between a customer deciding to stay on your site to explore or leave without even giving you a chance. The solution is to have a great looking site for any device type. With my services, your site will look amazing on all devices.",
+      header: "MULTI-DEVICE",
+      subText: "Your website will look great on all devices: Desktop, Laptop, Tablet, and even TV."
+    }
+  ]
 })
 
 app.service('animation', function($rootScope, $timeout, $interval){
@@ -599,15 +675,16 @@ app.service('server', function($rootScope, $http, $timeout){
       );
 
     const successCallback = (success) => {
+      console.log(success);
       console.log("successfully logged in");
-      $rootScope.name = success.data.firstname;
-      $rootScope.successfullyLoggedIn = true;
+      //clear username and password fields
+      $('input[name="username"]').val('');
+      $('input[name="password"]').val('');
     }
 
     const errorCallback = () => {
       console.log("error logging in");
-      $(".signFormMessage p").text("Username or Password incorrect");
-      $('.signFormMessage').fadeIn();
+      $("#signInTopText").text("Username or Password incorrect");
     }
   };
   this.register = (signUpObj, url) => {
@@ -622,25 +699,17 @@ app.service('server', function($rootScope, $http, $timeout){
       );
 
     const successCallback = (success) => {
-      console.log("successfully registered");
-      $rootScope.currentSignPage = 'signin';
-      $(".signFormMessage p").text("Thanks For Registering! Try Signing in");
-      $('.signFormMessage').css('opacity', 1);
-      $timeout(() => {
-        $('.signFormMessage').css('opacity', 0);
-      }, 6000);
+      //clear username and password fields
+      $('input[name="username"]').val('');
+      $('input[name="password"]').val('');
+      $("#signInTopText").text("Thanks For Registering!");
     }
 
     const errorCallback = () => {
       console.log("error registering");
-      $(".signFormMessage p").text("Username taken. sorry...");
-      $('.signFormMessage').css('opacity', 1);
-      $timeout(() => {
-        $('.signFormMessage').css('opacity', 0);
-      }, 6000);
     }
   }
-  this.sendEmail = (obj, url) => {
+  this.sendEmail = (obj, url, callBack) => {
     obj.subject = "from customer";
     let sendMessage = "";
     sendMessage += '<style> div { color: #eee;background-color: #333;font-family: "Barlow Semi Condensed", sans-serif;padding: 1em;margin: 0 auto;width: 20em; } p { font-size: 1.2em; } </style>';
@@ -670,7 +739,7 @@ app.service('server', function($rootScope, $http, $timeout){
       );
 
     const successCallback = () => {
-      $rootScope.messageSent = true;
+      callBack();
       console.log('email sent');
     }
 
@@ -696,3 +765,91 @@ app.service('server', function($rootScope, $http, $timeout){
              } );
   }
 })
+
+app.service('dashboard', function($rootScope, $http){
+  this.post = () => {
+    const url = `https://api.mlab.com/api/1/databases/${$rootScope.db}/collections/${$rootScope.db}?apiKey=${$rootScope.apiKey}`;
+    const data = { hey: 'hi' };
+    $http({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      console.log("ok");
+    }
+
+    const errorCallback = () => {
+      console.log("error");
+    }
+  }
+  this.update = (id, data) => {
+    const url = `https://api.mlab.com/api/1/databases/${$rootScope.db}/collections/${$rootScope.db}?apiKey=${$rootScope.apiKey}&_id=${id}`;
+    $http({
+      method: 'PUT',
+      url: url,
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      console.log("updated data");
+    }
+
+    const errorCallback = () => {
+      console.log("error when updating data");
+    }
+  }
+  this.del = (id) => {
+    const url = `https://api.mlab.com/api/1/databases/${$rootScope.db}/collections/${$rootScope.db}/${id}?apiKey=${$rootScope.apiKey}`;
+    const data = { hey: 'hi' };
+    $http({
+      method: 'DELETE',
+      url: url,
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(
+        (success) => { successCallback(success) },
+        (error) => { errorCallback(error.data) }
+      );
+
+    const successCallback = (success) => {
+      console.log("ok");
+    }
+
+    const errorCallback = () => {
+      console.log("error");
+    }
+  }
+})
+
+app.filter('toReadableString', function($rootScope) {
+  return function(input) {
+    let output = '';
+    const type = typeof input;
+    if(type === 'string'){
+      output = input;
+    } else if(type === 'object'){
+      const objKeys = Object.keys(input);
+      let dataNum = '';
+      $rootScope.editContent.map((data, index) => {
+        dataNum = (data === input) ? index : dataNum;
+      });
+      objKeys.map((key, index) => {
+        const currentHtml = $(`#editText[data="${dataNum}"]`).html();
+        const html = (index === 0) ? input[key] + '<br><br>' : currentHtml + input[key] + '<br><br>';
+        $(`#editText[data="${dataNum}"]`).html(html)
+      })
+      return;
+    }
+    return output;
+  }
+});
